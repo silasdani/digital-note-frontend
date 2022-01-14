@@ -38,7 +38,7 @@ const App = () => {
   return (
     <div className={classes.wrapper}>
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography variant="h2" align="center">Digital Note</Typography>
+        <Typography variant="h2" align="center">Testud.init</Typography>
       </AppBar>
       <VideoPlayer />
       <Sidebar>

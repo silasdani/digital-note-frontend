@@ -1,4 +1,4 @@
-import UserSerializer from '../../Serializers/UserSerializer';
+import UserSerializer from '../../services/Serializers/UserSerializer';
 import SessionService from '../../services/SessionService';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
