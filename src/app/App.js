@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -6,12 +6,16 @@ import PropTypes from "prop-types";
 import UserRoute from "../routes/UserRoute";
 import GuestRoute from "../routes/GuestRoute";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
-const App = ({ location }) => (
+const App = ({ location }) => {
+    const [visible, setVisibility] = useState(false);
+    const onHamburger = () => setVisibility(!visible)
 
-  <React.Fragment>
-    <Navbar />
-    {/* <UserRoute
+    return (<React.Fragment>
+        <Navbar onHamburger={onHamburger} />
+        {visible && <Sidebar onHamburger={onHamburger} />}
+        {/* <UserRoute
       location={location}
       path="/dashboard"
       exact
@@ -59,13 +63,14 @@ const App = ({ location }) => (
       exact
       component={EditUserPage}
     /> */}
-  </React.Fragment>
-);
+    </React.Fragment>
+    )
+}
 
 App.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired,
+    }).isRequired
 };
 
 

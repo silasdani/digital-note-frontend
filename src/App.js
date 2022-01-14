@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () => {
+const App1 = () => {
   const classes = useStyles();
 
   return (
@@ -48,4 +48,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App1;
