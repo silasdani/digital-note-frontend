@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.input {
-    @apply rounded w-full h-10 py-2 ml-8 text-white bg-gray-500 focus:outline-0;
-}
+@layer components {
+    .input {
+        @apply rounded w-full h-10 py-2 ml-8 text-white bg-gray-500 focus:outline-0;
+    }
 
-.navbar {
-    @apply absolute w-screen flex h-14 bg-gray-700 bg-opacity-95 flex-row justify-between px-4
-}
+    .navbar {
+        @apply absolute w-screen flex h-14 bg-gray-700 bg-opacity-95 flex-row justify-between px-4;
+    }
 
-.sidebar {
-    @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4
+    .sidebar {
+        @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4;
+    }
+
+    .nav-option {
+        @apply h-10 font-semibold bg-opacity-60 flex justify-start items-center transition ease-in-out hover:-translate-y-1 hover:scale-110;
+    }
 }

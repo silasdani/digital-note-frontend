@@ -28,6 +28,16 @@ module.exports = {
       serif: ['Merriweather', 'serif'],
     },
     extend: {
+      animation: {
+        slide: "slide 1s linear",
+        pi: "rotate-90 linear"
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'rotate(0deg)', },
+          '50%': { transform: 'rotate(90deg)', },
+        },
+      },
       spacing: {
         '128': '32rem',
         '144': '36rem',
