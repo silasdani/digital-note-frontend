@@ -11,5 +11,5 @@
 }
 
 .sidebar {
-    @apply flex w-1/4 bg-gray-700 bg-opacity-95 flex-col ml-0 mt-0 h-screen px-4
+    @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4
 }
