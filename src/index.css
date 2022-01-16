@@ -11,6 +11,10 @@
         @apply absolute w-screen flex h-14 bg-gray-700 bg-opacity-95 flex-row justify-between px-4;
     }
 
+    .btn {
+        @apply p-4 mt-2 bg-red-600 font-semibold text-white flex items-center justify-center rounded-2xl transition ease-in-out hover:-translate-y-1 hover:scale-110;
+    }
+
     .sidebar {
         @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4;
     }

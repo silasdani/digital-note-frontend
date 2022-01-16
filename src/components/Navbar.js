@@ -3,8 +3,9 @@ import { AiOutlineVideoCameraAdd, AiOutlineMenu, AiOutlineSearch } from "react-i
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { ImPencil2 } from "react-icons/im";
 import gravatar from 'gravatar'
+import { connect } from 'react-redux';
 
-const Navbar = ({ onHamburger }) => {
+const Navbar = ({ onHamburger, user }) => {
     return (
         <div className="navbar">
             <div className="h-14 text-white flex justify-center items-center space-x-2">
@@ -19,10 +20,24 @@ const Navbar = ({ onHamburger }) => {
             <div className="h-14 text-white flex items-center space-x-4">
                 <button className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><AiOutlineVideoCameraAdd className="w-8 h-8" /></button>
                 <button className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><IoIosNotificationsOutline className="w-8 h-8" /></button>
-                <button className="w-14 hover:opacity-40"><img className="w-10 h-10 rounded-full" src={gravatar.url("danielsilas32@gmail.com")} /></button>
+                <button className="w-14 hover:opacity-40"><img className="w-10 h-10 rounded-full" src={gravatar.url(user?.email)} /></button>
             </div>
         </div>
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+    const user = state.session;
+
+    user.email = "danielsilas32@gmail.com"
+
+    return {
+        user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

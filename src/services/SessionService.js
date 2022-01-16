@@ -7,7 +7,8 @@ class SessionService extends ApiService {
         this.url = '/session';
     }
 
-    login(credentials) {
+    login = (credentials) => {
+        console.warn("service")
         return super.post("/login", credentials, (answer => {
             return answer
         }))
