@@ -16,10 +16,14 @@
     }
 
     .sidebar {
-        @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4;
+        @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4 min-w-max;
     }
 
     .nav-option {
         @apply h-10 font-semibold bg-opacity-60 flex justify-start items-center transition ease-in-out hover:-translate-y-1 hover:scale-110;
+    }
+    
+    .video-room {
+        @apply w-screen h-screen flex flex-col
     }
 }

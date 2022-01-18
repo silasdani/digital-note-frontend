@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import login from '../redux/ducks/sessionDuck'
+import { login } from '../redux/ducks/sessionDuck'
 import Validator from "validator";
 
 class LoginPage extends Component {
@@ -27,7 +27,10 @@ class LoginPage extends Component {
         if (Object.keys(errors).length === 0) {
             this.setState({ loading: true });
             this.props.login(this.state.data)
-                .then(() => this.props.history.push("/dashboard"))
+                .then((res) => {
+                    console.warn(res)
+                    this.props.history.push("/")
+                })
                 .catch(() => {
                     this.setState({
                         errors: { global: "Invalid email or password" },

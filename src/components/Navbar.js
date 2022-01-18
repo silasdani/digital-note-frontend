@@ -29,7 +29,7 @@ const Navbar = ({ onHamburger, user }) => {
 const mapStateToProps = (state) => {
     const user = state.session;
 
-    user.email = "danielsilas32@gmail.com"
+    // user.email = "danielsilas32@gmail.com"
 
     return {
         user

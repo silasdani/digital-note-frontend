@@ -13,13 +13,14 @@ const userLoggedOut = () => ({
     type: USER_LOGGED_OUT,
 });
 
-export const login = (credentials) => (dispatch) => {
-    return new SessionService().login(credentials)
-        .then((answer) => {
-            const user = UserSerializer.deserialize(answer)
-            dispatch(userLoggedIn(user));
-        })
-        .catch(console.warn)
+export const login = (credentials) => async (dispatch) => {
+    try {
+        const answer = await new SessionService().login(credentials);
+        const user = UserSerializer.deserialize(answer);
+        dispatch(userLoggedIn(user));
+    } catch (message) {
+        return console.warn(message);
+    }
 }
 
 export const autoLogin = (token) => (dispatch) => {
@@ -27,13 +28,14 @@ export const autoLogin = (token) => (dispatch) => {
     dispatch(userLoggedIn(user));
 }
 
-export const logout = () => (dispatch) => {
-    return new SessionService().logout()
-        .then(() => {
-            localStorage.clear();
-            dispatch(userLoggedOut());
-        })
-        .catch(console.warn)
+export const logout = () => async (dispatch) => {
+    try {
+        await new SessionService().logout();
+        localStorage.clear();
+        dispatch(userLoggedOut());
+    } catch (message) {
+        return console.warn(message);
+    }
 }
 
 const DEFAULT_STATE = {

@@ -8,8 +8,8 @@ class SessionService extends ApiService {
     }
 
     login = (credentials) => {
-        console.warn("service")
         return super.post("/login", credentials, (answer => {
+            console.warn(answer)
             return answer
         }))
     }
