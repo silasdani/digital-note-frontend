@@ -28,7 +28,7 @@ class LoginPage extends Component {
             this.setState({ loading: true });
             this.props.login(this.state.data)
                 .then((res) => {
-                    console.warn(res)
+                    // console.warn(res)
                     this.props.history.push("/")
                 })
                 .catch(() => {
