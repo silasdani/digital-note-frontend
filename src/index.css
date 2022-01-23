@@ -8,7 +8,7 @@
     }
 
     .navbar {
-        @apply absolute w-screen flex h-14 bg-gray-700 bg-opacity-95 flex-row justify-between px-4;
+        @apply absolute w-screen flex h-14 bg-black bg-opacity-50 flex-row justify-between px-4;
     }
 
     .btn {
@@ -16,7 +16,7 @@
     }
 
     .sidebar {
-        @apply flex w-1/5 bg-gray-700 flex-col ml-0 mt-0 h-screen px-4 min-w-max;
+        @apply flex w-1/5 bg-black bg-opacity-50 flex-col ml-0 mt-0 h-screen px-4 min-w-max;
     }
 
     .nav-option {
