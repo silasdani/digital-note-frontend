@@ -11,7 +11,7 @@ const App = ({ location }) => {
 
   return (<>
     <Navbar onHamburger={onHamburger} />
-    {visible && <Sidebar onHamburger={onHamburger} />}
+    <Sidebar onHamburger={onHamburger} visible={visible} />
     <MyRoutes />
   </>
   )
