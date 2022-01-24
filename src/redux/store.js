@@ -6,26 +6,26 @@ import spinner from './ducks/spinnerDuck';
 import session from "./ducks/sessionDuck"
 
 const rootReducer = combineReducers({
-    user,
-    spinner,
-    session,
+  user,
+  spinner,
+  session,
 });
 
 var Singleton = (() => {
-    var instance;
+  var instance;
 
-    function createInstance() {
-        return createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+  function createInstance() {
+    return createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
     }
-
-    return {
-        getInstance: function () {
-            if (!instance) {
-                instance = createInstance();
-            }
-            return instance;
-        }
-    };
+  };
 })();
 
 export default Singleton.getInstance();

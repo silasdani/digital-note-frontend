@@ -4,12 +4,21 @@ import LoginPage from '../pages/LoginPage'
 import VideoRoomPage from '../pages/VideoRoomPage'
 
 const MyRoutes = () => {
-    return (
-        <Routes>
-            <Route exact path="/login" element={<LoginPage />} />
-            <Route exact path="/room" element={<VideoRoomPage />} />
-        </Routes>
-    )
+  return (
+    <Routes>
+      <Route exact path="/login" element={<LoginPage />} />
+      <Route exact path="/room" element={<VideoRoomPage />} />
+      <Route exact path="/signup" element={<></>} />
+      <Route exact path="/reset" element={<></>} />
+      <Route exact path="/meet" element={<></>} />
+      <Route exact path="/profile" element={<></>} />
+      <Route exact path="/course" element={<></>} />
+      <Route exact path="/dashboard" element={<></>} />
+      <Route exact path="/settings" element={<></>} />
+      <Route exact path="/assignments" element={<></>} />
+      <Route exact path="/admin" element={<></>} />
+    </Routes>
+  )
 }
 
 export default MyRoutes;
