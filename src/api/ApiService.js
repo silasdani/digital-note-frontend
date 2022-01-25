@@ -16,7 +16,7 @@ class ApiService {
 
     const response = await axios
       .post(url, body, params);
-    return mapFunc(response);
+    return mapFunc(response);;
   }
 
   async patch(url, body, mapFunc, params = {}) {
