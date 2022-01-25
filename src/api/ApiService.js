@@ -8,7 +8,7 @@ class ApiService {
     // store.dispatch(showSpinner());
 
     const response = await axios.get(url, headers);
-    return mapFunc(response);
+    return mapFunc(response):
   }
 
   async post(url, body, mapFunc, params = {}) {
