@@ -28,7 +28,6 @@ class LoginPage extends Component {
       this.setState({ loading: true });
       this.props.login(this.state.data)
         .then((res) => {
-          // console.warn(res)
           this.props.history.push("/")
         })
         .catch(() => {
@@ -41,7 +40,6 @@ class LoginPage extends Component {
   };
 
   validate = (data) => {
-    console.warn(data)
     const errors = {};
     if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
     if (!data.password) errors.password = "Can't be blank";
@@ -52,16 +50,16 @@ class LoginPage extends Component {
     return (
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-1/2 mx-auto mt-10">
         <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="username">
+          <label className="block text-grey-darker text-sm font-bold mb-2" for="email">
             Email
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="username" type="text" placeholder="Username" />
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" name="email" type="text" placeholder="Email" onChange={this.onChange} />
         </div>
         <div className="mb-6">
           <label className="block text-grey-darker text-sm font-bold mb-2" for="password">
             Password
           </label>
-          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder="******************" />
+          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" name="password" type="password" placeholder="******************" onChange={this.onChange} />
           <p className="text-red text-xs italic">Please choose a password.</p>
         </div>
         <div className="flex items-center justify-between">

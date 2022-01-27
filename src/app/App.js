@@ -16,7 +16,7 @@ const App = ({ location }) => {
     <Navbar onHamburger={onHamburger} onProfile={onProfile} />
     <div className="h-14 w-screen" />
     <Sidebar onHamburger={onHamburger} visible={menu} />
-    <ProfileDropDown visible={profile} />
+    <ProfileDropDown setVisibility={setProfile} visible={profile} />
     <MyRoutes />
   </>
   )

@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import LoginPage from '../pages/LoginPage'
 import VideoRoomPage from '../pages/VideoRoomPage'
+import DashboardPage from '../pages/DashboardPage'
 
 const MyRoutes = () => {
   return (
@@ -13,7 +14,7 @@ const MyRoutes = () => {
       <Route exact path="/meet" element={<></>} />
       <Route exact path="/profile" element={<></>} />
       <Route exact path="/course" element={<></>} />
-      <Route exact path="/dashboard" element={<></>} />
+      <Route exact path="/" element={<DashboardPage></DashboardPage>} />
       <Route exact path="/settings" element={<></>} />
       <Route exact path="/assignments" element={<></>} />
       <Route exact path="/admin" element={<></>} />

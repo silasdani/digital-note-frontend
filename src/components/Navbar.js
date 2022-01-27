@@ -11,8 +11,10 @@ const Navbar = ({ onHamburger, onProfile, user: { email } }) => {
     <div className="navbar">
       <div className="h-14 text-white flex justify-center items-center space-x-2">
         <button className="mr-6"><AiOutlineMenu color="white" className="w-6 h-6" onClick={onHamburger} /></button>
-        <div className="py-2 bg-red-700 rounded-xl w-10 flex items-center justify-center"><ImPencil2 color="white" /></div>
-        <span className="text-xl text-white">Digital.init</span>
+        <Link to="/" className="flex flex-row space-x-2">
+          <div className="py-2 bg-red-700 rounded-xl w-10 flex items-center justify-center"><ImPencil2 color="white" /></div>
+          <span className="text-xl text-white">Digital.init</span>
+        </Link>
       </div>
       <div className="h-14 w-2/5 flex justify-center items-center">
         <input className="input bg-opacity-40 px-4 " placeholder='Search' />
