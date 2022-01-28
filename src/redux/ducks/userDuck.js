@@ -46,7 +46,7 @@ export const confirm = () => (dispatch) => {
   return new UserService().confirm()
     .then(dispatch(userConfirmed()))
     .catch(console.warn)
-  // TODO: create SUCCESS and ERROR actions e.g: CONIRM_SUCCESS, amd store it in user, confirmed att 
+  // TODO: create SUCCESS and ERROR actions e.g: CONFIRM_SUCCESS, amd store it in user, confirmed att 
 }
 
 export const validateToken = (token) => (dispatch) => {
@@ -55,10 +55,13 @@ export const validateToken = (token) => (dispatch) => {
     .catch(console.warn);
 }
 
-export const fetchAll = () => (dispatch) => {
-  return new UserService().fetchAll()
-    .then((data) => dispatch(allUsersFetched(data)))
-    .catch(console.warn);
+export const fetchUsers = () => async (dispatch) => {
+  try {
+    const data = await new UserService().fetchAll();
+    return dispatch(allUsersFetched(data));
+  } catch (message) {
+    return console.warn(message);
+  }
 }
 
 export const resetPasswordRequest = ({ email }) => (dispatch) => {

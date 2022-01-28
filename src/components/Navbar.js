@@ -10,8 +10,8 @@ const Navbar = ({ onHamburger, onProfile, user: { email } }) => {
   return (
     <div className="navbar">
       <div className="h-14 text-white flex justify-center items-center space-x-2">
-        <button className="mr-6"><AiOutlineMenu color="white" className="w-6 h-6" onClick={onHamburger} /></button>
-        <Link to="/" className="flex flex-row space-x-2">
+        <button className="mr-6"><AiOutlineMenu color="white" className="w-6 h-6" onClick={() => onHamburger()} /></button>
+        <Link to="/" className="flex flex-row space-x-2" onClick={() => {onHamburger(false); onProfile(false)}}>
           <div className="py-2 bg-red-700 rounded-xl w-10 flex items-center justify-center"><ImPencil2 color="white" /></div>
           <span className="text-xl text-white">Digital.init</span>
         </Link>

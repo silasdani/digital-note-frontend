@@ -16,11 +16,11 @@
   }
 
   .sidebar {
-    @apply fixed flex w-1/5 bg-black bg-opacity-50 flex-col ml-0 mt-0 h-screen px-4 min-w-max;
+    @apply fixed flex w-1/5 max-w-xs bg-black bg-opacity-50 flex-col ml-0 mt-0 h-screen px-4 min-w-max;
   }
 
   .profile {
-    @apply z-10 mt-8 fixed flex bg-black flex-col h-screen w-1/5 top-0 right-20 text-white pr-10;
+    @apply z-10 mt-8 fixed flex bg-gray-700 flex-col h-screen w-1/5 top-0 right-20 text-white pr-10 px-4 max-w-xs;
   }
 
   .nav-option {
@@ -34,12 +34,20 @@
   .dashboard {
     @apply w-screen
   }
+
+  .my-courses {
+    @apply w-screen flex justify-center
+  }
   
   .side-section {
-    @apply fixed flex mt-20 space-y-6 flex-col h-screen w-1/5 max-w-xs  top-0 right-0 text-white;
+    @apply fixed flex mt-14 pt-4 overflow-y-auto bg-gray-300 bg-opacity-50 space-y-6 flex-col h-screen w-1/5 max-w-xs top-0 right-0 text-white;
   }
 
   .section-item {
-    @apply flex flex-row justify-start text-base items-center h-10 text-black px-4 font-sans hover:opacity-40
+    @apply flex flex-row justify-start text-base items-center text-black px-4 font-sans hover:opacity-40 hover:bg-gray-400
+  }
+
+  .grid-item {
+    @apply lg:w-48 md:w-36 sm:w-24 lg:h-48 md:h-36 sm:h-24 bg-black rounded-xl text-white hover:border-2 hover:border-white bg-opacity-60 text-center
   }
 }

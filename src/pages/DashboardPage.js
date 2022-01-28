@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import gravatar from 'gravatar'
-
+import { fetchUsers } from '../redux/ducks/userDuck';
 class DashboardPage extends Component {
+  constructor(props) {
+    super(props);
+    this.props.fetchUsers()
+  }
 
   renderUsers = (users) => {
-    return users?.map(({ name, email }) => {
+    return users?.map(({ attributes: { email, first_name, last_name } }) => {
       return (<div className="section-item">
-        <img className="max-h-14 rounded-full mr-4" src={gravatar.url(email)} />
-        {name}
+        <img className="h-12 rounded-2xl mr-4" src={gravatar.url(email)} />
+        {first_name} {last_name}
       </div>)
     })
   }
@@ -25,52 +29,10 @@ class DashboardPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const users = [
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-    {
-      name: "Silas Daniel",
-      email: "danielsilas32@gmail.com"
-    },
-  ]
+  const users = state.user.users;
   return {
     users
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, { fetchUsers })(DashboardPage);
