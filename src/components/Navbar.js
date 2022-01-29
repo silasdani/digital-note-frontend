@@ -23,7 +23,7 @@ const Navbar = ({ onHamburger, onProfile, user: { email } }) => {
       <div className="h-14 text-white flex items-center space-x-4">
         <Link to="/room" className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><AiOutlineVideoCameraAdd className="w-8 h-8" /></Link>
         <button className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><IoIosNotificationsOutline className="w-8 h-8" /></button>
-        <button className="w-14 hover:opacity-40" onClick={onProfile}><img className="w-10 h-10 rounded-full" src={gravatar.url(email)} /></button>
+        <button className="w-14 hover:opacity-40" onClick={() => onProfile()}><img className="w-10 h-10 rounded-full" src={gravatar.url(email)} /></button>
       </div>
     </div>
   )

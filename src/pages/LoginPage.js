@@ -1,8 +1,10 @@
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../redux/ducks/sessionDuck'
+import { login } from '../redux/ducks/sessionDuck';
 import Validator from "validator";
+import { useNavigate } from 'react-router-dom';
+
 
 class LoginPage extends Component {
   state = {
@@ -28,7 +30,8 @@ class LoginPage extends Component {
       this.setState({ loading: true });
       this.props.login(this.state.data)
         .then((res) => {
-          this.props.history.push("/")
+          const nav = useNavigate();
+          nav("/miamaimai");
         })
         .catch(() => {
           this.setState({
