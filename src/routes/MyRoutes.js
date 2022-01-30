@@ -5,50 +5,70 @@ import VideoRoomPage from '../pages/VideoRoomPage'
 import DashboardPage from '../pages/DashboardPage'
 import MyCoursesPage from '../pages/MyCoursesPage'
 import HomePage from '../pages/HomePage'
+import GuestRoute from '../routes/GuestRoute'
+import UserRoute from '../routes/UserRoute'
 import { connect } from 'react-redux';
 
-const AuthenticatedRoutes = (h) => {
-  return (<>
-    <Route exact path="/profile" element={<></>} />
-    <Route exact path="/courses" element={<MyCoursesPage></MyCoursesPage>} />
-    <Route exact path="/" element={<DashboardPage></DashboardPage>} />
-    <Route exact path="/room" element={<VideoRoomPage />} />
-    <Route exact path="/meet" element={<></>} />
-    <Route exact path="/settings" element={<></>} />
-    <Route exact path="/assignments" element={<></>} />
-    <Route exact path="/admin" element={<></>} />
-  </>)
-}
-
-const GuestRoutes = (h) => {
-  return (<>
-    <Route exact path="/login" element={<LoginPage history={h} />} />
-    <Route exact path="/signup" element={<></>} />
-    <Route exact path="/reset" element={<></>} />
-    <Route exact path="/" element={<HomePage />} />
-  </>)
-}
-
-const MyRoutes = ({ isAuth, history }) => {
+const MyRoutes = ({ isAuth }) => {
   return (
-    <Routes>
-      {/* {isAuth ? AuthenticatedRoutes(history) : GuestRoutes(history)} */}
+    <React.Fragment>
+      <UserRoute
 
-      <Route exact path="/login" element={<LoginPage history={history} />} />
-      <Route exact path="/signup" element={<></>} />
-      <Route exact path="/reset" element={<></>} />
-      {/* <Route exact path="/" element={<HomePage />} /> */}
-      <Route exact path="/courses" element={<MyCoursesPage></MyCoursesPage>} />
-      <Route exact path="/" element={<DashboardPage></DashboardPage>} />
-      <Route exact path="/room" element={<VideoRoomPage />} />
-      <Route path="*"
-        element={
-          <main className="p-20">
-            <p>There's nothing here! 404</p>
-          </main>
-        }
+        path="/dashboard"
+        component={DashboardPage}
       />
-    </Routes>
+      <UserRoute
+
+        path="/courses"
+        component={MyCoursesPage}
+      />
+      <UserRoute
+
+        path="/room"
+        component={VideoRoomPage}
+      />
+      <Routes>
+        <Route
+          path="/home"
+          element={<HomePage />}
+        />
+      </Routes>
+      {/* <Route
+
+        path={"/confirmation/:token/:action"}
+        component={ConfirmationPage}
+      /> */}
+      <GuestRoute
+
+        path="/login"
+        component={LoginPage}
+      />
+      {/* <GuestRoute
+
+        path="/signup"
+        component={SignupPage}
+      /> */}
+      {/* <GuestRoute
+
+        path="/forgot_password"
+        component={ForgotPasswordPage}
+      /> */}
+      {/* <GuestRoute
+
+        path="/reset_password/:token"
+        component={ResetPasswordPage}
+      /> */}
+      {/* <UserRoute
+
+        path="/users"
+        component={UsersPage}
+      /> */}
+      {/* <UserRoute
+
+        path="/users/edit/:id"
+        component={EditUserPage}
+      /> */}
+    </React.Fragment>
   )
 }
 

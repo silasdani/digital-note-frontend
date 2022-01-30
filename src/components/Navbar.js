@@ -6,12 +6,12 @@ import { ImPencil2 } from "react-icons/im";
 import gravatar from 'gravatar'
 import { connect } from 'react-redux';
 
-const Navbar = ({ onHamburger, onProfile, user: { email } }) => {
+const Navbar = ({ isAuthenticated, onHamburger, onProfile, user: { email }, ...props }) => {
   return (
     <div className="navbar">
       <div className="h-14 text-white flex justify-center items-center space-x-2">
         <button className="mr-6"><AiOutlineMenu color="white" className="w-6 h-6" onClick={() => onHamburger()} /></button>
-        <Link to="/" className="flex flex-row space-x-2" onClick={() => {onHamburger(false); onProfile(false)}}>
+        <Link to="/dashboard" className="flex flex-row space-x-2" onClick={() => { onHamburger(false); onProfile(false) }}>
           <div className="py-2 bg-red-700 rounded-xl w-10 flex items-center justify-center"><ImPencil2 color="white" /></div>
           <span className="text-xl text-white">Digital.init</span>
         </Link>
@@ -23,16 +23,17 @@ const Navbar = ({ onHamburger, onProfile, user: { email } }) => {
       <div className="h-14 text-white flex items-center space-x-4">
         <Link to="/room" className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><AiOutlineVideoCameraAdd className="w-8 h-8" /></Link>
         <button className="h-10 px-2 hover:bg-gradient-to-t hover:bg-gray-900 rounded-full"><IoIosNotificationsOutline className="w-8 h-8" /></button>
-        <button className="w-14 hover:opacity-40" onClick={() => onProfile()}><img className="w-10 h-10 rounded-full" src={gravatar.url(email)} /></button>
+        <button className="w-14 hover:opacity-40" onClick={(ev) => { ev.preventDefault(); onProfile() }}><img className="w-10 h-10 rounded-full" src={gravatar.url(email)} /></button>
       </div>
     </div>
   )
 }
 
 const mapStateToProps = (state) => {
-  const { user } = state.session;
+  const { user, signedIn: isAuthenticated } = state.session;
   return {
-    user
+    user,
+    isAuthenticated
   }
 }
 

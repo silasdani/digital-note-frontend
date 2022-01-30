@@ -21,7 +21,6 @@ class LoginPage extends Component {
       data: { ...this.state.data, [ev.target.name]: ev.target.value },
     });
 
-
   onLogin = () => {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
@@ -30,7 +29,7 @@ class LoginPage extends Component {
     this.setState({ loading: true });
     this.props.login(this.state.data)
       .then((res) => {
-        this.props.history.push('/');
+        this.props.navigate("dashboard");
       })
       .catch(() => {
         this.setState({
@@ -49,18 +48,18 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-1/2 mx-auto mt-10">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-1/2 mx-auto mt-10">
         <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="email">
+          <label className="block text-grey-darker text-sm font-bold mb-2">
             Email
           </label>
           <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" name="email" type="text" placeholder="Email" onChange={this.onChange} />
         </div>
         <div className="mb-6">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="password">
+          <label className="block text-grey-darker text-sm font-bold mb-2">
             Password
           </label>
-          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" name="password" type="password" placeholder="******************" onChange={this.onChange} />
+          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" name="password" type="password" placeholder="******************" onChange={this.onChange} value={this.state.data.password} />
           <p className="text-red text-xs italic">Please choose a password.</p>
         </div>
         <div className="flex items-center justify-between">
@@ -71,7 +70,7 @@ class LoginPage extends Component {
             Forgot Password?
           </a>
         </div>
-      </div>)
+      </form>)
   }
 
 }

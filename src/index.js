@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './style.css';
-import { BrowserRouter } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import App from "./app/App";
@@ -14,9 +13,7 @@ if (localStorage.token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter >
-      <App />
-    </BrowserRouter>
+    <App />
   </Provider>,
   document.getElementById("root")
 );
