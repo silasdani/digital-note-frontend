@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../redux/ducks/sessionDuck';
 import Validator from "validator";
-import { useNavigate } from 'react-router-dom';
 
 
 class LoginPage extends Component {
@@ -26,20 +25,19 @@ class LoginPage extends Component {
   onLogin = () => {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
-    if (Object.keys(errors).length === 0) {
-      this.setState({ loading: true });
-      this.props.login(this.state.data)
-        .then((res) => {
-          const nav = useNavigate();
-          nav("/miamaimai");
-        })
-        .catch(() => {
-          this.setState({
-            errors: { global: "Invalid email or password" },
-            loading: false,
-          });
+    if (Object.keys(errors).length !== 0) return;
+
+    this.setState({ loading: true });
+    this.props.login(this.state.data)
+      .then((res) => {
+        this.props.history.push('/');
+      })
+      .catch(() => {
+        this.setState({
+          errors: { global: "Invalid email or password" },
+          loading: false,
         });
-    }
+      });
   };
 
   validate = (data) => {

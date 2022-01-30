@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { logout } from '../redux/ducks/sessionDuck';
 import { IoIosLogOut } from 'react-icons/io'
 
-const ProfileDropDown = ({ visible, setVisibility, logout }) => {
+const ProfileDropDown = ({ visible, setVisibility, logout, user }) => {
   return <div className={`profile ${visible ? "translate-y-0" : "translate-y-full"} ease-in-out duration-150`}>
-    <Link to="/profile" onClick={() => setVisibility()} className="nav-option mt-14"><ImCommand className="mx-6" />PROFILE</Link>
+    <div className="nav-option mt-6">{user.email}</div>
+    <Link to="/profile" onClick={() => setVisibility()} className="nav-option mt-6"><ImCommand className="mx-6" />PROFILE</Link>
     <Link to="/login" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />SIGN IN</Link>
     <Link to="/settings" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />SETTINGS</Link>
     <Link to="/about" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />ABOUT US</Link>
@@ -17,7 +18,10 @@ const ProfileDropDown = ({ visible, setVisibility, logout }) => {
 };
 
 const mapStateToProps = (state) => {
-  return {}
+  const { user } = state.session;
+  return {
+    user
+  }
 }
 
 export default connect(mapStateToProps, { logout })(ProfileDropDown);

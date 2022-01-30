@@ -4,9 +4,10 @@ import LoginPage from '../pages/LoginPage'
 import VideoRoomPage from '../pages/VideoRoomPage'
 import DashboardPage from '../pages/DashboardPage'
 import MyCoursesPage from '../pages/MyCoursesPage'
+import HomePage from '../pages/HomePage'
 import { connect } from 'react-redux';
 
-const AuthenticatedRoutes = () => {
+const AuthenticatedRoutes = (h) => {
   return (<>
     <Route exact path="/profile" element={<></>} />
     <Route exact path="/courses" element={<MyCoursesPage></MyCoursesPage>} />
@@ -19,20 +20,27 @@ const AuthenticatedRoutes = () => {
   </>)
 }
 
-const GuestRoutes = () => {
+const GuestRoutes = (h) => {
   return (<>
-    <Route exact path="/login" element={<LoginPage />} />
+    <Route exact path="/login" element={<LoginPage history={h} />} />
     <Route exact path="/signup" element={<></>} />
     <Route exact path="/reset" element={<></>} />
-    <Route exact path="/" />
+    <Route exact path="/" element={<HomePage />} />
   </>)
 }
 
-const MyRoutes = ({ isAuth }) => {
-  console.warn(isAuth);
+const MyRoutes = ({ isAuth, history }) => {
   return (
     <Routes>
-      {isAuth ? AuthenticatedRoutes() : GuestRoutes()}
+      {/* {isAuth ? AuthenticatedRoutes(history) : GuestRoutes(history)} */}
+
+      <Route exact path="/login" element={<LoginPage history={history} />} />
+      <Route exact path="/signup" element={<></>} />
+      <Route exact path="/reset" element={<></>} />
+      {/* <Route exact path="/" element={<HomePage />} /> */}
+      <Route exact path="/courses" element={<MyCoursesPage></MyCoursesPage>} />
+      <Route exact path="/" element={<DashboardPage></DashboardPage>} />
+      <Route exact path="/room" element={<VideoRoomPage />} />
       <Route path="*"
         element={
           <main className="p-20">
