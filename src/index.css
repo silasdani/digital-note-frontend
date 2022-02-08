@@ -8,7 +8,7 @@
   }
 
   .navbar {
-    @apply absolute w-screen flex h-14 bg-black bg-opacity-50 flex-row justify-between px-4;
+    @apply fixed w-screen flex h-14 bg-black bg-opacity-50 flex-row justify-between px-4;
   }
 
   .btn {
