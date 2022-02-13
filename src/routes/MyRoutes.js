@@ -14,17 +14,14 @@ const MyRoutes = ({ isAuth }) => {
   return (
     <React.Fragment>
       <UserRoute
-
         path="/dashboard"
         component={DashboardPage}
       />
       <UserRoute
-
         path="/courses"
         component={MyCoursesPage}
       />
-      <UserRoute
-
+      <GuestRoute
         path="/room"
         component={VideoRoomPage}
       />
@@ -35,7 +32,6 @@ const MyRoutes = ({ isAuth }) => {
         />
       </Routes>
       {/* <Route
-
         path={"/confirmation/:token/:action"}
         component={ConfirmationPage}
       /> */}
@@ -48,27 +44,22 @@ const MyRoutes = ({ isAuth }) => {
         component={TicTac}
       />
       {/* <GuestRoute
-
         path="/signup"
         component={SignupPage}
       /> */}
       {/* <GuestRoute
-
         path="/forgot_password"
         component={ForgotPasswordPage}
       /> */}
       {/* <GuestRoute
-
         path="/reset_password/:token"
         component={ResetPasswordPage}
       /> */}
       {/* <UserRoute
-
         path="/users"
         component={UsersPage}
       /> */}
       {/* <UserRoute
-
         path="/users/edit/:id"
         component={EditUserPage}
       /> */}
