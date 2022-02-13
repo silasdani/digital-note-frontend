@@ -7,6 +7,7 @@ import MyCoursesPage from '../pages/MyCoursesPage'
 import HomePage from '../pages/HomePage'
 import GuestRoute from '../routes/GuestRoute'
 import UserRoute from '../routes/UserRoute'
+import TicTac from '../tictactoe'
 import { connect } from 'react-redux';
 
 const MyRoutes = ({ isAuth }) => {
@@ -39,9 +40,12 @@ const MyRoutes = ({ isAuth }) => {
         component={ConfirmationPage}
       /> */}
       <GuestRoute
-
         path="/login"
         component={LoginPage}
+      />
+      <GuestRoute
+        path="/XO"
+        component={TicTac}
       />
       {/* <GuestRoute
 
