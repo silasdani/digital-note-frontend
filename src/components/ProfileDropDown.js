@@ -9,13 +9,14 @@ import { useNavigate } from 'react-router-dom';
 const ProfileDropDown = ({ visible, setVisibility, logout, user }) => {
   const navigate = useNavigate();
   return <div className={`profile ${visible ? "translate-y-0" : "translate-y-full"} ease-in-out duration-150`}>
-    <div className="nav-option mt-6">{user.email}</div>
-    <Link to="/profile" onClick={() => setVisibility()} className="nav-option mt-6"><ImCommand className="mx-6" />PROFILE</Link>
-    <Link to="/login" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />SIGN IN</Link>
-    <Link to="/settings" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />SETTINGS</Link>
-    <Link to="/about" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />ABOUT US</Link>
-    <Link to="/reports" onClick={() => setVisibility()} className="nav-option"><ImCommand className="mx-6" />REPORTS</Link>
-    <button onClick={() => { logout(); setVisibility(); navigate("/home") }} className="nav-option"><IoIosLogOut className="mx-6" />LOGOUT</button>
+    <div className="text-center w-full mt-6">{user.email}</div>
+    <div className="border-b-2 mx-4"></div>
+    <Link to="/profile" onClick={() => setVisibility()} className="nav-option"><ImCommand className="" />PROFILE</Link>
+    <Link to="/login" onClick={() => setVisibility()} className="nav-option"><ImCommand className="" />SIGN IN</Link>
+    <Link to="/settings" onClick={() => setVisibility()} className="nav-option"><ImCommand className="" />SETTINGS</Link>
+    <Link to="/about" onClick={() => setVisibility()} className="nav-option"><ImCommand className="" />ABOUT US</Link>
+    <Link to="/reports" onClick={() => setVisibility()} className="nav-option"><ImCommand className="" />REPORTS</Link>
+    <button onClick={() => { logout(); setVisibility(); navigate("/home") }} className="nav-option"><IoIosLogOut className="" />LOGOUT</button>
   </div>
 };
 
