@@ -5,14 +5,12 @@ import axios from "axios";
 class ApiService {
   async get(url, mapFunc = () => { }) {
     let headers = config();
-    // store.dispatch(showSpinner());
 
     const response = await axios.get(url, headers);
     return mapFunc(response);
   }
 
   async post(url, body, mapFunc, params = {}) {
-    // store.dispatch(showSpinner());
 
     const response = await axios
       .post(url, body, params);
@@ -20,7 +18,6 @@ class ApiService {
   }
 
   async patch(url, body, mapFunc, params = {}) {
-    // store.dispatch(showSpinner());
 
     const response = await axios
       .patch(url, body, params);
@@ -28,7 +25,6 @@ class ApiService {
   }
 
   async delete(url, params = {}) {
-    // store.dispatch(showSpinner());
 
     let headers = { ...params, ...config() };
     if (params.headers) {

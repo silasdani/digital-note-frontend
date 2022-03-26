@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import MyRoutes from "../routes/MyRoutes"
 import ProfileDropDown from "../components/ProfileDropDown";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "../pages/Footer";
 
 
 const App = (props) => {
@@ -15,12 +16,14 @@ const App = (props) => {
 
   return (<BrowserRouter>
     <Navbar onHamburger={onHamburger} onProfile={onProfile} />
-    <div className="h-14 w-screen" />
     <Sidebar onSideBar={onHamburger} visible={menu} />
     <ProfileDropDown setVisibility={setProfile} visible={profile} />
+    <div className="m-16" >
     <Routes>
       <Route path="/*" element={<MyRoutes />} />
     </Routes>
+    </div>
+    <Footer></Footer>
   </BrowserRouter>
   )
 }
