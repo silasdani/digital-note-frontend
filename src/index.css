@@ -4,7 +4,11 @@
 
 @layer components {
   body {
-    @apply bg-gradient-to-r from-gray-300 to-gray-400;
+    @apply bg-gray-200;
+  }
+
+  .active {
+    @apply bg-indigo-900 !important;
   }
 
   .bg-primary {
@@ -13,10 +17,6 @@
 
   .input {
     @apply rounded h-10 py-2 ml-8 text-white bg-gray-500 focus:outline-0;
-  }
-
-  .navbar {
-    @apply flex h-14 bg-black justify-between mt-0 px-10;
   }
 
   .btn {
@@ -67,18 +67,9 @@
   .btn-simple {
     @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
   }
-}
 
-td,
-tr {
-  @apply text-center mx-10;
-}
-
-table {
-  @apply flex-col flex-1;
-}
-
-thead,
-tbody {
-  @apply text-black text-center;
+  td,
+  th {
+    @apply text-center;
+  }
 }

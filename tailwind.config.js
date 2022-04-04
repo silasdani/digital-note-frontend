@@ -6,7 +6,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("windstrap")],
   theme: {
     screens: {
       sm: '480px',

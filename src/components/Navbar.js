@@ -1,34 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { AiOutlineVideoCameraAdd, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { ImPencil2 } from "react-icons/im";
+import { AiOutlineVideoCameraAdd, AiOutlineMenu, AiOutlineSearch, AiOutlineForm, AiOutlineInfoCircle, AiOutlineArrowRight } from "react-icons/ai";
+import { BsCardChecklist, BsFileEarmarkCheck } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
+import { IoIosNotificationsOutline, IoSchoolOutline } from "react-icons/io";
+import { MdOutlineSchool } from "react-icons/md";
 import gravatar from 'gravatar'
 import { connect } from 'react-redux';
 
-const Navbar = ({ isAuthenticated, onHamburger, onProfile, user: { email }, ...props }) => {
+const Navbar = ({ isAuthenticated, user: { email }, ...props }) => {
   return (
-    <div className="navbar">
-      <div className="h-14 text-white flex justify-center items-center space-x-2">
-        <AiOutlineMenu color="white" className="w-6 h-6" onClick={() => onHamburger()} />
-        <Link to="/dashboard" className="flex flex-row space-x-2" onClick={() => { onHamburger(false); onProfile(false) }}>
-          <div className="py-2 bg-red-700 rounded-xl w-10 flex items-center justify-center"><ImPencil2 color="white" /></div>
-          <span className="text-xl text-white">Digital.init</span>
-        </Link>
+    <div className="flex justify-between mt-0 px-6 bg-gradient-to-t from-gray-400 to-gray-500">
+      <Link to="/dashboard" className="h-14 text-white text-xl flex items-center">
+        Digital.init
+      </Link>
+      <div className="text-white flex items-center">
+        <div className="p-2 text-center flex flex-col items-center"><AiOutlineInfoCircle /><span>Support</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><AiOutlineForm /><span>New Exam</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><BsCardChecklist /><span>Exam list</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><BsFileEarmarkCheck /><span>Results</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><MdOutlineSchool /><span>My school</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><CgProfile /><span>Profile</span></div>
+        <div className="p-2 text-center flex flex-col items-center"><AiOutlineArrowRight /><span>Sign out</span></div>
+        {/* <img className="w-10 h-10 rounded-full hover:opacity-40" src={gravatar.url(email)} /> */}
       </div>
-      <div className="h-14 flex justify-center items-center">
-        <input className="input bg-opacity-40 px-4" placeholder='Key' />
-        <button className="bg-gray-400 w-20 h-10 flex items-center justify-center rounded-r-md">
-          <AiOutlineSearch color="white" className="w-6 h-6" />
-        </button>
-      </div>
-      <div className="h-14 text-white flex items-center">
-        {isAuthenticated &&
-          <button className="hover:opacity-40" onClick={(ev) => { ev.preventDefault(); onProfile() }}>
-            <img className="w-10 h-10 rounded-full" src={gravatar.url(email)} />
-          </button>}
-      </div>
-    </div>
+    </div >
   )
 }
 
@@ -40,4 +36,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, null)(Navbar);
