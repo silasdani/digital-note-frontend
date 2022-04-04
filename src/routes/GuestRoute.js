@@ -13,7 +13,11 @@ const GuestRoute = ({ isAuthenticated, component: Component, ...rest }) => {
         {...rest}
         key={Math.random()}
         element={
-          !isAuthenticated ? <Component navigate={navigate} /> : <Navigate to={isAuthenticated ? "/dashboard" : "/home"} />
+          !isAuthenticated
+            ?
+            <Component navigate={navigate} />
+            :
+            <Navigate to={isAuthenticated ? "/dashboard" : "/home"} />
         }
       />
     </Routes>

@@ -1,4 +1,4 @@
-import ApiService from "../api/ApiService";
+import ApiService from "./ApiService";
 class UserService extends ApiService {
   constructor() {
     super();

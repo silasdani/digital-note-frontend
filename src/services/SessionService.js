@@ -1,5 +1,4 @@
-import ApiService from "../api/ApiService";
-import setHeader from "../utils/setAuthorizationHeader";
+import ApiService from "./ApiService";
 
 class SessionService extends ApiService {
   constructor() {
@@ -15,7 +14,7 @@ class SessionService extends ApiService {
   }
 
   logout() {
-    return super.delete("/logout", (() => setHeader()))
+    return super.delete("/logout", ((success) => { return success; }))
   }
 }
 
