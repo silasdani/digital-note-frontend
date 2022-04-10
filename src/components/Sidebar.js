@@ -5,15 +5,15 @@ import { connect } from 'react-redux';
 import { logout } from '../redux/ducks/sessionDuck';
 import { Link } from 'react-router-dom'
 
-const Sidebar = ({ onSideBar, visible }) => {
+const Sidebar = () => {
 
   return (
-    <div className={`sidebar ${visible ? "translate-x-0" : "-translate-x-full"} ease-in-out duration-300`}  >
+    <div className="">
       <div className="text-white space-y-2">
-        <Link onClick={() => onSideBar()} to="/courses" className="nav-option"><ImBook className="mx-6 hover:origin-center hover:rotate-90 hover:duration-500" /> MY COURSES</Link>
-        <Link onClick={() => onSideBar()} to="/" className="nav-option"><AiOutlineMessage className="mx-6" />MESSAGES</Link>
-        <Link onClick={() => onSideBar()} to="/" className="nav-option"><ImCommand className="mx-6" />ASSIGNMENTS</Link>
-        <Link onClick={() => onSideBar()} to="/room" className="nav-option"><AiOutlineVideoCameraAdd className="mx-6" />MEET</Link>
+        <Link to="/courses" className="nav-option"><ImBook className="mx-6 hover:origin-center hover:rotate-90 hover:duration-500" /> MY COURSES</Link>
+        <Link to="/" className="nav-option"><AiOutlineMessage className="mx-6" />MESSAGES</Link>
+        <Link to="/" className="nav-option"><ImCommand className="mx-6" />ASSIGNMENTS</Link>
+        <Link to="/room" className="nav-option"><AiOutlineVideoCameraAdd className="mx-6" />MEET</Link>
       </div>
     </div>)
 }

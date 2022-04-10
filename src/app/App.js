@@ -4,8 +4,13 @@ import Navbar from "../components/Navbar";
 // import Sidebar from "../components/Sidebar";
 // import ProfileDropDown from "../components/ProfileDropDown";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "../pages/Footer";
-import { LoginPage, DashboardPage, MyCoursesPage, HomePage, CreateTest } from "../pages";
+import Footer from "../components/Footer";
+import { LoginPage, DashboardPage, MyCoursesPage, HomePage, NewExamPage } from "../pages";
+import ExamListPage from "../pages/ExamListPage";
+import MySchoolPage from '../pages/MySchoolPage';
+import ProfilePage from "../pages/ProfilePage";
+import ResultsPage from "../pages/ResultsPage";
+import SupportPage from "../pages/SupportPage";
 import GuestRoute from "../routes/GuestRoute";
 import UserRoute from "../routes/UserRoute";
 
@@ -25,8 +30,28 @@ const App = (props) => {
           element={
             <React.Fragment>
               <GuestRoute
-                path="/"
-                component={CreateTest}
+                path="/support"
+                component={SupportPage}
+              />
+              <GuestRoute
+                path="/new_exam"
+                component={NewExamPage}
+              />
+              <GuestRoute
+                path="/exam_list"
+                component={ExamListPage}
+              />
+              <GuestRoute
+                path="/results"
+                component={ResultsPage}
+              />
+              <GuestRoute
+                path="/my_school"
+                component={MySchoolPage}
+              />
+              <GuestRoute
+                path="/profile"
+                component={ProfilePage}
               />
               {/* <UserRoute
                 path="/dashboard"
@@ -35,11 +60,12 @@ const App = (props) => {
               <UserRoute
                 path="/courses"
                 component={MyCoursesPage}
-              />
+              /> */}
               <GuestRoute
-                path="/home"
-                component={<HomePage />}
+                path="/"
+                component={HomePage}
               />
+              {/*
               <GuestRoute
                 path="/login"
                 component={LoginPage}

@@ -13,7 +13,7 @@ export default class UserSerializer {
   }
 
   static deserialize(answer) {
-    if (parseInt(answer.status / 100) !== 2) return {};
+    if (answer.status?.startWith('2')) return {};
 
     const { token } = answer.data;
     localStorage.token = token;
