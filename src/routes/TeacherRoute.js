@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Navigate, Routes, useNavigate } from "react-router-dom";
 
-const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => {
+const TeacherRoute = ({ isAuthenticated, component: Component, ...rest }) => {
   const navigate = useNavigate();
   return (
     <Routes>
@@ -13,7 +13,7 @@ const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => {
         {...rest}
         key={Math.random()}
         element={
-          isAuthenticated
+          isAuthenticated || true
             ?
             <Component navigate={navigate} />
             :
@@ -24,7 +24,7 @@ const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => {
   )
 };
 
-UserRoute.propTypes = {
+TeacherRoute.propTypes = {
   component: PropTypes.any.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
 };
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(UserRoute);
+export default connect(mapStateToProps)(TeacherRoute);

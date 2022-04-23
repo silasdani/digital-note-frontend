@@ -12,7 +12,7 @@ import ProfilePage from "../pages/ProfilePage";
 import ResultsPage from "../pages/ResultsPage";
 import SupportPage from "../pages/SupportPage";
 import GuestRoute from "../routes/GuestRoute";
-import UserRoute from "../routes/UserRoute";
+import TeacherRoute from "../routes/TeacherRoute";
 
 
 const App = (props) => {
@@ -22,34 +22,34 @@ const App = (props) => {
   const onProfile = (value = !profile) => setProfile(value)
 
   return (<BrowserRouter>
-    <Navbar onHamburger={onHamburger} onProfile={onProfile} />
+    <Navbar />
     <div className="m-16" >
       <Routes >
         <Route
           path="/*"
           element={
             <React.Fragment>
-              <GuestRoute
+              <TeacherRoute
                 path="/support"
                 component={SupportPage}
               />
-              <GuestRoute
+              <TeacherRoute
                 path="/new_exam"
                 component={NewExamPage}
               />
-              <GuestRoute
+              <TeacherRoute
                 path="/exam_list"
                 component={ExamListPage}
               />
-              <GuestRoute
+              <TeacherRoute
                 path="/results"
                 component={ResultsPage}
               />
-              <GuestRoute
+              <TeacherRoute
                 path="/my_school"
                 component={MySchoolPage}
               />
-              <GuestRoute
+              <TeacherRoute
                 path="/profile"
                 component={ProfilePage}
               />
@@ -61,7 +61,7 @@ const App = (props) => {
                 path="/courses"
                 component={MyCoursesPage}
               /> */}
-              <GuestRoute
+              <TeacherRoute
                 path="/"
                 component={HomePage}
               />
