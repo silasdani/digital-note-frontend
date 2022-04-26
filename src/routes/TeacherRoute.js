@@ -31,7 +31,7 @@ TeacherRoute.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.session.signedIn,
+    isAuthenticated: state.session.session.authenticated,
   };
 }
 

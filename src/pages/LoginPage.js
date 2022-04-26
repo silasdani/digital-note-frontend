@@ -1,78 +1,118 @@
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../redux/ducks/sessionDuck';
-import Validator from "validator";
+import { signup } from '../redux/ducks/userDuck';
+import SignupForm from '../components/SignupForm';
+import SignInForm from '../components/SignInForm';
 
 
-class LoginPage extends Component {
-  state = {
-    data: {
-      email: "",
-      password: ""
-    },
-    errors: {},
-    loading: false,
-  }
+const LeftOverlayContent = ({ isAnimated, setIsAnimated }) => {
+  return (
+    <div className="p-8 text-center">
+      <h1 className="text-6xl font-bold text-white mb-4">
+        Already have an account ?
+      </h1>
 
-  onChange = (ev) =>
-    this.setState({
-      ...this.state,
-      data: { ...this.state.data, [ev.target.name]: ev.target.value },
+      <h5 className="text-xl text-white">Sign in with your email and password</h5>
+      <div className="mt-16">
+        <button
+          className="py-3 px-6 bg-transparent rounded-full text-center text-white text-xl font-bold uppercase ring-2 ring-white active:scale-110 transition-transform ease-in"
+          onClick={(e) => {
+            setIsAnimated(!isAnimated);
+          }}
+        >
+          Sign In
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const RightOverlayContent = ({ isAnimated, setIsAnimated }) => {
+  return (
+    <div className="p-8 text-center">
+      <h1 className="text-6xl font-bold text-white mb-4">
+        Don't have an account ?
+      </h1>
+
+      <h5 className="text-xl text-white">Start your journey in one click</h5>
+      <div className="mt-16">
+        <button
+          className="py-3 px-6 bg-transparent rounded-full text-center text-white font-bold uppercase ring-2 ring-white active:scale-110 transition-transform ease-in"
+          onClick={(e) => {
+            setIsAnimated(!isAnimated);
+          }}
+        >
+          Sign Up
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const LoginPage = ({ navigate, login, signup }) => {
+  const [isAnimated, setIsAnimated] = useState(false);
+  const overlayBg = "bg-blue-900";
+
+  const onSignUp = (user) => {
+    signup(user).then(() => {
+      logIn(user);
     });
-
-  onLogin = () => {
-    const errors = this.validate(this.state.data);
-    this.setState({ errors });
-    if (Object.keys(errors).length !== 0) return;
-
-    this.setState({ loading: true });
-    this.props.login(this.state.data)
-      .then((res) => {
-        this.props.navigate("dashboard");
-      })
-      .catch(() => {
-        this.setState({
-          errors: { global: "Invalid email or password" },
-          loading: false,
-        });
-      });
-  };
-
-  validate = (data) => {
-    const errors = {};
-    if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
-    if (!data.password) errors.password = "Can't be blank";
-    return errors;
-  };
-
-  render() {
-    return (
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-1/2 mx-auto mt-10">
-        <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2">
-            Email
-          </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" name="email" type="text" placeholder="Email" onChange={this.onChange} />
-        </div>
-        <div className="mb-6">
-          <label className="block text-grey-darker text-sm font-bold mb-2">
-            Password
-          </label>
-          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" name="password" type="password" placeholder="******************" onChange={this.onChange} value={this.state.data.password} />
-          <p className="text-red text-xs italic">Please choose a password.</p>
-        </div>
-        <div className="flex items-center justify-between">
-          <button className="bg-blue hover:bg-blue-600 bg-blue-700 btn text-white font-bold py-2 px-4 rounded" type="button" onClick={this.onLogin}>
-            Sign In
-          </button>
-          <a className="btn inline-block align-baseline font-bold text-sm text-blue" href="/signup">
-            Forgot Password?
-          </a>
-        </div>
-      </form>)
   }
 
-}
+  const logIn = (user) => {
+    login(user).then((res) => {
+      return res;
+    });
+  }
 
-export default connect(null, { login })(LoginPage);
+  return (
+    <div className="flex flex-col items-center h-full w-full">
+      <div className="h-5/6 my-10 w-4/5 bg-white relative overflow-hidden rounded-lg">
+        <div
+          className={`bg-white absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out z-20 ${isAnimated ? "translate-x-full opacity-0" : ""
+            }`}
+        >
+          <SignInForm onSubmit={logIn} />
+        </div>
+
+        <div
+          className={`signup absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out ${isAnimated
+            ? "translate-x-full opacity-100 z-50 animate-show"
+            : "opacity-0 z-10"
+            }`}
+        >
+          <div className="h-full w-full flex justify-center items-center">
+            <SignupForm onSubmit={onSignUp} />
+          </div>
+        </div>
+
+        <div
+          className={`overlay-container absolute top-0 left-1/2 w-1/2 h-full overflow-hidden  transition-transform duration-700 ease-in-out z-100 ${isAnimated ? "-translate-x-full" : ""
+            }`}
+        >
+          <div
+            className={`overlay ${overlayBg} relative -left-full h-full w-[200%] transform  transition-transform duration-700 ease-in-out ${isAnimated ? "translate-x-1/2" : "translate-x-0"
+              }`}
+          >
+            <div
+              className={`overlay-left w-1/2 h-full absolute flex justify-center items-center top-0 transform -translate-x-[0%]  transition-transform duration-700 ease-in-out ${isAnimated ? "translate-x-0" : "-translate-x-[20%]"
+                }`}
+            >
+              <LeftOverlayContent isAnimated={isAnimated} setIsAnimated={setIsAnimated} />
+            </div>
+            <div
+              className={`overlay-right w-1/2 h-full absolute flex justify-center items-center top-0 right-0 transform  transition-transform duration-700 ease-in-out ${isAnimated ? "translate-x-[20%]" : "translate-x-0"
+                }`}
+            >
+              <RightOverlayContent isAnimated={isAnimated} setIsAnimated={setIsAnimated} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default connect(null, { login, signup })(LoginPage);

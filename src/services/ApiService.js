@@ -1,48 +1,72 @@
 import axios from "axios";
-// import { hideSpinner, showSpinner } from "../redux/ducks/spinnerDuck";
-// import store from "../redux/store";
 
 class ApiService {
-  async get(url, mapFunc = () => { }) {
-    let headers = config();
+  constructor(session) {
+    this.session = session;
+  }
 
-    const response = await axios.get(url, headers);
+  async get(url, mapFunc) {
+    const response = await axios
+      .get(url, this.config());
+    return mapFunc(response.data);
+  }
+
+  async download(url, mapFunc) {
+    const config = {
+      ...this.config(),
+      responseType: 'blob',
+    }
+    const response = await axios.get(url, config);
+    return mapFunc(response.data);
+  }
+
+  async put(url, body, mapFunc) {
+    const response = await axios
+      .put(url, body, this.config());
+    return mapFunc(response.data);
+  }
+
+  async post(url, body, mapFunc) {
+    const response = await axios
+      .post(url, body, this.config());
     return mapFunc(response);
   }
 
-  async post(url, body, mapFunc, params = {}) {
-
+  async postWithResponse(url, body, mapFunc) {
     const response = await axios
-      .post(url, body, params);
-    return mapFunc(response);;
-  }
-
-  async patch(url, body, mapFunc, params = {}) {
-
-    const response = await axios
-      .patch(url, body, params);
+      .post(url, body, this.config());
     return mapFunc(response);
   }
 
-  async delete(url, params = {}) {
+  async patch(url, body, mapFunc) {
+    const response = await axios
+      .patch(url, body, this.config());
+    return mapFunc(response.data);
+  }
 
-    let headers = { ...params, ...config() };
-    if (params.headers) {
-      headers.headers = {
-        ...headers.headers,
-        ...params.headers,
+  async delete(url, mapFunc) {
+    const response = await axios
+      .delete(url, this.config());
+    return mapFunc(response.data);
+  }
+
+  config() {
+    const result = {};
+
+    if (this.session) {
+      result["headers"] = {
+        "Content-Type": "application/json",
+        "access-token": this.session.accessToken,
+        client: this.session.client,
+        expiry: this.session.expiry,
+        "token-type": "Bearer",
+        uid: this.session.uid
       };
     }
-    await axios.delete(url, headers);
+
+    return result;
   }
 }
 
-export default ApiService;
 
-const config = () => {
-  return {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-};
+export default ApiService;

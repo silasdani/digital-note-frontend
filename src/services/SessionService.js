@@ -1,20 +1,17 @@
 import ApiService from "./ApiService";
+import SessionSerializer from "./Serializers/SessionSerializer";
 
 class SessionService extends ApiService {
-  constructor() {
-    super();
-    this.url = '/session';
-  }
-
   login = (credentials) => {
-    return super.post("/login", credentials, (answer => {
-      console.warn(answer)
-      return answer
+    const session = SessionSerializer.serialize(credentials);
+    return super.post("users/sign_in.json", session, (answer => {
+      return SessionSerializer.deserialize(answer);
     }))
   }
 
-  logout() {
-    return super.delete("/logout", ((success) => { return success; }))
+  logout(session) {
+    this.session = session;
+    return super.delete("users/sign_out.json", () => this.session = null)
   }
 }
 

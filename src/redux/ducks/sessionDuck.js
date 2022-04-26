@@ -1,3 +1,4 @@
+import SessionSerializer from '../../services/Serializers/SessionSerializer';
 import UserSerializer from '../../services/Serializers/UserSerializer';
 import SessionService from '../../services/SessionService';
 
@@ -12,12 +13,29 @@ export const userLoggedIn = (data) => ({
 const userLoggedOut = () => ({
   type: USER_LOGGED_OUT,
 });
+const STORAGE_KEY = "session";
+const SESSION_EMAIL_KEY = "currentSessionEmail";
 
 export const login = (credentials) => async (dispatch) => {
   try {
-    const answer = await new SessionService().login(credentials);
-    const user = UserSerializer.deserialize(answer);
-    dispatch(userLoggedIn(user));
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+    const { rememberMe } = credentials;
+    const answer = await new SessionService().login(credentials)
+      .then(payload => {
+        console.log(payload);
+        const stringPayload = JSON.stringify(payload.session);
+
+        if (rememberMe) {
+          window.localStorage.setItem(STORAGE_KEY, stringPayload);
+          window.localStorage.setItem(SESSION_EMAIL_KEY, payload.session.uid);
+        } else {
+          window.sessionStorage.setItem(STORAGE_KEY, stringPayload);
+        }
+        return payload;
+      });
+
+    dispatch(userLoggedIn(answer));
   } catch (message) {
     return console.warn(message);
   }
@@ -28,10 +46,18 @@ export const autoLogin = (token) => (dispatch) => {
   dispatch(userLoggedIn(user));
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch, getState) => {
+  const { session } = getState().session;
   try {
-    await new SessionService().logout();
-    localStorage.clear();
+    await new SessionService().logout(session);
+
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+
+    if (session.rememberMe) {
+      window.localStorage.setItem(SESSION_EMAIL_KEY, session.uid);
+    }
+
     dispatch(userLoggedOut());
   } catch (message) {
     return console.warn(message);
@@ -39,21 +65,22 @@ export const logout = () => async (dispatch) => {
 }
 
 const DEFAULT_STATE = {
-  user: {
+  session: {
+    accessToken: '',
+    authenticated: false,
+    rememberMe: false,
+  },
+  currentUser: {
     id: null,
     name: '',
     email: '',
-  },
-  signedIn: false
+  }
 }
 
 const session = (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
     case USER_LOGGED_IN:
-      return {
-        user: action.data,
-        signedIn: true
-      };
+      return action.data;
     case USER_LOGGED_OUT:
       return DEFAULT_STATE;
     default:

@@ -8,6 +8,7 @@
     "@material-ui/icons": "^4.11.2",
     "agora-react-uikit": "^0.0.5",
     "axios": "^0.21.1",
+    "daisyui": "^2.14.2",
     "express": "^4.17.2",
     "express-favicon": "^2.0.1",
     "gravatar": "^1.8.1",
@@ -68,5 +69,5 @@
     "react-thunk": "^1.0.0",
     "redux-devtools-extension": "^2.13.9"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000/api/v1"
 }
