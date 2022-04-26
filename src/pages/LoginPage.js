@@ -62,7 +62,7 @@ const LoginPage = ({ navigate, login, signup }) => {
   }
 
   const logIn = (user) => {
-    login(user).then((res) => {
+    return login(user).then((res) => {
       return res;
     });
   }

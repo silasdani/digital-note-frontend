@@ -23,7 +23,6 @@ class DashboardPage extends Component {
 
   render() {
     const { users } = this.props;
-    console.warn(this.props);
     return <div className="dashboard">
       <div className="side-section" >
         {this.renderUsers(users)}

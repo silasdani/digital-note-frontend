@@ -1,7 +1,30 @@
 import { useState } from "react";
 import Validator from "validator";
 
+const getMessage = (status, data) => {
+  switch (status) {
+    case 403: return "You need to log in as teacher!"
+    case 401: try {
+      return data.errors[0]
+    } catch (e) {
+      return data.error;
+    }
+    case 404: return "Invalid email or password";
+    case 500: return "Something went wrong";
+  }
+}
+
+const DEFAULT_ERRORS_STATE = {
+  email: '',
+  password: '',
+  emailError: false,
+  passwordError: false,
+  hasError: false,
+  message: '',
+}
+
 const SignInForm = ({ onSubmit }) => {
+  const [errors, setErrors] = useState(DEFAULT_ERRORS_STATE);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -22,12 +45,18 @@ const SignInForm = ({ onSubmit }) => {
     })
   }
 
-  // const validate = (data) => {
-  //   const errors = {};
-  //   if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
-  //   if (!data.password) errors.password = "Can't be blank";
-  //   return errors;
-  // };
+  const validate = (data) => {
+    let stop = true;
+    if (!Validator.isEmail(data.email)) {
+      stop = false;
+      setErrors({ ...errors, email: "Email is not an email!", emailError: true, hasError: true });
+    }
+    if (!data.password) {
+      setErrors({ ...errors, email: "Email is not an email!", passwordError: true, hasError: true });
+      stop = false;
+    }
+    return stop;
+  };
 
   return (
     <div className="selection:bg-blue-500 selection:text-white">
@@ -43,6 +72,7 @@ const SignInForm = ({ onSubmit }) => {
                 <div className="relative">
                   <input
                     onChange={onChange}
+                    onBlur={() => setErrors(DEFAULT_ERRORS_STATE)}
                     id="email"
                     name="email"
                     type="text"
@@ -51,7 +81,7 @@ const SignInForm = ({ onSubmit }) => {
                   />
                   <label
                     htmlFor="email"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${errors.emailError ? 'text-error' : ''}`}
                   >
                     Email address
                   </label>
@@ -67,7 +97,7 @@ const SignInForm = ({ onSubmit }) => {
                   />
                   <label
                     htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className={`absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm ${errors.passwordError ? 'text-error' : ''}`}
                   >
                     Password
                   </label>
@@ -77,10 +107,23 @@ const SignInForm = ({ onSubmit }) => {
                   <span class="label-text">Remember me</span>
                   <input onChange={onRememberMe} id="rememberMe" name="rememberMe" type="checkbox" checked={user.rememberMe} class="checkbox" />
                 </label>
-
+                {errors.message && <div div class="alert alert-warning shadow-lg">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                    <span>{errors.message}</span>
+                  </div>
+                </div>}
                 <input
                   onClick={() => {
-                    onSubmit(user)
+                    setErrors(DEFAULT_ERRORS_STATE);
+                    if (validate(user)) {
+                      onSubmit(user).then(({ data, status }) => {
+                        setErrors({
+                          ...errors,
+                          message: getMessage(status, data)
+                        })
+                      })
+                    }
                   }}
                   type="button"
                   value="Sign in"
@@ -98,7 +141,7 @@ const SignInForm = ({ onSubmit }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

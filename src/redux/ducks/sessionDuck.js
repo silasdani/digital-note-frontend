@@ -23,7 +23,6 @@ export const login = (credentials) => async (dispatch) => {
     const { rememberMe } = credentials;
     const answer = await new SessionService().login(credentials)
       .then(payload => {
-        console.log(payload);
         const stringPayload = JSON.stringify(payload.session);
 
         if (rememberMe) {
@@ -36,8 +35,8 @@ export const login = (credentials) => async (dispatch) => {
       });
 
     dispatch(userLoggedIn(answer));
-  } catch (message) {
-    return console.warn(message);
+  } catch ({ response }) {
+    return response;
   }
 }
 
@@ -59,8 +58,8 @@ export const logout = () => async (dispatch, getState) => {
     }
 
     dispatch(userLoggedOut());
-  } catch (message) {
-    return console.warn(message);
+  } catch ({ response }) {
+    return response;
   }
 }
 
