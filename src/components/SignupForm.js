@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
-
+import ImageUploading from 'react-images-uploading';
+import React, { useState, useRef } from "react";
 const SignupForm = ({ onSubmit }) => {
+  const [images, setImages] = React.useState([]);
   const avatarRef = useRef(null);
   const [user, updateUser] = useState({
     email: '',
@@ -21,23 +22,13 @@ const SignupForm = ({ onSubmit }) => {
     })
   }
 
-  const onFileChange = (event) => {
-    const file = event.currentTarget.files[0];
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      updateUser({
-        ...user,
-        profilePic: reader.result,
-      })
-    };
-    try {
-      reader.readAsDataURL(file);
-    } catch (e) {
-      console.warn(e)
-    }
+  const onFileChange = (imageList, addUpdateIndex) => {
+    setImages(imageList);
+    if (imageList.length > 0) updateUser({
+      ...user,
+      profilePic: imageList[0]?.data_url,
+    })
   };
-
   return (
     <div className="selection:bg-blue-500 selection:text-white">
       <div className="flex justify-center items-center">
@@ -47,15 +38,61 @@ const SignupForm = ({ onSubmit }) => {
               <h1 className="text-5xl font-bold text-blue-600">
                 Create account
               </h1>
-
-              <form className="mt-10">
-                <div className="avatar flex justify-center">
-                  <div className="w-24 rounded-full">
-                    <input className="hidden" ref={avatarRef} type='file' onClick={onFileChange} />
-                    <img className="cursor-pointer" src={user.profilePic || require('../assets/empty_pic.jpeg')} onClick={() => { avatarRef.current.click(); }} />
-                  </div>
+              <div className="mt-4">
+                <div className="flex justify-center">
+                  <ImageUploading
+                    multiple
+                    value={images}
+                    onChange={onFileChange}
+                    maxNumber={3}
+                    dataURLKey="data_url"
+                  >
+                    {({
+                      imageList,
+                      onImageUpload,
+                      onImageRemoveAll,
+                      onImageUpdate,
+                      onImageRemove,
+                      isDragging,
+                      dragProps,
+                    }) => (
+                      <div className="upload__image-wrapper items-center text-center">
+                        {!images.length &&
+                          <>
+                            <div className="avatar">
+                              <div className="w-24 rounded-full">
+                                <img
+                                  className="cursor-pointer"
+                                  src={require('../assets/empty_pic.jpeg')}
+                                  style={isDragging ? { color: 'red' } : undefined}
+                                  onClick={onImageUpload}
+                                  {...dragProps}
+                                />
+                              </div>
+                            </div>
+                            <div className="image-item__btn-wrapper">
+                              <button className="badge badge-ghost" onClick={onImageUpload}>Upload Image</button>
+                            </div>
+                          </>
+                        }
+                        {imageList.map((image, index) => (
+                          <div key={index} className="flex-col items-center text-center">
+                            <div className="avatar ">
+                              <div className="w-24 rounded-full">
+                                <img className="cursor-pointer" src={image['data_url']} alt="" />
+                              </div>
+                            </div>
+                            <div className="image-item__btn-wrapper">
+                              <button className="badge badge-ghost" onClick={() => onImageRemove(index)}>Remove</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </ImageUploading>
                 </div>
-                <div className="mt-10 relative">
+
+                <div className="mt-6 relative">
                   <input
                     onChange={onChange}
                     id="firstName"
@@ -140,14 +177,14 @@ const SignupForm = ({ onSubmit }) => {
                   type="button"
                   onClick={() => onSubmit(user)}
                   value="Sign up"
-                  className="mt-20 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
+                  className="mt-10 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
                 />
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

@@ -1,16 +1,15 @@
 import ApiService from "./ApiService";
+import UserSerializer from "./Serializers/UserSerializer";
 class UserService extends ApiService {
-  constructor() {
-    super();
-    this.url = '/users';
-  }
-
-  signup(user) {
-    return super.post(this.url, { user }, res => res.data.attributes)
+  signup(data) {
+    const user = UserSerializer.serialize(data);
+    return super.post("users/", user, (answer) => {
+      return UserSerializer.deserialize(answer);
+    })
   }
 
   fetchAll() {
-    return super.get(this.url, res => res.data.data)
+    return super.get("users/", res => res.data.data)
   }
 
   confirm(token) {

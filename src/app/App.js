@@ -16,7 +16,7 @@ const App = (props) => {
 
   return (<BrowserRouter>
     <Navbar />
-    <div className="w-screen h-screen">
+    <div className="min-w-screen min-h-screen">
       <Routes >
         <Route
           path="/*"
@@ -59,7 +59,7 @@ const App = (props) => {
         />
       </Routes>
     </div>
-    <Footer></Footer>
+    {/* <Footer></Footer> */}
   </BrowserRouter>
   )
 }
