@@ -6,4 +6,12 @@
   body {
     @apply bg-base-200;
   }
+
+  .text-input {
+    @apply h-10 w-full border-b-2 border-gray-300 text-gray-900;
+  }
+
+  .text-input:focus {
+    @apply outline-none border-blue-600;
+  }
 }

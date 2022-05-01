@@ -45,7 +45,7 @@
     "windstrap": "^0.0.4"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "PORT=4000 react-scripts start",
     "dev-start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -5,7 +5,7 @@ const ExamListPage = () => {
   const [checked, setCheck] = useState(true)
 
   return (
-    <div>
+    <div className="flex flex-col items-center h-full w-full">
       <div className="text-2xl">Exam List Page</div>
       <div className="myExams">
         <div className="flex flex-col">

@@ -52,7 +52,7 @@ const SignInForm = ({ onSubmit }) => {
       setErrors({ ...errors, email: "Email is not an email!", emailError: true, hasError: true });
     }
     if (!data.password) {
-      setErrors({ ...errors, email: "Email is not an email!", passwordError: true, hasError: true });
+      setErrors({ ...errors, passwordError: true, hasError: true });
       stop = false;
     }
     return stop;
@@ -76,7 +76,7 @@ const SignInForm = ({ onSubmit }) => {
                     id="email"
                     name="email"
                     type="text"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-600"
+                    className="text-input peer placeholder-transparent"
                     placeholder="john@doe.com"
                   />
                   <label
@@ -92,7 +92,7 @@ const SignInForm = ({ onSubmit }) => {
                     id="password"
                     type="password"
                     name="password"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-600"
+                    className="text-input peer placeholder-transparent"
                     placeholder="Password"
                   />
                   <label

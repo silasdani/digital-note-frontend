@@ -9,14 +9,17 @@ import MySchoolPage from '../pages/MySchoolPage';
 import ProfilePage from "../pages/ProfilePage";
 import ResultsPage from "../pages/ResultsPage";
 import SupportPage from "../pages/SupportPage";
+import DashboardPage from "../pages/DashboardPage";
 import GuestRoute from "../routes/GuestRoute";
 import TeacherRoute from "../routes/TeacherRoute";
+
 
 const App = (props) => {
 
   return (<BrowserRouter>
     <Navbar />
-    <div className="min-w-screen min-h-screen">
+    <div className="absolute w-screen h-64 bg-accent"></div>
+    <div style={{ minHeight: '91.5vh' }}>
       <Routes >
         <Route
           path="/*"
@@ -25,6 +28,10 @@ const App = (props) => {
               <TeacherRoute
                 path="/support"
                 component={SupportPage}
+              />
+              <TeacherRoute
+                path="/dashboard"
+                component={DashboardPage}
               />
               <TeacherRoute
                 path="/new_exam"

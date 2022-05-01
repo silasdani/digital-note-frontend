@@ -3,7 +3,7 @@ import CreateTest from '../components/CreateTest';
 
 const NewExamPage = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center h-full w-full">
       <div className="text-2xl">
         New Exam Page
       </div >

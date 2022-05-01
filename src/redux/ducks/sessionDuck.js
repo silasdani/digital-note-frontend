@@ -1,11 +1,13 @@
-import SessionSerializer from '../../services/Serializers/SessionSerializer';
 import UserSerializer from '../../services/Serializers/UserSerializer';
 import SessionService from '../../services/SessionService';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
 
-export const userLoggedIn = (data) => ({
+const STORAGE_KEY = "session";
+const SESSION_EMAIL_KEY = "currentSessionEmail";
+
+const userLoggedIn = (data) => ({
   type: USER_LOGGED_IN,
   data,
 });
@@ -13,8 +15,6 @@ export const userLoggedIn = (data) => ({
 const userLoggedOut = () => ({
   type: USER_LOGGED_OUT,
 });
-const STORAGE_KEY = "session";
-const SESSION_EMAIL_KEY = "currentSessionEmail";
 
 export const login = (credentials) => async (dispatch) => {
   try {
@@ -63,17 +63,17 @@ export const logout = () => async (dispatch, getState) => {
   }
 }
 
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
   session: {
     accessToken: '',
     authenticated: false,
     rememberMe: false,
+    currentUser: {
+      id: null,
+      name: '',
+      email: '',
+    }
   },
-  currentUser: {
-    id: null,
-    name: '',
-    email: '',
-  }
 }
 
 const session = (state = DEFAULT_STATE, action = {}) => {

@@ -4,10 +4,11 @@ export default class UserSerializer {
   static serialize(user) {
     return {
       user: {
-        name: user.name,
+        first_name: user.firstName,
+        last_name: user.lastName,
         email: user.email,
         password: user.password,
-        password_confirmation: user.passwordConfirm
+        password_confirmation: user.passwordConfirmation,
       }
     }
   }
