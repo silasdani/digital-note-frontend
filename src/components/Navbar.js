@@ -23,8 +23,8 @@ const guestRoutes = [
   { name: 'LOGIN', path: '/login' },
 ]
 
-const Navbar = ({ isAuthenticated, currentUser, logout }) => {
-  const routes = isAuthenticated ? teacherRoutes : guestRoutes;
+const Navbar = ({ authenticated, currentUser, logout }) => {
+  const routes = authenticated ? teacherRoutes : guestRoutes;
   // const navigate = useNavigate();
 
   return (
@@ -41,7 +41,7 @@ const Navbar = ({ isAuthenticated, currentUser, logout }) => {
               </Link>
             </li>);
         })}
-        {isAuthenticated && <div className="dropdown dropdown-end">
+        {authenticated && <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <img src={currentUser?.profilePic || require("../assets/empty_pic.jpeg")} />
@@ -65,10 +65,10 @@ const Navbar = ({ isAuthenticated, currentUser, logout }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { currentUser } = state.session.session;
+  const { currentUser, authenticated } = state.session.session;
   return {
     currentUser,
-    isAuthenticated: state.session.session.authenticated,
+    authenticated,
   }
 }
 

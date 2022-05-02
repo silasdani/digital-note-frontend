@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -12,9 +12,11 @@ import SupportPage from "../pages/SupportPage";
 import DashboardPage from "../pages/DashboardPage";
 import GuestRoute from "../routes/GuestRoute";
 import TeacherRoute from "../routes/TeacherRoute";
+import { autoLogin } from "../redux/ducks/sessionDuck"
 
 
-const App = (props) => {
+const App = ({ autoLogin }) => {
+  useEffect(() => { autoLogin(); console.warn('initializing') }, [])
 
   return (<BrowserRouter>
     <Navbar />
@@ -71,4 +73,4 @@ const App = (props) => {
   )
 }
 
-export default connect()(App);
+export default connect(null, { autoLogin })(App);

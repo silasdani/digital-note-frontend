@@ -33,7 +33,7 @@ const ProfilePage = () => {
   };
   return (
     <div className="flex flex-col items-center h-full w-full">
-      <div className="absolute bg-white w-4/5 mt-20 rounded-lg p-10 shadow-2xl">
+      <div className="absolute bg-white w-4/5 mt-20 rounded-lg p-10 shadow-xl">
         <div className="">
           <ImageUploading
             multiple

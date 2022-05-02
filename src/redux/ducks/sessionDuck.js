@@ -3,6 +3,7 @@ import SessionService from '../../services/SessionService';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+export const RELOAD_SESSION = "RELOAD_SESSION";
 
 const STORAGE_KEY = "session";
 const SESSION_EMAIL_KEY = "currentSessionEmail";
@@ -14,6 +15,11 @@ const userLoggedIn = (data) => ({
 
 const userLoggedOut = () => ({
   type: USER_LOGGED_OUT,
+});
+
+const reloadSession = (data) => ({
+  type: RELOAD_SESSION,
+  data,
 });
 
 export const login = (credentials) => async (dispatch) => {
@@ -40,11 +46,6 @@ export const login = (credentials) => async (dispatch) => {
   }
 }
 
-export const autoLogin = (token) => (dispatch) => {
-  const user = UserSerializer.deserializeToken(token)
-  dispatch(userLoggedIn(user));
-}
-
 export const logout = () => async (dispatch, getState) => {
   const { session } = getState().session;
   try {
@@ -63,6 +64,13 @@ export const logout = () => async (dispatch, getState) => {
   }
 }
 
+export const autoLogin = () => (dispatch) => {
+  const localStorage = window.localStorage.getItem(STORAGE_KEY);
+  const sessionStorage = window.sessionStorage.getItem(STORAGE_KEY);
+  const session = localStorage || sessionStorage;
+  if (session) dispatch(reloadSession({ session: JSON.parse(session) }))
+}
+
 export const DEFAULT_STATE = {
   session: {
     accessToken: '',
@@ -79,6 +87,8 @@ export const DEFAULT_STATE = {
 const session = (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
     case USER_LOGGED_IN:
+      return action.data;
+    case RELOAD_SESSION:
       return action.data;
     case USER_LOGGED_OUT:
       return DEFAULT_STATE;
