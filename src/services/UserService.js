@@ -1,6 +1,11 @@
 import ApiService from "./ApiService";
 import UserSerializer from "./Serializers/UserSerializer";
 class UserService extends ApiService {
+  constructor(session) {
+    super();
+    this.session = session;
+  }
+
   signup(data) {
     const user = UserSerializer.serialize(data);
     return super.post("users.json", user, (answer) => {
@@ -10,6 +15,12 @@ class UserService extends ApiService {
 
   fetchAll() {
     return super.get("users/", res => res.data.data)
+  }
+
+  show() {
+    return super.get(`user.json`, (answer) => {
+      return UserSerializer.deserialize(answer.user);
+    })
   }
 
   confirm(token) {
@@ -32,8 +43,11 @@ class UserService extends ApiService {
     super.delete(`/users/${id}`, res => res)
   }
 
-  editUser({ user, id }) {
-    super.patch(`/users/${id}`, { user }, res => res.data)
+  editProfile(data) {
+    const user = UserSerializer.serialize(data);
+    return super.patch(`/user.json`, user, (answer) => {
+      return UserSerializer.deserialize(answer.data.user);
+    })
   }
 }
 

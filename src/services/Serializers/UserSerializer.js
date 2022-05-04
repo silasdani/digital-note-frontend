@@ -7,6 +7,7 @@ export default class UserSerializer {
         first_name: user.firstName,
         last_name: user.lastName,
         email: user.email,
+        username: user.username,
         password: user.password,
         password_confirmation: user.passwordConfirmation,
       }
@@ -23,6 +24,7 @@ export default class UserSerializer {
       lastName: user.last_name,
       name: user.name,
       phoneNumber: user.phone_no,
+      username: user.username,
       profilePic: user.profile_pic,
     }
 

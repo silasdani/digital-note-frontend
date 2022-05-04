@@ -41,13 +41,13 @@ class ApiService {
   async patch(url, body, mapFunc) {
     const response = await axios
       .patch(url, body, this.config());
-    return mapFunc(response.data);
+    return mapFunc(response);
   }
 
   async delete(url, mapFunc) {
     const response = await axios
       .delete(url, this.config());
-    return mapFunc(response.data);
+    return mapFunc(response);
   }
 
   config() {
