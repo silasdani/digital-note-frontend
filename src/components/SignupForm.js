@@ -108,7 +108,7 @@ const SignupForm = ({ onSubmit }) => {
   return (
     <div className="selection:bg-blue-500 selection:text-white">
       <div className="flex justify-center items-center">
-        <div className="p-8 flex-1">
+        <div className="p-8 flex">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
               <h1 className="text-5xl font-bold text-blue-600">
@@ -120,7 +120,7 @@ const SignupForm = ({ onSubmit }) => {
                     multiple
                     value={images}
                     onChange={onFileChange}
-                    maxNumber={3}
+                    maxNumber={1}
                     dataURLKey="data_url"
                   >
                     {({
@@ -136,7 +136,7 @@ const SignupForm = ({ onSubmit }) => {
                         {!images.length &&
                           <>
                             <div className="avatar">
-                              <div className={`w-24 rounded-full ${isDragging ? "border border-red-600" : ""}`}>
+                              <div className={`w-16 rounded-full ${isDragging ? "border border-red-600" : ""}`}>
                                 <img
                                   className="cursor-pointer"
                                   src={require('../assets/empty_pic.jpeg')}
@@ -168,7 +168,7 @@ const SignupForm = ({ onSubmit }) => {
                   </ImageUploading>
                 </div>
 
-                <div className="mt-6 relative">
+                <div className="mt-2 relative">
                   <input
                     onBlur={() => setErrors(DEFAULT_ERRORS_STATE)}
                     onChange={onChange}

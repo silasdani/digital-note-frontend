@@ -26,12 +26,12 @@ const CreateTest = ({ page, setPage }) => {
           <div className="flex-col px-10 border-t border-base-300 bg-white min-h-[50vh] p-6 space-y-4">
             <div className="form-control flex-row items-center space-x-10">
               <div className="text-xl min-w-[10vw]">Exam Name</div>
-              <input type="text" placeholder="Exam Name" className="input input-bordered input-primary min-w-[20vw] max-w-xs"></input>
+              <input type="text" placeholder="Exam Name" className="input input-bordered input-accent min-w-[20vw] max-w-xs"></input>
             </div>
             <div className="form-control flex-row items-center space-x-10">
               <div className="text-xl min-w-[10vw]">Exam Questions</div>
               <div className="dropdown">
-                <select className="select select-primary min-w-[20vw] max-w-xs" value={exam.type} onChange={onTypeChange}>
+                <select className="select select-accent min-w-[20vw] max-w-xs" value={exam.type} onChange={onTypeChange}>
                   <option disabled></option>
                   {EXAM_QUESTION_TYPES.map(({ name }) => (<option>{name}</option>))}
                 </select>
@@ -108,19 +108,25 @@ const CreateTest = ({ page, setPage }) => {
             <table className="min-w-full">
               <tbody>
                 <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><input type="checkbox" className="" /></td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <input type="checkbox" className="" />
+                  </td>
                   <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-left">
                     Require high security mode.
                   </td>
                 </tr>
                 <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><input type="checkbox" className="" /></td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <input type="checkbox" className="" />
+                  </td>
                   <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-left">
                     Require high security mode.
                   </td>
                 </tr>
                 <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><input type="checkbox" className="" /></td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <input type="checkbox" className="" />
+                  </td>
                   <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-left">
                     Require high security mode.
                   </td>

@@ -16,15 +16,15 @@ export const EXAM_QUESTION_TYPES = [
 export const SECURITY_TYPES = [
   {
     id: 0,
-    name: 'low',
+    name: 'Require high security mode.',
   },
   {
     id: 1,
-    name: 'moderate',
+    name: 'Require high security mode.',
   },
   {
     id: 2,
-    name: 'high',
+    name: 'Require high security mode.',
   }
 ]
 
