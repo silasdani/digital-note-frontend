@@ -20,7 +20,7 @@ const App = ({ autoLogin }) => {
 
   return (<BrowserRouter>
     <Navbar />
-    <div className="absolute w-screen h-64 bg-accent"></div>
+    <div className="absolute w-screen h-96 lg:h-64 bg-accent"></div>
     <div style={{ minHeight: '91.5vh' }}>
       <Routes >
         <Route
