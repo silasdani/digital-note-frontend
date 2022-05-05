@@ -16,7 +16,7 @@ const NewExamPage = () => {
             <li className={`cursor-pointer step ${page >= 3 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(3)}>Security</li>
           </ul>
         </div>
-        <div className="mt-10 rounded-lg shadow-xl w-full">
+        <div className="mt-10">
           <CreateTest className="h-full" page={page} setPage={setPage} />
         </div >
       </div >

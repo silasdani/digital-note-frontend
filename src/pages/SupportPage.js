@@ -1,5 +1,16 @@
 import React from 'react'
+import PdfViewerComponent from '../components/PDFViewerComponent';
 
+// Add the PSPDFKit wrapper component to your `render` function.
+const DocumentViewerComponent = () => {
+  return (
+    <div className="PDF-viewer">
+      <PdfViewerComponent
+        document={"Document.pdf"}
+      />
+    </div>
+  );
+}
 const SupportPage = () => {
   return (
     <div className="flex flex-col items-center h-full w-full">
@@ -8,6 +19,7 @@ const SupportPage = () => {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Support Page</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+            <DocumentViewerComponent />
             <button className="btn btn-primary">Get Started</button>
           </div>
         </div>

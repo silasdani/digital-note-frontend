@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { fetchUsers } from '../redux/ducks/userDuck';
+
 class DashboardPage extends Component {
-  // renderUsers = (users) => {
-  //   return users?.map(({ attributes: { email, first_name, last_name } }) => {
-  //     return (
-  //       <div className="section-item">
-  //         <img className="h-12 rounded-2xl mr-4 float-left" src={gravatar.url(email)} />
-  //         <div className="float-right">
-  //           {first_name} {last_name}
-  //         </div>
-  //       </div>
-  //     )
-  //   })
-  // }
 
   render() {
     const { currentUser, authenticated } = this.props;
@@ -48,7 +36,7 @@ class DashboardPage extends Component {
 
 const mapStateToProps = (state) => {
   const { currentUser, authenticated } = state.session.session;
-  console.warn(authenticated)
+
   return {
     currentUser,
     authenticated
