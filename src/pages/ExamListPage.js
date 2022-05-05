@@ -1,14 +1,80 @@
 import React, { useState } from 'react'
-import Switch from 'react-ios-switch';
 
 const ExamListPage = () => {
   const [checked, setCheck] = useState(true)
 
   return (
     <div className="flex flex-col items-center h-full w-full">
-      <div className="absolute bg-white mt-20 py-20 rounded-lg shadow-xl w-4/5">
-        <div className="text-2xl">Exam List Page</div>
-        <div className="myExams">
+      <h1 className="absolute mt-6 text-3xl font-bold text-white">Exam List</h1>
+      <div className="absolute w-4/5">
+        <div className="bg-white mt-20 rounded-lg shadow-xl w-full">
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+              <thead className="text-white">
+                <tr>
+                  <th className="bg-blue-900"></th>
+                  <th className="bg-blue-900">Name</th>
+                  <th className="bg-blue-900">Job</th>
+                  <th className="bg-blue-900">Favorite Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="hover cursor-pointer">
+                  <th>1</th>
+                  <td>Cy</td>
+                  <td>Quality Control Specialist</td>
+                  <td>Blue</td>
+                </tr>
+                <tr className="hover cursor-pointer">
+                  <th>2</th>
+                  <td>Hart</td>
+                  <td>Desktop Support Technician</td>
+                  <td>Purple</td>
+                </tr>
+                <tr className="hover cursor-pointer">
+                  <th>3</th>
+                  <td>Brice</td>
+                  <td>Tax Accountant</td>
+                  <td>Red</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="bg-white mt-10 rounded-lg shadow-xl w-full">
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+              <thead className="text-white">
+                <tr>
+                  <th className="bg-blue-900"></th>
+                  <th className="bg-blue-900">Name</th>
+                  <th className="bg-blue-900">Job</th>
+                  <th className="bg-blue-900">Favorite Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="hover cursor-pointer">
+                  <th>1</th>
+                  <td>Cy</td>
+                  <td>Quality Control Specialist</td>
+                  <td>Blue</td>
+                </tr>
+                <tr className="hover cursor-pointer">
+                  <th>2</th>
+                  <td>Hart</td>
+                  <td>Desktop Support Technician</td>
+                  <td>Purple</td>
+                </tr>
+                <tr className="hover cursor-pointer">
+                  <th>3</th>
+                  <td>Brice</td>
+                  <td>Tax Accountant</td>
+                  <td>Red</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {/* <div className="myExams">
           <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 px-6">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -42,7 +108,7 @@ const ExamListPage = () => {
                       <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1 NATO</td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          ASGDFJDS
+                          Meow
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           20-12-2020
@@ -54,20 +120,7 @@ const ExamListPage = () => {
                           Handle
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <Switch
-                            checked={checked}
-                            className={undefined}
-                            disabled={false}
-                            handleColor="white"
-                            name={undefined}
-                            offColor="red"
-                            onChange={() => { setCheck(!checked); }}
-                            onColor="green"
-                            pendingOffColor={undefined}
-                            pendingOnColor={undefined}
-                            readOnly={undefined}
-                            style={undefined}
-                          />
+                          <input type="checkbox" class="toggle toggle-primary" checked />
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           ;
@@ -79,6 +132,7 @@ const ExamListPage = () => {
               </div>
             </div>
           </div>
+        </div> */}
         </div>
       </div>
     </div>

@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CreateTest from '../components/CreateTest';
 
 const NewExamPage = () => {
+  const [page, setPage] = useState(1);
+
   return (
     <div className="flex flex-col items-center h-full w-full">
-      <div className="absolute">
-        <div className="text-2xl">
-          New Exam Page
+      <div className="absolute w-4/5">
+        <h1 className="absolute mt-6 text-3xl text-left font-bold text-white">New Exam</h1>
+        <div className="text-white mt-6 flex justify-center items-center">
+          <ul className="steps steps-vertical lg:steps-horizontal">
+            <li className={`cursor-pointer step ${page >= 1 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(1)}>Student Info</li>
+            <li className={`cursor-pointer step ${page >= 2 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(2)}>Student Workspace</li>
+            <li className={`cursor-pointer step ${page >= 3 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(3)}>Security</li>
+          </ul>
         </div>
-        <CreateTest />
+        <div className="mt-10 rounded-lg shadow-xl w-full">
+          <CreateTest className="h-full" page={page} setPage={setPage} />
+        </div >
       </div >
-    </div>
+    </div >
   )
 }
 
