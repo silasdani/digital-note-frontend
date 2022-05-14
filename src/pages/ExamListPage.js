@@ -5,8 +5,8 @@ const ExamListPage = () => {
 
   return (
     <div className="flex flex-col items-center h-full w-full">
-      <h1 className="absolute mt-6 text-3xl font-bold text-white">Exam List</h1>
       <div className="absolute w-4/5">
+        <h1 className="absolute mt-6 text-3xl font-bold text-white text-left">Exam List</h1>
         <div className="bg-white mt-20 rounded-lg shadow-xl w-full">
           <div className="overflow-x-auto">
             <table className="table w-full">

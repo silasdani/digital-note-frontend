@@ -14,7 +14,6 @@ const teacherRoutes = [
   { name: 'Exam list', path: '/exam_list', icon: <BsCardChecklist /> },
   { name: 'Results', path: '/results', icon: <BsFileEarmarkCheck /> },
   { name: 'My school', path: '/my_school', icon: <MdOutlineSchool /> },
-  { name: 'Profile', path: '/profile', icon: <CgProfile /> },
 ]
 
 const guestRoutes = [
@@ -50,10 +49,10 @@ const Navbar = ({ authenticated, currentUser, logout }) => {
 
           <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li>
-              <a className="justify-between">
+              <Link to="/profile" className="justify-between">
                 Profile
                 <span className="badge">{currentUser.name}</span>
-              </a>
+              </Link>
             </li>
             <li><a>Settings</a></li>
             <li><Link to="/login" onClick={(e) => { logout() }}>Logout</Link></li>
