@@ -70,18 +70,13 @@ const LoginPage = ({ navigate, login, signup }) => {
   return (
     <div className="flex flex-col items-center h-full w-full">
       <div className="min-h-[85vh] mt-10 w-4/5 bg-white relative overflow-hidden rounded-lg">
-        <div
-          className={`bg-white absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out z-20 ${isAnimated ? "translate-x-full opacity-0" : ""
-            }`}
-        >
+        <div className={`bg-white absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out z-20 ${isAnimated ? "translate-x-full opacity-0" : ""}`}>
           <SignInForm onSubmit={logIn} />
         </div>
-
-        <div
-          className={`signup absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out ${isAnimated
-            ? "translate-x-full opacity-100 z-50 animate-show"
-            : "opacity-0 z-10"
-            }`}
+        <div className={`signup absolute top-0 left-0 h-full w-1/2 flex justify-center items-center transition-all duration-700 ease-in-out ${isAnimated
+          ? "translate-x-full opacity-100 z-50 animate-show"
+          : "opacity-0 z-10"
+          }`}
         >
           <div className="flex justify-center items-center">
             <SignupForm onSubmit={onSignUp} />

@@ -1,17 +1,21 @@
-import jwtDecode from "jwt-decode"
+const SERVICE_URL = "http://localhost:3000";
 
 export default class UserSerializer {
   static serialize(user) {
-    return {
-      user: {
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.email,
-        username: user.username,
-        password: user.password,
-        password_confirmation: user.passwordConfirmation,
-      }
+    const result = {
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      password_confirmation: user.passwordConfirmation,
     }
+
+    if (user.profilePic?.startsWith("data:")) {
+      result['profile_pic'] = user.profilePic;
+    }
+
+    return { user: result };
   }
 
   static deserialize(user) {
@@ -25,31 +29,14 @@ export default class UserSerializer {
       name: user.name,
       phoneNumber: user.phone_no,
       username: user.username,
-      profilePic: user.profile_pic,
+    }
+
+    if (user.profile_pic) {
+      result['profilePic'] = !`${user.profile_pic}`?.startsWith(SERVICE_URL)
+        ? `${SERVICE_URL}${user.profile_pic}`
+        : user.profile_pic;
     }
 
     return result;
-  }
-
-  static JWTdeserialize(answer) {
-    if (answer.status?.startWith('2')) return {};
-
-    const { token } = answer.data;
-    localStorage.token = token;
-    const data = token ? JSON.parse(jwtDecode(token)) : answer.data;
-
-    const { attributes: { manager, activated, ...user } } = data.data;
-    return {
-      ...user
-    }
-  }
-
-  static deserializeToken(token) {
-    const data = JSON.parse(jwtDecode(token));
-    const { attributes: { manager, activated, ...user } } = data.data;
-
-    return {
-      ...user
-    }
   }
 }

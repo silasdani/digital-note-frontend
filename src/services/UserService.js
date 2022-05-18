@@ -8,7 +8,7 @@ class UserService extends ApiService {
 
   signup(data) {
     const user = UserSerializer.serialize(data);
-    return super.post("users.json", user, (answer) => {
+    return super.post("/users.json", user, (answer) => {
       return UserSerializer.deserialize(answer.data.user);
     })
   }
@@ -18,7 +18,7 @@ class UserService extends ApiService {
   }
 
   show() {
-    return super.get(`user.json`, (answer) => {
+    return super.get(`/user.json`, (answer) => {
       return UserSerializer.deserialize(answer.user);
     })
   }

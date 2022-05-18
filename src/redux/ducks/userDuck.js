@@ -40,7 +40,7 @@ const allUsersFetched = (data) => ({
   data
 })
 
-const currentUserFetched = (data) => ({
+export const currentUserFetched = (data) => ({
   type: FETCH_CURRENT_USERS,
   data
 })
@@ -74,16 +74,16 @@ export const resetPassword = (credentials) => (dispatch) => {
 
 export const signup = (data) => (dispatch) => {
   return new UserService().signup(data)
-    .then(dispatch(userCreated()))
+    ?.then(dispatch(userCreated()))
     .catch(console.warn)
 }
 
 export const editProfile = (user) => async (dispatch, getState) => {
   const { session } = getState().session;
   try {
-    const data_1 = await new UserService(session).editProfile(user);
-    dispatch(userEdited(data_1));
-    return data_1;
+    const data = await new UserService(session).editProfile(user);
+    dispatch(userEdited(data));
+    return data;
   } catch (message) {
     return console.warn(message);
   }

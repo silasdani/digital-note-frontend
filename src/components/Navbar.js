@@ -22,7 +22,7 @@ const guestRoutes = [
   { name: 'LOGIN', path: '/login' },
 ]
 
-const Navbar = ({ authenticated, currentUser, logout }) => {
+const Navbar = ({ authenticated, teacher, logout }) => {
   const routes = authenticated ? teacherRoutes : guestRoutes;
   // const navigate = useNavigate();
 
@@ -43,15 +43,15 @@ const Navbar = ({ authenticated, currentUser, logout }) => {
         {authenticated && <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src={currentUser?.profilePic || require("../assets/empty_pic.jpeg")} />
+              <img src={teacher.profilePic || require("../assets/empty_pic.jpeg")} />
             </div>
           </label>
 
-          <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-60">
             <li>
               <Link to="/profile" className="justify-between">
                 Profile
-                <span className="badge">{currentUser.name}</span>
+                <span className="badge">{teacher.name}</span>
               </Link>
             </li>
             <li><a>Settings</a></li>
@@ -64,9 +64,10 @@ const Navbar = ({ authenticated, currentUser, logout }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { currentUser, authenticated } = state.session.session;
+  const { authenticated } = state.session.session;
+  const { teacher } = state.user;
   return {
-    currentUser,
+    teacher,
     authenticated,
   }
 }

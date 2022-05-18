@@ -1,5 +1,6 @@
 import UserSerializer from '../../services/Serializers/UserSerializer';
 import SessionService from '../../services/SessionService';
+import { fetch } from './userDuck';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
 export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
@@ -41,6 +42,7 @@ export const login = (credentials) => async (dispatch) => {
       });
 
     dispatch(userLoggedIn(answer));
+    dispatch(fetch())
   } catch ({ response }) {
     return response;
   }
@@ -68,7 +70,10 @@ export const autoLogin = () => (dispatch) => {
   const localStorage = window.localStorage.getItem(STORAGE_KEY);
   const sessionStorage = window.sessionStorage.getItem(STORAGE_KEY);
   const session = localStorage || sessionStorage;
-  if (session) dispatch(reloadSession({ session: JSON.parse(session) }))
+  if (session) {
+    dispatch(reloadSession({ session: JSON.parse(session) }))
+    dispatch(fetch())
+  }
 }
 
 export const DEFAULT_STATE = {
