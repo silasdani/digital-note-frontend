@@ -3,12 +3,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import user from './ducks/userDuck';
 import spinner from './ducks/spinnerDuck';
-import session from "./ducks/sessionDuck"
+import session from "./ducks/sessionDuck";
+import exam from './ducks/examDuck';
+
 
 const rootReducer = combineReducers({
   user,
   spinner,
   session,
+  exam,
 });
 
 var Singleton = (() => {

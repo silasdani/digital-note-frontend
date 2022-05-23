@@ -1,14 +1,14 @@
 export const EXAM_QUESTION_TYPES = [
   {
-    value: 1,
+    value: 0,
     name: 'Questions on paper'
   },
   {
-    value: 2,
+    value: 1,
     name: 'Upload a file'
   },
   {
-    value: 3,
+    value: 2,
     name: 'Create Questions'
   }
 ];

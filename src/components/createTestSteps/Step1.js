@@ -57,4 +57,12 @@ const Step1 = () => {
   )
 }
 
-export default Step1
+const mapStateToProps = (state) => {
+  const { create } = state.exam;
+
+  return {
+    create
+  }
+}
+
+export default connect(mapStateToProps)(Step1)

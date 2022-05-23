@@ -29,12 +29,12 @@ const examsFetched = (data) => ({
   data
 })
 
-const examFieldsChanged = (data) => ({
+export const examFieldsChanged = (data) => ({
   type: CHANGE_EXAM_FIELDS,
   data
 })
 
-export const createExamen = (examParams) => async (dispatch) => {
+export const createExamen = (examParams) => (dispatch) => {
   const exam = ExamSerializer.serialize(examParams);
 
   new ExamService().create(exam)
@@ -43,22 +43,89 @@ export const createExamen = (examParams) => async (dispatch) => {
     })
 }
 
-export const DEFAULT_EXAM_STATE = {
-  name: '',
-  startTime: Date.now(),
-  endTime: Date.now(),
-  file: [],
-  questions: []
+export const updateExamen = (examParams) => (dispatch) => {
+  const exam = ExamSerializer.serialize(examParams);
+
+  new ExamService().editExam(exam)
+    .then((data) => {
+      dispatch(examUpdated(data))
+    })
 }
 
+export const fetchExamen = () => (dispatch) => {
+  const exam = ExamSerializer.serialize(examParams);
+
+  new ExamService().show()
+    .then((data) => {
+      dispatch(examFetched(data))
+    })
+}
+
+export const fetchExams = () => (dispatch) => {
+  const exam = ExamSerializer.serialize(examParams);
+
+  new ExamService().fetchAll()
+    .then((data) => {
+      dispatch(examsFetched(data))
+    })
+}
+
+export const updateExamFields = (data) => (dispatch) => {
+  dispatch(examFieldsChanged(data))
+}
+
+export const DEFAULT_EXAM_STATE = {
+  index: [{
+    name: '',
+    startTime: new Date(),
+    endTime: new Date(),
+    file: [],
+    questions: []
+  }],
+  create: {
+    name: '',
+    startTime: new Date(),
+    endTime: new Date(),
+    file: [],
+    questions: []
+  },
+  show: {
+    name: '',
+    startTime: new Date(),
+    endTime: new Date(),
+    file: [],
+    questions: []
+  }
+}
 
 const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
   switch (action.type) {
     case CREATE_EXAM:
       return {
         ...state,
-        ...action.data
+        show: action.data
       }
+    case UPDATE_EXAM:
+      return {
+        ...state,
+        show: action.data
+      }
+    case FETCH_EXAMS:
+      return {
+        ...state,
+        index: action.data
+      }
+    case FETCH_EXAM:
+      return {
+        ...state,
+        show: action.data
+      }
+    case CHANGE_EXAM_FIELDS:
+      return {
+        ...state,
+        create: action.data
+      }
+    default: return state
   }
 }
 
