@@ -6,7 +6,7 @@ class QuestionSerializer {
       options: question.options,
       option_answer: question.optionAnswer,
       text_answer: question.textAnswer,
-      dual_answer: question.dualAnswer,
+      select_answer: question.selectAnswer,
       question_type: question.questionType,
       tag: question.tag,
       required: question.required,

@@ -46,3 +46,22 @@ export const EXAM_STATUSES = [
     name: 'Completed'
   },
 ]
+
+export const QUESTION_TYPES = [
+  {
+    value: 0,
+    name: 'Short answer'
+  },
+  {
+    value: 1,
+    name: 'Option answer'
+  },
+  {
+    value: 2,
+    name: 'Upload file answer'
+  },
+  {
+    value: 3,
+    name: 'Select answer'
+  },
+]

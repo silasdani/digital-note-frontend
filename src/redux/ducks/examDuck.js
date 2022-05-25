@@ -1,14 +1,16 @@
 import ExamService from "../../services/ExamService";
 import ExamSerializer from "../../services/Serializers/ExamSerializer";
 
-import { DEFAULT_STATE } from '../../helpers/enums'
-
+/// ACTIONS
 const CREATE_EXAM = 'CREATE_EXAM';
 const UPDATE_EXAM = 'UPDATE_EXAM';
 const FETCH_EXAM = 'FETCH_EXAM';
 const FETCH_EXAMS = 'FETCH_EXAMS';
 const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
+const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
+const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
 
+/// DUCKS
 const examCreated = (data) => ({
   type: CREATE_EXAM,
   data
@@ -34,6 +36,16 @@ export const examFieldsChanged = (data) => ({
   data
 })
 
+export const examQuestionFieldsChanged = (data) => ({
+  type: CHANGE_EXAM_QUESTION_FIELDS,
+  data
+})
+
+export const newQuestionAdded = () => ({
+  type: ADD_NEW_QUESTION
+})
+
+/// EPICS
 export const createExamen = (examParams) => (dispatch) => {
   const exam = ExamSerializer.serialize(examParams);
 
@@ -70,8 +82,27 @@ export const fetchExams = () => (dispatch) => {
     })
 }
 
-export const updateExamFields = (data) => (dispatch) => {
-  dispatch(examFieldsChanged(data))
+export const updateExamFields = (field, data) => (dispatch) => {
+  dispatch(examFieldsChanged({ field, data }))
+}
+
+export const updateQuestionFields = (index, field, data) => (dispatch) => {
+  dispatch(examQuestionFieldsChanged({ index, field, data }))
+}
+
+export const addNewQuestion = () => (dispatch) => {
+  dispatch(newQuestionAdded())
+}
+
+/// DEFAULT_STATES
+const DEFAULT_QUESTION_STATE = {
+  no: 0,
+  questionType: 1,
+  textStatement: '',
+  description: '',
+  fileAnswer: null,
+  options: ['option 1', 'serif', 'sans', 'black'],
+  selects: ['question', 'selects', 'true', 'false']
 }
 
 export const DEFAULT_EXAM_STATE = {
@@ -79,25 +110,26 @@ export const DEFAULT_EXAM_STATE = {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
-    file: [],
+    file: null,
     questions: []
   }],
   create: {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
-    file: [],
-    questions: []
+    file: null,
+    questions: [DEFAULT_QUESTION_STATE]
   },
   show: {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
-    file: [],
+    file: null,
     questions: []
   }
 }
 
+/// REDUCER
 const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
   switch (action.type) {
     case CREATE_EXAM:
@@ -123,7 +155,32 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
     case CHANGE_EXAM_FIELDS:
       return {
         ...state,
-        create: action.data
+        create: {
+          ...state.create,
+          [action.data.field]: action.data.data
+        }
+      }
+    case CHANGE_EXAM_QUESTION_FIELDS: {
+      const questions = [...state.create.questions];
+      questions[action.data.index] = {
+        ...questions[action.data.index],
+        [action.data.field]: action.data.data
+      }
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          questions
+        }
+      }
+    }
+    case ADD_NEW_QUESTION:
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          questions: [...state.create.questions, DEFAULT_QUESTION_STATE]
+        }
       }
     default: return state
   }
