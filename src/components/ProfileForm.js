@@ -59,7 +59,7 @@ const ProfileForm = ({ onSubmit, teacher }) => {
     if (stop) setErrors({ ...errors, hasError: true });
     return !stop;
   };
-  console.warn(images)
+
   return (
     <div className="flex flex-row space-x-10">
       <div className="left-col">
