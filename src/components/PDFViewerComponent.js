@@ -22,6 +22,6 @@ export default function PdfViewerComponent(props) {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ width: "100%", height: "100vh" }} />
+    <div ref={containerRef} style={{ width: "75vw", height: "100vh" }} />
   );
 }

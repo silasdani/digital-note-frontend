@@ -1,40 +1,67 @@
 export const EXAM_QUESTION_TYPES = [
   {
-    id: 1,
+    value: 0,
     name: 'Questions on paper'
   },
   {
-    id: 2,
+    value: 1,
     name: 'Upload a file'
   },
   {
-    id: 3,
-    name: 'Digital Questions'
+    value: 2,
+    name: 'Create Questions'
   }
 ];
 
-export const SECURITY_TYPES = [
+export const EXAM_SECURITY_TYPES = [
   {
-    id: 0,
-    name: 'Require high security mode.',
+    value: 0,
+    name: 'Low',
   },
   {
-    id: 1,
-    name: 'Require high security mode.',
+    value: 1,
+    name: 'Moderate',
   },
   {
-    id: 2,
-    name: 'Require high security mode.',
+    value: 2,
+    name: 'High',
   }
 ]
 
-export const DEFAULT_EXAM_STATE = {
-  name: '',
-  type: EXAM_QUESTION_TYPES[0].name,
-  security: SECURITY_TYPES[0].name,
-  startTime: Date.now(),
-  endTime: Date.now(),
-  files: [],
-  anonymous: false,
+export const EXAM_STATUSES = [
+  {
+    value: 0,
+    name: 'Active'
+  },
+  {
+    value: 1,
+    name: 'Draft'
+  },
+  {
+    value: 3,
+    name: 'Archived'
+  },
+  {
+    value: 4,
+    name: 'Completed'
+  },
+]
 
-}
+export const QUESTION_TYPES = [
+  {
+    value: 0,
+    name: 'Short answer'
+  },
+  {
+    value: 1,
+    name: 'Option answer'
+  },
+  {
+    value: 2,
+    name: 'Upload file answer'
+  },
+  {
+    value: 3,
+    name: 'Select answer'
+  },
+]
