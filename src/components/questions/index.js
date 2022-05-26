@@ -7,17 +7,17 @@ import { Divider } from '@material-ui/core';
 const Questions = ({ questions, create, updateExamFields, ...props }) => {
   return (
     <div className="">
-      {questions.map(({ questionType, ...props }, index) => {
+      {questions.map((question, index) => {
         return (
           <div className="question" key={index}>
             <Divider />
-            {<Question {...props} index={index} />}
+            {<Question {...question} index={index} />}
           </div>
         )
       })}
       <button
         className="btn btn-primary"
-        onClick={props.addNewQuestion}
+        onClick={() => props.addNewQuestion({ no: questions.length })}
       >new question</button>
     </div>
   )

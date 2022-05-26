@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Step0, Step1, Step2, Step3 } from './createTestSteps'
 
 const CreateTest = ({ page, setPage }) => {
@@ -7,7 +7,6 @@ const CreateTest = ({ page, setPage }) => {
 
   return (
     <>
-
       {page == 0 && <Step0 />}
       {page == 1 && <Step1 />}
       {page == 2 && <Step2 />}

@@ -7,11 +7,9 @@ import { connect } from 'react-redux';
 import { FaCloudUploadAlt, FaFilePdf } from "react-icons/fa";
 import { updateExamFields } from '../../redux/ducks/examDuck';
 import { Divider } from '@material-ui/core';
-import Questions from '../questions';
 
 const Step0 = ({ create, ...props }) => {
   const [type, setType] = useState(2);
-  const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
   const fileRef = useRef(null);
 
@@ -26,8 +24,6 @@ const Step0 = ({ create, ...props }) => {
 
     reader.readAsDataURL(file);
   }
-
-  console.warn(create)
 
   return (
     <div className="Exam questions">
@@ -101,23 +97,13 @@ const Step0 = ({ create, ...props }) => {
                         onClick={() => { fileRef.current?.click() }}
                       />
                       <p>{fileName}</p>
-                      <button className="badge badge-ghost" onClick={() => { setFile(null) }}>Remove File</button>
+                      <button className="badge badge-ghost" onClick={() => { props.updateExamFields('file', null) }}>Remove File</button>
                     </div>
                   }
                 </div>
               }
             </div>
           </div>
-          {type == 1 &&
-            <div className="">
-              I NEED A FILE
-            </div>
-          }
-          {type == 2 &&
-            <div className="quiz">
-              <Questions />
-            </div>
-          }
         </div>
       </div>
     </div>

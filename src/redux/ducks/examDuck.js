@@ -41,8 +41,9 @@ export const examQuestionFieldsChanged = (data) => ({
   data
 })
 
-export const newQuestionAdded = () => ({
-  type: ADD_NEW_QUESTION
+export const newQuestionAdded = (data) => ({
+  type: ADD_NEW_QUESTION,
+  data
 })
 
 /// EPICS
@@ -90,17 +91,18 @@ export const updateQuestionFields = (index, field, data) => (dispatch) => {
   dispatch(examQuestionFieldsChanged({ index, field, data }))
 }
 
-export const addNewQuestion = () => (dispatch) => {
-  dispatch(newQuestionAdded())
+export const addNewQuestion = (data) => (dispatch) => {
+  dispatch(newQuestionAdded(data))
 }
 
 /// DEFAULT_STATES
 const DEFAULT_QUESTION_STATE = {
   no: 0,
+  required: false,
   questionType: 1,
   textStatement: '',
   description: '',
-  fileAnswer: null,
+  file: null,
   options: ['option 1', 'serif', 'sans', 'black'],
   selects: ['question', 'selects', 'true', 'false']
 }
@@ -179,7 +181,7 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
         ...state,
         create: {
           ...state.create,
-          questions: [...state.create.questions, DEFAULT_QUESTION_STATE]
+          questions: [...state.create.questions, { ...DEFAULT_QUESTION_STATE, ...action.data }]
         }
       }
     default: return state
