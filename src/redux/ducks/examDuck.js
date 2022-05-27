@@ -117,9 +117,11 @@ export const DEFAULT_EXAM_STATE = {
   }],
   create: {
     name: '',
-    startTime: new Date(),
-    endTime: new Date(),
+    startTime: new Date().toISOString().slice(0, -8),
+    endTime: new Date().toISOString().slice(0, -8),
+    security: 0,
     file: null,
+    type: 2,
     questions: [DEFAULT_QUESTION_STATE]
   },
   show: {

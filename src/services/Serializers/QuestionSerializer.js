@@ -4,15 +4,14 @@ class QuestionSerializer {
       no: question.no,
       text_statement: question.textStatement,
       options: question.options,
-      option_answer: question.optionAnswer,
-      text_answer: question.textAnswer,
-      select_answer: question.selectAnswer,
+      selects: question.selects,
       question_type: question.questionType,
       tag: question.tag,
       required: question.required,
       description: question.description,
-      file_answer: question.fileAnswer,
     }
+
+    if (question.file) result['file'] = file;
 
     return result
   }

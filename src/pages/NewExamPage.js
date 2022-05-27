@@ -13,7 +13,6 @@ const NewExamPage = () => {
             <li className={`cursor-pointer step ${page >= 0 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(0)}>Exam Info</li>
             <li className={`cursor-pointer step ${page >= 1 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(1)}>Exam Questions</li>
             <li className={`cursor-pointer step ${page >= 2 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(2)}>Student Workspace</li>
-            <li className={`cursor-pointer step ${page >= 3 ? 'step-primary' : ''} uppercase`} onClick={() => setPage(3)}>Security</li>
           </ul>
         </div>
         <div className="mt-10">

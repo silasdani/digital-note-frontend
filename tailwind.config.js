@@ -3,8 +3,21 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   daisyui: {
     themes: [
-      "bumblebee"
-    ],
+      {
+        digital: {
+          ...require("daisyui/src/colors/themes")["[data-theme=bumblebee]"],
+          primary: "#c8ad7f",
+          secondary: "#78716c",
+          accent: "#002366",
+          neutral: "#1f2937",
+          "base-100": "#f5f5f4",
+          info: "#06b6d4",
+          success: "#22c55e",
+          warning: "#facc15",
+          error: "#dc2626",
+        }
+      }
+    ]
   },
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: true, // or 'media' or 'class'
