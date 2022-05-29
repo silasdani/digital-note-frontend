@@ -103,8 +103,8 @@ const DEFAULT_QUESTION_STATE = {
   textStatement: '',
   description: '',
   file: null,
-  options: ['option 1', 'serif', 'sans', 'black'],
-  selects: ['question', 'selects', 'true', 'false']
+  options: ['option 1', 'serif'],
+  selects: ['question', 'selects']
 }
 
 export const DEFAULT_EXAM_STATE = {

@@ -106,33 +106,18 @@ const Step0 = ({ create, ...props }) => {
           <Divider />
           <div className="form-control-group flex space-x-10">
             <label className="label label-text">Security Level:</label>
-            <label className="label cursor-pointer space-x-2">
-              <span className="label-text">Low</span>
-              <input
-                type="radio"
-                name="radio-6"
-                className="radio checked:bg-red-500"
-                checked={create.security == 0}
-                onClick={() => props.updateExamFields('security', 0)} />
-            </label>
-            <label className="label cursor-pointer space-x-2">
-              <span className="label-text">Moderate</span>
-              <input
-                type="radio"
-                name="radio-6"
-                className="radio checked:bg-yellow-500"
-                checked={create.security == 1}
-                onClick={() => props.updateExamFields('security', 1)} />
-            </label>
-            <label className="label cursor-pointer space-x-2">
-              <span className="label-text">High</span>
-              <input
-                type="radio"
-                name="radio-6"
-                className="radio checked:bg-green-500"
-                checked={create.security == 2}
-                onClick={() => props.updateExamFields('security', 2)} />
-            </label>
+            {EXAM_SECURITY_TYPES.map(security => {
+              return (
+                <label className="label cursor-pointer space-x-2">
+                  <span className="label-text">{security.name}</span>
+                  <input
+                    type="radio"
+                    className="radio checked:bg-accent"
+                    checked={create.security == security.value}
+                    onClick={() => props.updateExamFields('security', security.value)} />
+                </label>
+              )
+            })}
           </div>
         </div>
       </div>
