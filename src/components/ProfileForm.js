@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageUploading from 'react-images-uploading';
 import Validator from "validator";
 import { pick, isEmpty } from 'lodash';
+import { ALERT_TYPES } from "../helpers/enums";
 
 const DEFAULT_ERRORS_STATE = {
   firstName: '',
@@ -12,10 +13,9 @@ const DEFAULT_ERRORS_STATE = {
   message: '',
 }
 
-const ProfileForm = ({ onSubmit, teacher }) => {
+const ProfileForm = ({ onSubmit, teacher, ...props }) => {
   const [images, setImages] = React.useState([]);
   const [errors, setErrors] = useState(DEFAULT_ERRORS_STATE);
-  const [notice, setNotice] = useState('');
   const [user, updateUser] = useState(pick(teacher, [
     'firstName',
     'lastName',
@@ -59,7 +59,7 @@ const ProfileForm = ({ onSubmit, teacher }) => {
     if (stop) setErrors({ ...errors, hasError: true });
     return !stop;
   };
-  console.warn(images)
+
   return (
     <div className="flex flex-row space-x-10">
       <div className="left-col">
@@ -160,25 +160,28 @@ const ProfileForm = ({ onSubmit, teacher }) => {
           </div>
         }
 
-        {notice &&
-          <div className="alert alert-success shadow-lg">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              <span>{notice}</span>
-            </div>
-          </div>
-        }
         <div className="mt-10 relative">
           <input
             type="button"
-            onBlur={() => { setNotice(''); setErrors(DEFAULT_ERRORS_STATE); }}
             onClick={() => {
               if (validate(user)) {
+                setErrors(DEFAULT_ERRORS_STATE);
                 onSubmit(user).then((data) => {
-                  isEmpty(data) ? setErrors({
-                    ...errors,
-                    message: "Could not update profile!"
-                  }) : setNotice("Successfully updated profile")
+                  if (isEmpty(data)) {
+                    setErrors({
+                      ...errors,
+                      message: "Could not update profile!"
+                    })
+                    props.showAlert({
+                      type: ALERT_TYPES.error,
+                      message: "Could not update profile!"
+                    })
+                  } else {
+                    props.showAlert({
+                      type: ALERT_TYPES.success,
+                      message: "Successfully updated profile!"
+                    })
+                  }
                 })
               }
             }}

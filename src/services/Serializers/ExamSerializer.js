@@ -1,17 +1,16 @@
 import QuestionSerializer from './QuestionSerializer'
 
 class ExamSerializer {
-  static serialize(exam) {
+  static serialize(data) {
     const result = {
-      name: exam.name,
-      options: exam.options,
-      option_answer: exam.optionAnswer,
-      active: exam.active,
-      start_time: exam.start_time,
-      end_time: exam.end_time,
-      security: exam.security,
-      status: exam.status,
-      questions: QuestionSerializer.serializeIndex(exam.questions)
+      exam: {
+        name: data.name,
+        file: data.file,
+        start_time: data.startTime,
+        end_time: data.endTime,
+        security: data.security,
+      },
+      questions: QuestionSerializer.serializeIndex(data.questions)
     }
 
     return result;

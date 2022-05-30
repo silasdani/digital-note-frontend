@@ -47,37 +47,47 @@ export const newQuestionAdded = (data) => ({
 })
 
 /// EPICS
-export const createExamen = (examParams) => (dispatch) => {
-  const exam = ExamSerializer.serialize(examParams);
+export const createExamen = (examParams) => (dispatch, getState) => {
+  const { session } = getState().session;
 
-  new ExamService().create(exam)
+  new ExamService(session).create(examParams)
     .then((data) => {
       dispatch(examCreated(data))
     })
 }
 
-export const updateExamen = (examParams) => (dispatch) => {
+export const updateExamen = (examParams) => (dispatch, getState) => {
   const exam = ExamSerializer.serialize(examParams);
+  const { session } = getState().session;
 
-  new ExamService().editExam(exam)
+  new ExamService(session).editExam(exam)
     .then((data) => {
       dispatch(examUpdated(data))
     })
 }
 
-export const fetchExamen = () => (dispatch) => {
-  const exam = ExamSerializer.serialize(examParams);
+export const fetchExamen = () => (dispatch, getState) => {
+  const { session } = getState().session;
 
-  new ExamService().show()
+  new ExamService(session).show()
     .then((data) => {
       dispatch(examFetched(data))
     })
 }
 
-export const fetchExams = () => (dispatch) => {
-  const exam = ExamSerializer.serialize(examParams);
+export const fetchExams = () => (dispatch, getState) => {
+  const { session } = getState().session;
 
-  new ExamService().fetchAll()
+  new ExamService(session).fetchAll({ active: 1, draft: 0 })
+    .then((data) => {
+      dispatch(examsFetched(data))
+    })
+}
+
+export const fetchDraftExams = () => (dispatch, getState) => {
+  const { session } = getState().session;
+
+  new ExamService(session).fetchAll({ active: 0, draft: 1 })
     .then((data) => {
       dispatch(examsFetched(data))
     })

@@ -21,7 +21,7 @@ const Question = ({ questionType, textStatement, options, no, required, descript
   }
 
   return (
-    <div className="py-5">
+    <div key={index} className="py-5">
       <div className="flex flex-col-reverse lg:flex-row lg:space-x-5 lg:justify-between">
         <textarea
           className="textarea textarea-accent w-full lg:w-[62%] mt-5 lg:mt-0"
@@ -47,7 +47,7 @@ const Question = ({ questionType, textStatement, options, no, required, descript
                 type="checkbox"
                 className="toggle toggle-primary"
                 checked={required}
-                onClick={() => props.updateQuestionFields(index, 'required', !required)}
+                onChange={() => props.updateQuestionFields(index, 'required', !required)}
               />
             </div>
             <button
@@ -92,8 +92,8 @@ const Question = ({ questionType, textStatement, options, no, required, descript
         }
         {questionType == 1 && <div className="flex flex-col lg:flex-row lg:space-x-6">
           {options.map((option, optionIndex) => (
-            <div className="flex flex-row items-center space-x-4 my-2 lg:ml-2">
-              <input type='radio' className="radio radio-accent" checked />
+            <div key={optionIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2">
+              <input type='radio' className="radio radio-accent" checked onChange={() => { }} />
               <div className="indicator">
                 <span className="indicator-item badge px-0 badge-secondary">
                   <button onClick={() => props.updateQuestionFields(index, 'options', options.filter((_, i) => i != optionIndex))}>
@@ -128,7 +128,7 @@ const Question = ({ questionType, textStatement, options, no, required, descript
         }
         {questionType == 3 && <div className="flex flex-col lg:flex-row lg:space-x-6">
           {selects.map((select, selectIndex) => (
-            <div className="flex flex-row items-center space-x-4 my-2 lg:ml-2">
+            <div key={selectIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2">
               <input type='checkbox' className="checkbox checkbox-accent" />
               <div className="indicator">
                 <span className="indicator-item badge px-0 badge-secondary">

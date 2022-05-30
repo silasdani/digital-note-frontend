@@ -106,15 +106,15 @@ const Step0 = ({ create, ...props }) => {
           <Divider />
           <div className="form-control-group flex space-x-10">
             <label className="label label-text">Security Level:</label>
-            {EXAM_SECURITY_TYPES.map(security => {
+            {EXAM_SECURITY_TYPES.map((security, index) => {
               return (
-                <label className="label cursor-pointer space-x-2">
+                <label key={index} className="label cursor-pointer space-x-2">
                   <span className="label-text">{security.name}</span>
                   <input
                     type="radio"
                     className="radio checked:bg-accent"
                     checked={create.security == security.value}
-                    onClick={() => props.updateExamFields('security', security.value)} />
+                    onChange={() => props.updateExamFields('security', security.value)} />
                 </label>
               )
             })}

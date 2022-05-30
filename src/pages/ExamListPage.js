@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchExams } from '../redux/ducks/examDuck'
+const ExamListPage = ({ ...props }) => {
 
-const ExamListPage = () => {
-  const [checked, setCheck] = useState(true)
+  useEffect(() => {
+    props.fetchExams();
+  }, [])
 
   return (
     <div className="flex flex-col items-center h-full w-full">
@@ -80,4 +84,12 @@ const ExamListPage = () => {
   )
 }
 
-export default ExamListPage
+const mapStateToProps = (state) => {
+  const { index: exams } = state.exam;
+
+  return {
+    exams
+  }
+}
+
+export default connect(mapStateToProps, { fetchExams })(ExamListPage)

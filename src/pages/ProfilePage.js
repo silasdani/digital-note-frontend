@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { editProfile, fetch } from '../redux/ducks/userDuck';
+import { showAlert } from '../redux/ducks/alertDuck';
 import ProfileForm from '../components/ProfileForm'
 import React, { useEffect } from "react";
 
@@ -14,7 +15,7 @@ const ProfilePage = ({ currentUser, teacher, ...props }) => {
   return (
     <div className="flex flex-col items-center h-full w-full">
       <div className="absolute bg-white w-4/5 mt-20 rounded-lg p-10 shadow-xl">
-        <ProfileForm onSubmit={updateUser} teacher={teacher} />
+        <ProfileForm onSubmit={updateUser} teacher={teacher} showAlert={props.showAlert} />
       </div>
     </div>
   )
@@ -29,4 +30,4 @@ const mapStateToProps = (state) => {
     teacher,
   }
 }
-export default connect(mapStateToProps, { editProfile, fetch })(ProfilePage)
+export default connect(mapStateToProps, { editProfile, fetch, showAlert })(ProfilePage)
