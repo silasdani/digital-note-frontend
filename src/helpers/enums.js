@@ -1,11 +1,3 @@
-export const ALERT_TYPES = {
-  "info": 0,
-  "warning": 1,
-  "error": 2,
-  "success": 3,
-  "buttons": 4,
-}
-
 export const EXAM_QUESTION_TYPES = [
   {
     value: 0,

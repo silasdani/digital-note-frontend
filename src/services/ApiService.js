@@ -12,7 +12,7 @@ class ApiService {
   async get(url, mapFunc, config = DEFAULT_CONFIG) {
     const response = await axios
       .get(url, this.setConfig(config));
-    return mapFunc(response.data);
+    return mapFunc(response);
   }
 
   async download(url, mapFunc) {
@@ -21,13 +21,13 @@ class ApiService {
       responseType: 'blob',
     }
     const response = await axios.get(url, config);
-    return mapFunc(response.data);
+    return mapFunc(response);
   }
 
   async put(url, body, mapFunc) {
     const response = await axios
       .put(url, body, this.setConfig());
-    return mapFunc(response.data);
+    return mapFunc(response);
   }
 
   async post(url, body, mapFunc) {

@@ -1,14 +1,15 @@
 import ExamService from "../../services/ExamService";
 import ExamSerializer from "../../services/Serializers/ExamSerializer";
+import { errorHandler } from '../helpers';
 
 /// ACTIONS
-const CREATE_EXAM = 'CREATE_EXAM';
-const UPDATE_EXAM = 'UPDATE_EXAM';
-const FETCH_EXAM = 'FETCH_EXAM';
-const FETCH_EXAMS = 'FETCH_EXAMS';
-const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
-const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
-const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
+export const CREATE_EXAM = 'CREATE_EXAM';
+export const UPDATE_EXAM = 'UPDATE_EXAM';
+export const FETCH_EXAM = 'FETCH_EXAM';
+export const FETCH_EXAMS = 'FETCH_EXAMS';
+export const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
+export const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
+export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
 
 /// DUCKS
 const examCreated = (data) => ({
@@ -53,7 +54,9 @@ export const createExamen = (examParams) => (dispatch, getState) => {
   new ExamService(session).create(examParams)
     .then((data) => {
       dispatch(examCreated(data))
+      dispatch(successHandler({ type: CREATE_EXAM }))
     })
+    .catch(response => dispatch(error(response)))
 }
 
 export const updateExamen = (examParams) => (dispatch, getState) => {
@@ -63,7 +66,9 @@ export const updateExamen = (examParams) => (dispatch, getState) => {
   new ExamService(session).editExam(exam)
     .then((data) => {
       dispatch(examUpdated(data))
+      dispatch(successHandler({ type: UPDATE_EXAM }))
     })
+    .catch(response => dispatch(error(response)))
 }
 
 export const fetchExamen = () => (dispatch, getState) => {
@@ -73,6 +78,7 @@ export const fetchExamen = () => (dispatch, getState) => {
     .then((data) => {
       dispatch(examFetched(data))
     })
+    .catch(response => dispatch(error(response)))
 }
 
 export const fetchExams = () => (dispatch, getState) => {
@@ -81,7 +87,9 @@ export const fetchExams = () => (dispatch, getState) => {
   new ExamService(session).fetchAll({ active: 1, draft: 0 })
     .then((data) => {
       dispatch(examsFetched(data))
+      dispatch(successHandler({ type: FETCH_EXAMS }))
     })
+    .catch(response => dispatch(error(response)))
 }
 
 export const fetchDraftExams = () => (dispatch, getState) => {
@@ -91,6 +99,7 @@ export const fetchDraftExams = () => (dispatch, getState) => {
     .then((data) => {
       dispatch(examsFetched(data))
     })
+    .catch(response => dispatch(error(response)))
 }
 
 export const updateExamFields = (field, data) => (dispatch) => {

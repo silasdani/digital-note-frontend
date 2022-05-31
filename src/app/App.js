@@ -56,7 +56,7 @@ const App = ({ autoLogin }) => {
                 path="/profile"
                 component={ProfilePage}
               />
-              <TeacherRoute
+              <GuestRoute
                 path="/"
                 component={HomePage}
               />

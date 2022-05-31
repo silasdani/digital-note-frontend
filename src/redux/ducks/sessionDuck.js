@@ -1,5 +1,5 @@
-import UserSerializer from '../../services/Serializers/UserSerializer';
 import SessionService from '../../services/SessionService';
+import { errorHandler, successHandler } from '../helpers';
 import { fetch } from './userDuck';
 
 export const USER_LOGGED_IN = "USER_LOGGED_IN";
@@ -43,8 +43,9 @@ export const login = (credentials) => async (dispatch) => {
 
     dispatch(userLoggedIn(answer));
     dispatch(fetch())
-  } catch ({ response }) {
-    return response;
+    dispatch(successHandler({ type: USER_LOGGED_IN }))
+  } catch (response) {
+    dispatch(errorHandler(response));
   }
 }
 
@@ -61,8 +62,9 @@ export const logout = () => async (dispatch, getState) => {
     }
 
     dispatch(userLoggedOut());
-  } catch ({ response }) {
-    return response;
+    dispatch(successHandler({ type: USER_LOGGED_OUT }))
+  } catch (response) {
+    dispatch(errorHandler(response));
   }
 }
 
@@ -72,6 +74,7 @@ export const autoLogin = () => (dispatch) => {
   const session = localStorage || sessionStorage;
   if (session) {
     dispatch(reloadSession({ session: JSON.parse(session) }))
+    dispatch(successHandler({ type: RELOAD_SESSION }))
     dispatch(fetch())
   }
 }

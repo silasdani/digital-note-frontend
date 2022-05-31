@@ -1,4 +1,5 @@
 import QuestionSerializer from './QuestionSerializer'
+import { omit } from "lodash";
 
 class ExamSerializer {
   static serialize(data) {

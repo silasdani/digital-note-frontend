@@ -2,19 +2,6 @@ import ImageUploading from 'react-images-uploading';
 import React, { useState } from "react";
 import Validator from "validator";
 
-const getMessage = (status, data) => {
-  switch (status) {
-    case 403: return "You need to sign up in as teacher!"
-    case 401: try {
-      return data.errors[0]
-    } catch (e) {
-      return data.error;
-    }
-    case 404: return "Not found!";
-    case 500: return "Something went wrong";
-  }
-}
-
 const DEFAULT_ERRORS_STATE = {
   firstName: '',
   lastName: '',
@@ -27,7 +14,6 @@ const DEFAULT_ERRORS_STATE = {
   passwordError: false,
   passwordConfirmationError: false,
   hasError: false,
-  message: '',
 }
 
 const SignupForm = ({ onSubmit }) => {
@@ -104,6 +90,12 @@ const SignupForm = ({ onSubmit }) => {
     if (stop) setErrors({ ...errors, hasError: true });
     return !stop;
   };
+
+  const handleClick = () => {
+    if (!validate(user)) return;
+
+    onSubmit(user)
+  }
 
   return (
     <div className="selection:bg-blue-500 selection:text-white">
@@ -253,28 +245,9 @@ const SignupForm = ({ onSubmit }) => {
                     Password Confirmation
                   </label>
                 </div>
-
-                {errors.message &&
-                  <div className="alert alert-warning shadow-lg">
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                      <span>{errors.message}</span>
-                    </div>
-                  </div>
-                }
-
                 <input
                   type="button"
-                  onClick={() => {
-                    if (validate(user)) {
-                      onSubmit(user).then(({ data, status }) => {
-                        setErrors({
-                          ...errors,
-                          message: getMessage(status, data)
-                        })
-                      })
-                    }
-                  }}
+                  onClick={handleClick}
                   value="Sign up"
                   className="mt-10 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
                 />

@@ -1,7 +1,15 @@
 const SHOW_ALERT = 'SHOW_ALERT';
 const HIDE_ALERT = 'HIDE_ALERT';
 
-const alertShown = (data) => ({
+export const ALERT_TYPES = {
+  "info": 0,
+  "warning": 1,
+  "error": 2,
+  "success": 3,
+  "buttons": 4,
+}
+
+export const alertShown = (data) => ({
   type: SHOW_ALERT,
   data
 })
