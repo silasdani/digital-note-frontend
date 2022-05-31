@@ -1,6 +1,6 @@
 import ExamService from "../../services/ExamService";
 import ExamSerializer from "../../services/Serializers/ExamSerializer";
-import { errorHandler } from '../helpers';
+import { errorHandler, successHandler } from '../helpers';
 
 /// ACTIONS
 export const CREATE_EXAM = 'CREATE_EXAM';
@@ -56,7 +56,7 @@ export const createExamen = (examParams) => (dispatch, getState) => {
       dispatch(examCreated(data))
       dispatch(successHandler({ type: CREATE_EXAM }))
     })
-    .catch(response => dispatch(error(response)))
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 export const updateExamen = (examParams) => (dispatch, getState) => {
@@ -68,7 +68,7 @@ export const updateExamen = (examParams) => (dispatch, getState) => {
       dispatch(examUpdated(data))
       dispatch(successHandler({ type: UPDATE_EXAM }))
     })
-    .catch(response => dispatch(error(response)))
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 export const fetchExamen = () => (dispatch, getState) => {
@@ -78,7 +78,7 @@ export const fetchExamen = () => (dispatch, getState) => {
     .then((data) => {
       dispatch(examFetched(data))
     })
-    .catch(response => dispatch(error(response)))
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 export const fetchExams = () => (dispatch, getState) => {
@@ -89,7 +89,7 @@ export const fetchExams = () => (dispatch, getState) => {
       dispatch(examsFetched(data))
       dispatch(successHandler({ type: FETCH_EXAMS }))
     })
-    .catch(response => dispatch(error(response)))
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 export const fetchDraftExams = () => (dispatch, getState) => {
@@ -99,7 +99,7 @@ export const fetchDraftExams = () => (dispatch, getState) => {
     .then((data) => {
       dispatch(examsFetched(data))
     })
-    .catch(response => dispatch(error(response)))
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 export const updateExamFields = (field, data) => (dispatch) => {

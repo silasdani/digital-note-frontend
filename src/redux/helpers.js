@@ -3,14 +3,20 @@ import * as userActions from './ducks/userDuck';
 import * as examActions from './ducks/examDuck';
 import * as sessionActions from './ducks/sessionDuck';
 
-export const errorHandler = ({ status, message }) => {
+export const errorHandler = (response) => {
+  const { status, message, data: { error }, statusText } = response;
+
   switch (status) {
     case 404:
     case 500:
       return alertShown({ type: ALERT_TYPES.error, message })
     case 401: case 403: case 422:
-      return alertShown({ type: ALERT_TYPES.warning, message })
-    default: return alertShown({ type: ALERT_TYPES.error, message: 'Something went wrong' })
+      return alertShown({ type: ALERT_TYPES.warning, message: error || message || statusText, delay: 10000 })
+    default: return alertShown({
+      type: ALERT_TYPES.error,
+      message: error || 'Something went wrong',
+      delay: 5000
+    })
   }
 }
 
@@ -29,7 +35,8 @@ export const successHandler = (action) => {
       return alertShown({ type: ALERT_TYPES.info, message: "Exam created successfully" })
     case examActions.UPDATE_EXAM:
       return alertShown({ type: ALERT_TYPES.info, message: "Exam updated successfully" })
-
+    case examActions.FETCH_EXAMS:
+      return alertShown({ type: ALERT_TYPES.success, message: "Exams were fetched. " })
 
     // session actions
     case sessionActions.USER_LOGGED_IN:

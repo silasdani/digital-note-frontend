@@ -104,7 +104,7 @@ const Step0 = ({ create, ...props }) => {
             </div>
           </div>
           <Divider />
-          <div className="form-control-group flex space-x-10">
+          <div className="flex justify-center space-x-10">
             <label className="label label-text">Security Level:</label>
             {EXAM_SECURITY_TYPES.map((security, index) => {
               return (
