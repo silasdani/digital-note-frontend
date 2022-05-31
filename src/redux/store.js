@@ -5,6 +5,7 @@ import user from './ducks/userDuck';
 import spinner from './ducks/spinnerDuck';
 import session from "./ducks/sessionDuck";
 import exam from './ducks/examDuck';
+import alert from './ducks/alertDuck';
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   spinner,
   session,
   exam,
+  alert,
 });
 
 var Singleton = (() => {

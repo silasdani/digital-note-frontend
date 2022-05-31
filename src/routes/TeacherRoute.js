@@ -5,20 +5,21 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Navigate, Routes, useNavigate } from "react-router-dom";
 
-const TeacherRoute = ({ authenticated, component: Component, ...rest }) => {
+const TeacherRoute = ({ authenticated, component: Component, ...props }) => {
   const navigate = useNavigate();
+
+  const logic = () => {
+    if (authenticated) return <Component navigate={navigate} />
+
+    return <Navigate to="/home" />
+  }
+
   return (
     <Routes>
       <Route
-        {...rest}
+        {...props}
         key={Math.random()}
-        element={
-          authenticated
-            ?
-            <Component navigate={navigate} />
-            :
-            <Navigate to={authenticated ? "/dashboard" : "/home"} />
-        }
+        element={logic()}
       />
     </Routes>
   )

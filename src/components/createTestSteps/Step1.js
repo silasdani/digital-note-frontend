@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   EXAM_QUESTION_TYPES,
   EXAM_SECURITY_TYPES,
@@ -11,16 +11,19 @@ const Step1 = ({ create, ...props }) => {
     <div className="Student Information">
       <div className="mockup-window bg-primary shadow-md">
         <div className="flex-col px-10 border-t border-base-300 bg-white min-h-[50vh] p-6 space-y-4">
-          {/* {create.type == 1 &&
+          {create.type < 2 &&
             <div className="">
-              I NEED A FILE
+              <div className="h2">
+                No digital questions for this type of exam.
+                Questions should be found on the pdf file
+              </div>
             </div>
           }
-          {create.type == 2 && */}
-          <div className="quiz">
-            <Questions />
-          </div>
-          {/* } */}
+          {create.type == 2 &&
+            <div className="quiz">
+              <Questions />
+            </div>
+          }
         </div>
       </div>
     </div>

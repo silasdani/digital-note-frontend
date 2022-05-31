@@ -13,12 +13,13 @@ import DashboardPage from "../pages/DashboardPage";
 import GuestRoute from "../routes/GuestRoute";
 import TeacherRoute from "../routes/TeacherRoute";
 import { autoLogin } from "../redux/ducks/sessionDuck"
-
+import Alert from "../components/Alert";
 
 const App = ({ autoLogin }) => {
   useEffect(() => { autoLogin(); console.warn('initializing') }, [])
 
   return (<BrowserRouter>
+    <Alert />
     <Navbar />
     <div className="absolute w-screen h-96 lg:h-64 bg-accent"></div>
     <div style={{ minHeight: '91.5vh' }}>
@@ -55,7 +56,7 @@ const App = ({ autoLogin }) => {
                 path="/profile"
                 component={ProfilePage}
               />
-              <TeacherRoute
+              <GuestRoute
                 path="/"
                 component={HomePage}
               />

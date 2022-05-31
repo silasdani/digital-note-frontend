@@ -9,7 +9,6 @@ import { updateExamFields } from '../../redux/ducks/examDuck';
 import { Divider } from '@material-ui/core';
 
 const Step0 = ({ create, ...props }) => {
-  const [type, setType] = useState(2);
   const [fileName, setFileName] = useState('');
   const fileRef = useRef(null);
 
@@ -38,44 +37,44 @@ const Step0 = ({ create, ...props }) => {
               value={create.name}
             />
             <div className="dropdown">
-              <select
+              {create.type && <select
                 className="select select-accent min-w-[25vw] max-w-xs"
-                value={type}
-                onChange={(ev) => setType(ev.target.value)}
+                value={create.type}
+                onChange={(ev) => props.updateExamFields('type', ev.target.value)}
               >
                 <option disabled></option>
                 {EXAM_QUESTION_TYPES.map(({ name, value }, index) =>
                   (<option key={index} value={value}>{name}</option>))
                 }
-              </select>
+              </select>}
             </div>
           </div>
           <Divider />
           <div className="exam-data-container flex flex-row justify-center w-full">
             <div className="flex flex-col space-y-4 w-1/2 items-end mr-10">
               <div className="form-control-group flex flex-col">
-                <label htmlFor="startTime">Start Time</label>
+                <label htmlFor="startTime" className="label label-text">Start Time</label>
                 <input
                   type='datetime-local'
                   placeholder="Start Time"
-                  class=" input input-bordered input-error min-w-[25vw] max-w-xs"
+                  className=" input input-bordered input-error min-w-[25vw] max-w-xs"
                   onChange={(e) => props.updateExamFields('startTime', e.target.value)}
                   value={create.startTime}
                 />
               </div>
               <div className="form-control-group flex flex-col">
-                <label htmlFor="endTime">End Time</label>
+                <label htmlFor="endTime" className="label label-text">End Time</label>
                 <input
                   type='datetime-local'
                   placeholder="End Time"
-                  class="input input-bordered input-error min-w-[25vw] max-w-xs"
+                  className="input input-bordered input-error min-w-[25vw] max-w-xs"
                   onChange={(e) => props.updateExamFields('endTime', e.target.value)}
                   value={create.endTime}
                 />
               </div>
             </div>
             <div className="flex items-center w-1/2">
-              {type == 0 &&
+              {create.type < 2 &&
                 <div className="justify-center">
                   {!create.file &&
                     <div className="">
@@ -103,6 +102,22 @@ const Step0 = ({ create, ...props }) => {
                 </div>
               }
             </div>
+          </div>
+          <Divider />
+          <div className="form-control-group flex space-x-10">
+            <label className="label label-text">Security Level:</label>
+            {EXAM_SECURITY_TYPES.map((security, index) => {
+              return (
+                <label key={index} className="label cursor-pointer space-x-2">
+                  <span className="label-text">{security.name}</span>
+                  <input
+                    type="radio"
+                    className="radio checked:bg-accent"
+                    checked={create.security == security.value}
+                    onChange={() => props.updateExamFields('security', security.value)} />
+                </label>
+              )
+            })}
           </div>
         </div>
       </div>

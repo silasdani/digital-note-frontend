@@ -1,26 +1,12 @@
 import { useState } from "react";
 import Validator from "validator";
 
-const getMessage = (status, data) => {
-  switch (status) {
-    case 403: return "You need to log in as teacher!"
-    case 401: try {
-      return data.errors[0]
-    } catch (e) {
-      return data.error;
-    }
-    case 404: return "Invalid email or password";
-    case 500: return "Something went wrong";
-  }
-}
-
 const DEFAULT_ERRORS_STATE = {
   email: '',
   password: '',
   emailError: false,
   passwordError: false,
   hasError: false,
-  message: '',
 }
 
 const SignInForm = ({ onSubmit }) => {
@@ -57,6 +43,13 @@ const SignInForm = ({ onSubmit }) => {
     }
     return stop;
   };
+
+  const handleClick = () => {
+    setErrors(DEFAULT_ERRORS_STATE);
+    if (!validate(user)) return;
+
+    onSubmit(user)
+  }
 
   return (
     <div className="selection:bg-blue-500 selection:text-white">
@@ -102,33 +95,12 @@ const SignInForm = ({ onSubmit }) => {
                     Password
                   </label>
                 </div>
-
                 <label className="label cursor-pointer">
                   <span className="label-text">Remember me</span>
                   <input onChange={onRememberMe} id="rememberMe" name="rememberMe" type="checkbox" checked={user.rememberMe} className="checkbox" />
                 </label>
-
-                {errors.message &&
-                  <div className="alert alert-warning shadow-lg">
-                    <div>
-                      <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                      <span>{errors.message}</span>
-                    </div>
-                  </div>
-                }
-
                 <input
-                  onClick={() => {
-                    setErrors(DEFAULT_ERRORS_STATE);
-                    if (validate(user)) {
-                      onSubmit(user).then(({ data, status }) => {
-                        setErrors({
-                          ...errors,
-                          message: getMessage(status, data)
-                        })
-                      })
-                    }
-                  }}
+                  onClick={handleClick}
                   type="button"
                   value="Sign in"
                   className="mt-20 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
