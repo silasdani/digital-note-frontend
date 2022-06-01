@@ -98,12 +98,12 @@ const SignupForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="selection:bg-blue-500 selection:text-white">
+    <div className="selection:bg-primary selection:text-white">
       <div className="flex justify-center items-center">
         <div className="p-8 flex">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-blue-600">
+              <h1 className="text-5xl font-bold text-secondary">
                 Create account
               </h1>
               <div className="mt-4">
@@ -249,7 +249,7 @@ const SignupForm = ({ onSubmit }) => {
                   type="button"
                   onClick={handleClick}
                   value="Sign up"
-                  className="mt-10 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
+                  className="mt-10 px-8 py-4 uppercase rounded-full bg-primary hover:bg-primary text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
                 />
               </div>
             </div>

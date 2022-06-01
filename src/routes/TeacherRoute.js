@@ -11,7 +11,7 @@ const TeacherRoute = ({ authenticated, component: Component, ...props }) => {
   const logic = () => {
     if (authenticated) return <Component navigate={navigate} />
 
-    return <Navigate to="/home" />
+    return <Navigate to="/" />
   }
 
   return (

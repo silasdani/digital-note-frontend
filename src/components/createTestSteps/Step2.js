@@ -1,8 +1,4 @@
 import React from 'react'
-import {
-  EXAM_QUESTION_TYPES,
-  EXAM_SECURITY_TYPES,
-} from '../../helpers/enums';
 import { connect } from 'react-redux';
 
 const Step2 = () => {

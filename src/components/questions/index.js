@@ -1,17 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addNewQuestion, updateExamFields } from '../../redux/ducks/examDuck';
 import Question from './Question';
 import { Divider } from '@material-ui/core';
 
-const Questions = ({ questions, create, updateExamFields, ...props }) => {
+const Questions = ({ questions, create, updateQuestionFields, ...props }) => {
   return (
     <div className="">
       {questions.map((question, index) => {
         return (
           <div className="question" key={index}>
             <Divider />
-            {<Question {...question} index={index} />}
+            {<Question {...question} index={index} updateQuestionFields={updateQuestionFields} />}
           </div>
         )
       })}
@@ -37,4 +36,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { updateExamFields, addNewQuestion })(Questions)
+export default connect(mapStateToProps)(Questions)

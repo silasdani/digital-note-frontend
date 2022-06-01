@@ -57,7 +57,7 @@ export const fetch = () => async (dispatch, getState) => {
     const data = await new UserService(session).show();
 
     dispatch(currentUserFetched(data));
-    dispatch(successHandler({ type: FETCH_CURRENT_USER }))
+    // dispatch(successHandler({ type: FETCH_CURRENT_USER }))
   } catch (response) {
     dispatch(errorHandler(response))
   }

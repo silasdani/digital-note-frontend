@@ -5,7 +5,6 @@ import {
 } from '../../helpers/enums';
 import { connect } from 'react-redux';
 import { FaCloudUploadAlt, FaFilePdf } from "react-icons/fa";
-import { updateExamFields } from '../../redux/ducks/examDuck';
 import { Divider } from '@material-ui/core';
 
 const Step0 = ({ create, ...props }) => {
@@ -104,7 +103,7 @@ const Step0 = ({ create, ...props }) => {
             </div>
           </div>
           <Divider />
-          <div className="form-control-group flex space-x-10">
+          <div className="flex justify-center space-x-10">
             <label className="label label-text">Security Level:</label>
             {EXAM_SECURITY_TYPES.map((security, index) => {
               return (
@@ -133,4 +132,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { updateExamFields })(Step0)
+export default connect(mapStateToProps)(Step0)

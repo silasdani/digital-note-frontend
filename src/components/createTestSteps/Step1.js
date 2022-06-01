@@ -1,8 +1,4 @@
-import React, { useState } from 'react'
-import {
-  EXAM_QUESTION_TYPES,
-  EXAM_SECURITY_TYPES,
-} from '../../helpers/enums';
+import React from 'react'
 import { connect } from 'react-redux';
 import Questions from '../questions';
 
@@ -21,7 +17,7 @@ const Step1 = ({ create, ...props }) => {
           }
           {create.type == 2 &&
             <div className="quiz">
-              <Questions />
+              <Questions {...props} />
             </div>
           }
         </div>
