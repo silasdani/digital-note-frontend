@@ -11,7 +11,7 @@ class QuestionSerializer {
       description: question.description,
     }
 
-    if (question.file) result['file'] = file;
+    if (question.file) result['file'] = question.file;
 
     return result
   }

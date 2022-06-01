@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 import { QUESTION_TYPES } from '../../helpers/enums';
 import { isImage, isPdf } from '../../helpers/media';
-import { connect } from 'react-redux';
-import { updateQuestionFields } from '../../redux/ducks/examDuck';
 import PdfViewerComponent from '../../components/PDFViewerComponent';
 import { FaCloudUploadAlt } from "react-icons/fa";
 
@@ -160,4 +158,4 @@ const Question = ({ questionType, textStatement, options, no, required, descript
   )
 }
 
-export default connect(null, { updateQuestionFields })(Question)
+export default Question

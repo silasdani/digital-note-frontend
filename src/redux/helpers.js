@@ -11,7 +11,11 @@ export const errorHandler = (response) => {
     case 500:
       return alertShown({ type: ALERT_TYPES.error, message })
     case 401: case 403: case 422:
-      return alertShown({ type: ALERT_TYPES.warning, message: error || message || statusText, delay: 10000 })
+      return alertShown({
+        type: ALERT_TYPES.warning,
+        message: message || error || statusText,
+        delay: 10000
+      })
     default: return alertShown({
       type: ALERT_TYPES.error,
       message: error || 'Something went wrong',

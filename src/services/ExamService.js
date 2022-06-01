@@ -9,7 +9,7 @@ class ExamService extends ApiService {
 
   fetchAll(params) {
     const config = { params };
-    return super.get("exams.json", ({ data }) => data, config)
+    return super.get("exams.json", ({ data: { data } }) => data, config)
   }
 
   show(id) {

@@ -53,7 +53,7 @@ const RightOverlayContent = ({ isAnimated, setIsAnimated }) => {
 
 const LoginPage = ({ navigate, login, signup }) => {
   const [isAnimated, setIsAnimated] = useState(false);
-  const overlayBg = "bg-blue-900";
+  const overlayBg = "bg-secondary";
 
   const onSignUp = (user) => {
     signup(user).then(() => {

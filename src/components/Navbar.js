@@ -24,7 +24,6 @@ const guestRoutes = [
 
 const Navbar = ({ authenticated, teacher, logout }) => {
   const routes = authenticated ? teacherRoutes : guestRoutes;
-  // const navigate = useNavigate();
 
   return (
     <div className="navbar bg-base-100">

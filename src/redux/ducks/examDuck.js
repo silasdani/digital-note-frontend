@@ -128,11 +128,16 @@ const DEFAULT_QUESTION_STATE = {
 
 export const DEFAULT_EXAM_STATE = {
   index: [{
-    name: '',
-    startTime: new Date(),
-    endTime: new Date(),
-    file: null,
-    questions: []
+    attributes: {
+      accessKey: '#####',
+      name: '',
+      startTime: new Date(),
+      endTime: new Date(),
+      file: null,
+      status: 'active',
+      security: 'low',
+      questions: []
+    }
   }],
   create: {
     name: '',
