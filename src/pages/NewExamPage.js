@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import CreateTest from '../components/CreateTest';
 
-const NewExamPage = () => {
+const NewExamPage = ({ navigate }) => {
   const [page, setPage] = useState(0);
 
   return (
@@ -16,7 +16,7 @@ const NewExamPage = () => {
           </ul>
         </div>
         <div className="mt-10">
-          <CreateTest className="h-full" page={page} setPage={setPage} />
+          <CreateTest navigate={navigate} className="h-full" page={page} setPage={setPage} />
         </div >
       </div >
     </div >

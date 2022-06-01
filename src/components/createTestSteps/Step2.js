@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux';
 
 const Step2 = () => {
   return (
@@ -16,12 +15,4 @@ const Step2 = () => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const { create } = state.exam;
-
-  return {
-    create
-  }
-}
-
-export default connect(mapStateToProps)(Step2)
+export default Step2

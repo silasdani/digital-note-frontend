@@ -15,15 +15,15 @@ export const EXAM_QUESTION_TYPES = [
 
 export const EXAM_SECURITY_TYPES = [
   {
-    value: 0,
+    value: 'low',
     name: 'Low',
   },
   {
-    value: 1,
+    value: 'moderate',
     name: 'Moderate',
   },
   {
-    value: 2,
+    value: 'high',
     name: 'High',
   }
 ]
@@ -49,19 +49,19 @@ export const EXAM_STATUSES = [
 
 export const QUESTION_TYPES = [
   {
-    value: 0,
+    value: "text",
     name: 'Short answer'
   },
   {
-    value: 1,
+    value: "option",
     name: 'Option answer'
   },
   {
-    value: 2,
+    value: "file",
     name: 'Upload file answer'
   },
   {
-    value: 3,
+    value: "choose",
     name: 'Select answer'
   },
 ]

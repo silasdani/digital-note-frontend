@@ -1,5 +1,4 @@
 import ExamService from "../../services/ExamService";
-import ExamSerializer from "../../services/Serializers/ExamSerializer";
 import { errorHandler, successHandler } from '../helpers';
 
 /// ACTIONS
@@ -10,6 +9,7 @@ export const FETCH_EXAMS = 'FETCH_EXAMS';
 export const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
 export const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
+export const CLEAR_EXAM_FIELDS = 'CLEAR_EXAM_FIELDS';
 
 /// DUCKS
 const examCreated = (data) => ({
@@ -37,6 +37,10 @@ export const examFieldsChanged = (data) => ({
   data
 })
 
+export const examFieldsCleared = () => ({
+  type: CLEAR_EXAM_FIELDS,
+})
+
 export const examQuestionFieldsChanged = (data) => ({
   type: CHANGE_EXAM_QUESTION_FIELDS,
   data
@@ -51,22 +55,23 @@ export const newQuestionAdded = (data) => ({
 export const createExamen = (examParams) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).create(examParams)
+  return new ExamService(session).create(examParams)
     .then((data) => {
       dispatch(examCreated(data))
       dispatch(successHandler({ type: CREATE_EXAM }))
+      dispatch(examFieldsCleared())
     })
     .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
-export const updateExamen = (examParams) => (dispatch, getState) => {
-  const exam = ExamSerializer.serialize(examParams);
+export const updateExamen = (id, examParams) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).editExam(exam)
+  return new ExamService(session).editExam(id, examParams)
     .then((data) => {
       dispatch(examUpdated(data))
       dispatch(successHandler({ type: UPDATE_EXAM }))
+      dispatch(examFieldsCleared())
     })
     .catch(({ response }) => dispatch(errorHandler(response)))
 }
@@ -114,11 +119,15 @@ export const addNewQuestion = (data) => (dispatch) => {
   dispatch(newQuestionAdded(data))
 }
 
+export const setExamForUpdate = (data) => (dispatch) => {
+  dispatch(examFetched(data))
+}
+
 /// DEFAULT_STATES
 const DEFAULT_QUESTION_STATE = {
   no: 0,
   required: false,
-  questionType: 1,
+  questionType: 'option',
   textStatement: '',
   description: '',
   file: null,
@@ -143,12 +152,12 @@ export const DEFAULT_EXAM_STATE = {
     name: '',
     startTime: new Date().toISOString().slice(0, -8),
     endTime: new Date().toISOString().slice(0, -8),
-    security: 0,
+    security: 'low',
     file: null,
     type: 2,
     questions: [DEFAULT_QUESTION_STATE]
   },
-  show: {
+  update: {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
@@ -178,7 +187,7 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
     case FETCH_EXAM:
       return {
         ...state,
-        show: action.data
+        create: action.data
       }
     case CHANGE_EXAM_FIELDS:
       return {
@@ -209,6 +218,12 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
           ...state.create,
           questions: [...state.create.questions, { ...DEFAULT_QUESTION_STATE, ...action.data }]
         }
+      }
+    case CLEAR_EXAM_FIELDS:
+      return {
+        ...state,
+        update: DEFAULT_EXAM_STATE.create,
+        create: DEFAULT_EXAM_STATE.create,
       }
     default: return state
   }

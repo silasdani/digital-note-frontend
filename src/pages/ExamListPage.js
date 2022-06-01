@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchExams } from '../redux/ducks/examDuck'
+import { fetchExams, setExamForUpdate } from '../redux/ducks/examDuck'
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+import ShowTest from '../components/ShowTest';
 
 const ExamListPage = ({ exams, ...props }) => {
   useEffect(() => { props.fetchExams(); }, [])
@@ -25,7 +27,7 @@ const ExamListPage = ({ exams, ...props }) => {
                 </tr>
               </thead>
               <tbody>
-                {exams.map(((exam, index) => {
+                {exams?.map(((exam, index) => {
                   const { accessKey, name, startTime, status, security } = exam.attributes;
 
                   return (
@@ -33,7 +35,7 @@ const ExamListPage = ({ exams, ...props }) => {
                       <th>{exam.id}</th>
                       <td>{name}</td>
                       <td>
-                        <label for={`key-modal-${index}`} className="btn btn-ghost btn-xs">Show KEY</label>
+                        <label htmlFor={`key-modal-${index}`} className="btn btn-ghost btn-xs">Show KEY</label>
 
                         <input type="checkbox" id={`key-modal-${index}`} className="modal-toggle" />
                         <div className="modal">
@@ -45,7 +47,7 @@ const ExamListPage = ({ exams, ...props }) => {
                             <p className="text-center text-8xl ">{accessKey}
                             </p>
                             <div className="modal-action">
-                              <label for={`key-modal-${index}`} className="btn">Yay!</label>
+                              <label htmlFor={`key-modal-${index}`} className="btn btn-secondary text-white">Dismiss</label>
                             </div>
                           </div>
                         </div>
@@ -54,16 +56,16 @@ const ExamListPage = ({ exams, ...props }) => {
                       <td>{security}</td>
                       <td>{status}</td>
                       <th className="flex flex-col">
-                        <button className="btn btn-ghost btn-xs">details</button>
-                        <label for={`preview-modal-${index}`} className="btn btn-ghost btn-xs">preview</label>
+                        <Link to="/edit_exam" onClick={() => props.setExamForUpdate({ id: exam.id, ...exam.attributes })} className="btn btn-ghost btn-xs">Edit</Link>
+                        <label htmlFor={`preview-modal-${index}`} className="btn btn-ghost btn-xs">preview</label>
 
                         <input type="checkbox" id={`preview-modal-${index}`} className="modal-toggle" />
                         <div className="modal">
                           <div className="modal-box w-11/12 max-w-full min-h-[80vh]">
-                            <h3 className="font-bold text-lg">Congratulations random Interner user!</h3>
-                            <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                            <h3 className="font-bold text-lg"></h3>
+                            <ShowTest examen={exam.attributes} />
                             <div className="modal-action">
-                              <label for={`preview-modal-${index}`} className="btn">Yay!</label>
+                              <label htmlFor={`preview-modal-${index}`} className="btn btn-wide btn-secondary text-white">Dismiss</label>
                             </div>
                           </div>
                         </div>
@@ -80,11 +82,13 @@ const ExamListPage = ({ exams, ...props }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { index: exams } = state.exam;
+  const { index: exams, show } = state.exam;
 
   return {
-    exams
+    exams,
+    show
+
   }
 }
 
-export default connect(mapStateToProps, { fetchExams })(ExamListPage)
+export default connect(mapStateToProps, { fetchExams, setExamForUpdate })(ExamListPage)

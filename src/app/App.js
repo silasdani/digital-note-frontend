@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "../components/Footer";
-import { LoginPage, HomePage, NewExamPage } from "../pages";
+import { LoginPage, HomePage, NewExamPage, EditExamPage } from "../pages";
 import ExamListPage from "../pages/ExamListPage";
 import MySchoolPage from '../pages/MySchoolPage';
 import ProfilePage from "../pages/ProfilePage";
@@ -39,6 +39,10 @@ const App = ({ autoLogin }) => {
               <TeacherRoute
                 path="/new_exam"
                 component={NewExamPage}
+              />
+              <TeacherRoute
+                path="/edit_exam"
+                component={EditExamPage}
               />
               <TeacherRoute
                 path="/exam_list"

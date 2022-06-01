@@ -3,11 +3,10 @@ import {
   EXAM_QUESTION_TYPES,
   EXAM_SECURITY_TYPES,
 } from '../../helpers/enums';
-import { connect } from 'react-redux';
 import { FaCloudUploadAlt, FaFilePdf } from "react-icons/fa";
 import { Divider } from '@material-ui/core';
 
-const Step0 = ({ create, ...props }) => {
+const Step0 = ({ examen, ...props }) => {
   const [fileName, setFileName] = useState('');
   const fileRef = useRef(null);
 
@@ -33,12 +32,12 @@ const Step0 = ({ create, ...props }) => {
               placeholder="Exam Name"
               className="input input-bordered input-accent min-w-[25vw] max-w-xs"
               onChange={(e) => props.updateExamFields('name', e.target.value)}
-              value={create.name}
+              value={examen.name}
             />
             <div className="dropdown">
-              {create.type && <select
+              {examen.type && <select
                 className="select select-accent min-w-[25vw] max-w-xs"
-                value={create.type}
+                value={examen.type}
                 onChange={(ev) => props.updateExamFields('type', ev.target.value)}
               >
                 <option disabled></option>
@@ -58,7 +57,7 @@ const Step0 = ({ create, ...props }) => {
                   placeholder="Start Time"
                   className=" input input-bordered input-error min-w-[25vw] max-w-xs"
                   onChange={(e) => props.updateExamFields('startTime', e.target.value)}
-                  value={create.startTime}
+                  value={examen.startTime}
                 />
               </div>
               <div className="form-control-group flex flex-col">
@@ -68,14 +67,14 @@ const Step0 = ({ create, ...props }) => {
                   placeholder="End Time"
                   className="input input-bordered input-error min-w-[25vw] max-w-xs"
                   onChange={(e) => props.updateExamFields('endTime', e.target.value)}
-                  value={create.endTime}
+                  value={examen.endTime}
                 />
               </div>
             </div>
             <div className="flex items-center w-1/2">
-              {create.type < 2 &&
+              {examen.type < 2 &&
                 <div className="justify-center">
-                  {!create.file &&
+                  {!examen.file &&
                     <div className="">
                       <FaCloudUploadAlt
                         size={100}
@@ -87,7 +86,7 @@ const Step0 = ({ create, ...props }) => {
                       <button className="badge badge-ghost" onClick={() => { fileRef.current?.click() }}>Upload File</button>
                     </div>
                   }
-                  {create.file &&
+                  {examen.file &&
                     <div className="flex flex-col items-center">
                       <FaFilePdf
                         size={50}
@@ -112,7 +111,7 @@ const Step0 = ({ create, ...props }) => {
                   <input
                     type="radio"
                     className="radio checked:bg-accent"
-                    checked={create.security == security.value}
+                    checked={examen.security == security.value}
                     onChange={() => props.updateExamFields('security', security.value)} />
                 </label>
               )
@@ -124,12 +123,4 @@ const Step0 = ({ create, ...props }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const { create } = state.exam;
-
-  return {
-    create
-  }
-}
-
-export default connect(mapStateToProps)(Step0)
+export default Step0

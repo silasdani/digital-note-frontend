@@ -6,6 +6,10 @@ import { createExamen, addNewQuestion, updateQuestionFields, updateExamFields } 
 const CreateTest = ({ page, setPage, ...props }) => {
   const onNextPage = () => setPage((page + 1) % 4);
   const onPrevPage = () => setPage(page - 1);
+  const handleClick = () => {
+    props.createExamen(props.examen)
+      .then(() => { props.navigate('exam_list') })
+  }
 
   return (
     <>
@@ -16,7 +20,7 @@ const CreateTest = ({ page, setPage, ...props }) => {
       <div className="my-10 mx-auto w-56 btn-group grid grid-cols-2">
         {page > 0 ? <button className="btn btn-outline" onClick={onPrevPage}>Previous</button> : <div />}
         {page < 2 && <button className="btn btn-outline" onClick={onNextPage}>Next</button>}
-        {page == 2 && <button className="btn" onClick={() => { props.createExamen(props.examen) }}>Create</button>}
+        {page == 2 && <button className="btn" onClick={handleClick}>Create</button>}
       </div>
     </>
   )

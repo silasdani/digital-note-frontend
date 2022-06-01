@@ -14,4 +14,9 @@
   .text-input:focus {
     @apply outline-none border-blue-600;
   }
+
+  div.disabled {
+    pointer-events: none;
+    opacity: 0.9;
+  }
 }
