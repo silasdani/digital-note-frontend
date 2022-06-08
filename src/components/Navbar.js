@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const teacherRoutes = [
-  { name: 'Support', path: '/support', icon: <AiOutlineInfoCircle /> },
+  // { name: 'Support', path: '/support', icon: <AiOutlineInfoCircle /> },
   { name: 'New Exam', path: '/new_exam', icon: <AiOutlineForm /> },
   { name: 'Exam list', path: '/exam_list', icon: <BsCardChecklist /> },
   { name: 'Results', path: '/results', icon: <BsFileEarmarkCheck /> },
@@ -17,9 +17,9 @@ const teacherRoutes = [
 ]
 
 const guestRoutes = [
-  { name: 'RESULTS', path: '/results', icon: <BsFileEarmarkCheck /> },
-  { name: 'MY SCHOOL', path: '/my_school', icon: <MdOutlineSchool /> },
-  { name: 'LOGIN', path: '/login' },
+  // { name: 'RESULTS', path: '/results', icon: <BsFileEarmarkCheck /> },
+  { name: 'TAKE EXAM', path: '/' },
+  { name: 'TEACHER LOGIN', path: '/login' },
 ]
 
 const Navbar = ({ authenticated, teacher, logout }) => {

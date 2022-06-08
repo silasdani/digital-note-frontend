@@ -158,7 +158,7 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
             type="button"
             onClick={handleClick}
             value="Update Profile"
-            className="mt-10 px-8 py-4 uppercase rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
+            className="mt-10 px-8 py-4 uppercase rounded-full bg-primary hover:bg-secondary text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-secondary focus:ring-opacity-80 cursor-pointer"
           />
         </div>
       </div>

@@ -33,7 +33,7 @@ const RightOverlayContent = ({ isAnimated, setIsAnimated }) => {
   return (
     <div className="p-8 text-center">
       <h1 className="text-6xl font-bold text-white mb-4">
-        Don't have an account ?
+        Do not have an account ?
       </h1>
 
       <h5 className="text-xl text-white">Start your journey in one click</h5>

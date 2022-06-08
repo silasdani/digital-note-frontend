@@ -10,6 +10,7 @@ export const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
 export const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
 export const CLEAR_EXAM_FIELDS = 'CLEAR_EXAM_FIELDS';
+export const ACCESS_EXAM = 'ACCESS_EXAM';
 
 /// DUCKS
 const examCreated = (data) => ({
@@ -48,6 +49,11 @@ export const examQuestionFieldsChanged = (data) => ({
 
 export const newQuestionAdded = (data) => ({
   type: ADD_NEW_QUESTION,
+  data
+})
+
+export const examAccessed = (data) => ({
+  type: ACCESS_EXAM,
   data
 })
 
@@ -121,6 +127,17 @@ export const addNewQuestion = (data) => (dispatch) => {
 
 export const setExamForUpdate = (data) => (dispatch) => {
   dispatch(examFetched(data))
+}
+
+export const accessExam = (accessKey) => (dispatch, getState) => {
+  const { session } = getState().session;
+
+  new ExamService(session).viewExam({ access_key: accessKey })
+    .then((data) => {
+      dispatch(examAccessed(data))
+      dispatch(successHandler({ type: ACCESS_EXAM }))
+    })
+    .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
 /// DEFAULT_STATES
@@ -224,6 +241,12 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
         ...state,
         update: DEFAULT_EXAM_STATE.create,
         create: DEFAULT_EXAM_STATE.create,
+        examen: DEFAULT_EXAM_STATE.create,
+      }
+    case ACCESS_EXAM:
+      return {
+        ...state,
+        examen: action.data
       }
     default: return state
   }

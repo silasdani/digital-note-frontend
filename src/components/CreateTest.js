@@ -8,7 +8,7 @@ const CreateTest = ({ page, setPage, ...props }) => {
   const onPrevPage = () => setPage(page - 1);
   const handleClick = () => {
     props.createExamen(props.examen)
-      .then(() => { props.navigate('exam_list') })
+    // .then(() => { props.navigate('exam_list') })
   }
 
   return (

@@ -4,6 +4,7 @@ const Step2 = () => {
   return (
     <div className="Student Workspace">
       <div className="mockup-window bg-primary shadow-md text-center">
+        <div className="absolute text-2xl font-bold text-center text-white h1 -mt-10 w-full">WORKSPACE</div>
         <div className="px-4 border-t border-base-300 bg-white min-h-[50vh]">
           <div className="text-lg py-2">Writing area</div>
           <p className="py-2">Student information is replaced by a unique code and the teacher can identify students after making the exam.</p>

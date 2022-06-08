@@ -12,11 +12,15 @@
   }
 
   .text-input:focus {
-    @apply outline-none border-blue-600;
+    @apply outline-none border-primary;
   }
 
   div.disabled {
     pointer-events: none;
     opacity: 0.9;
+  }
+  td,
+  th {
+    @apply text-center;
   }
 }

@@ -17,14 +17,17 @@ export const EXAM_SECURITY_TYPES = [
   {
     value: 'low',
     name: 'Low',
+    color: 'bg-red-600 border-red-600',
   },
   {
     value: 'moderate',
     name: 'Moderate',
+    color: 'bg-yellow-500 border-yellow-500',
   },
   {
     value: 'high',
     name: 'High',
+    color: 'bg-green-600 border-green-600',
   }
 ]
 

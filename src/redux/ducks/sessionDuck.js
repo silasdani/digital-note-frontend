@@ -43,8 +43,8 @@ export const login = (credentials) => async (dispatch) => {
 
     dispatch(userLoggedIn(answer));
     dispatch(fetch())
-    // dispatch(successHandler({ type: USER_LOGGED_IN }))
-  } catch (response) {
+    dispatch(successHandler({ type: USER_LOGGED_IN }))
+  } catch ({ response }) {
     dispatch(errorHandler(response));
   }
 }

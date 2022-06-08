@@ -5,6 +5,18 @@ import { Divider } from '@material-ui/core';
 const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
   const { questions } = examen;
 
+  const removeQuestion = (index) => {
+  }
+
+  const addNewQuestion = (templateQuestion) => {
+    if (templateQuestion) {
+      props.addNewQuestion(templateQuestion);
+      return;
+    }
+
+    props.addNewQuestion({ ...questions[questions.length - 1], file: null, no: questions.length });
+  }
+
   return (
     <div className="">
       {questions?.map((question, index) => {
@@ -18,11 +30,11 @@ const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
       {!viewMode && <>
         <button
           className="btn btn-primary"
-          onClick={() => props.addNewQuestion({ no: questions.length })}
+          onClick={() => addNewQuestion({ no: questions.length })}
         >New Question</button>
         <button
           className="btn btn-accent ml-10"
-          onClick={() => props.addNewQuestion({ ...questions[questions.length - 1], file: null, no: questions.length })}
+          onClick={addNewQuestion}
         >Paste Last Question</button>
       </>}
     </div>

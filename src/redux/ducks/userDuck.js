@@ -35,7 +35,7 @@ export const signup = (data) => (dispatch) => {
       dispatch(successHandler({ type: USER_CREATED }))
       dispatch(userCreated())
     })
-    .catch(response => dispatch(errorHandler(response)));
+    .catch(({ response }) => dispatch(errorHandler(response)));
 }
 
 export const editProfile = (user) => async (dispatch, getState) => {
@@ -46,7 +46,7 @@ export const editProfile = (user) => async (dispatch, getState) => {
     dispatch(userEdited(data));
     dispatch(successHandler({ type: USER_EDITED }))
     return data;
-  } catch (response) {
+  } catch ({ response }) {
     dispatch(errorHandler(response))
   }
 }
@@ -58,7 +58,7 @@ export const fetch = () => async (dispatch, getState) => {
 
     dispatch(currentUserFetched(data));
     // dispatch(successHandler({ type: FETCH_CURRENT_USER }))
-  } catch (response) {
+  } catch ({ response }) {
     dispatch(errorHandler(response))
   }
 }
@@ -66,7 +66,7 @@ export const fetch = () => async (dispatch, getState) => {
 export const deleteUser = (id) => (dispatch) => {
   return new UserService().deleteUser(id)
     .then(dispatch(userDeleted))
-    .catch(response => dispatch(errorHandler(response)));
+    .catch(({ response }) => dispatch(errorHandler(response)));
 }
 
 const DEFAULT_STATE = {

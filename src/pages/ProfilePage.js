@@ -15,7 +15,7 @@ const ProfilePage = ({ currentUser, teacher, ...props }) => {
   return (
     <div className="flex flex-col items-center h-full w-full">
       <div className="absolute bg-white w-4/5 mt-20 rounded-lg p-10 shadow-xl">
-        <ProfileForm onSubmit={updateUser} teacher={teacher} showAlert={props.showAlert} />
+        <ProfileForm onSubmit={updateUser} teacher={teacher} />
       </div>
     </div>
   )
@@ -30,4 +30,4 @@ const mapStateToProps = (state) => {
     teacher,
   }
 }
-export default connect(mapStateToProps, { editProfile, fetch, showAlert })(ProfilePage)
+export default connect(mapStateToProps, { editProfile, fetch })(ProfilePage)

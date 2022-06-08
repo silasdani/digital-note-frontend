@@ -4,6 +4,7 @@ import { fetchExams, setExamForUpdate } from '../redux/ducks/examDuck'
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ShowTest from '../components/ShowTest';
+import { EXAM_SECURITY_TYPES } from '../helpers/enums';
 
 const ExamListPage = ({ exams, ...props }) => {
   useEffect(() => { props.fetchExams(); }, [])
@@ -40,23 +41,35 @@ const ExamListPage = ({ exams, ...props }) => {
                         <input type="checkbox" id={`key-modal-${index}`} className="modal-toggle" />
                         <div className="modal">
                           <div className="modal-box w-11/12 max-w-5xl">
-                            <h2 className="font-bold text-2xl">Study hard, work hard, aim high. Your dreams are worth it. Good luck!</h2>
-                            <p className="py-4 text-4xl text-center ">
-                              Access Key:
-                            </p>
-                            <p className="text-center text-8xl ">{accessKey}
-                            </p>
+                            <h2 className="font-bold text-2xl">
+                              Study hard, work hard, aim high. Your dreams are worth it. Good luck!
+                            </h2>
+                            <p className="py-4 text-4xl text-center ">Access Key:</p>
+                            <p className="text-center text-8xl ">{accessKey}</p>
                             <div className="modal-action">
-                              <label htmlFor={`key-modal-${index}`} className="btn btn-secondary text-white">Dismiss</label>
+                              <label htmlFor={`key-modal-${index}`} className="btn btn-secondary text-white">
+                                Dismiss
+                              </label>
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td>{moment(startTime).format('YY/MM/DD HH:mm')}</td>
-                      <td>{security}</td>
+                      <td>{moment(startTime).format('DD/MM/YY HH:mm')}</td>
+                      <td>
+                        <div
+                          className={`badge ${EXAM_SECURITY_TYPES.find((o) => o.value == security)?.color} text-white`}
+                        >
+                          {security}
+                        </div>
+                      </td>
                       <td>{status}</td>
                       <th className="flex flex-col">
-                        <Link to="/edit_exam" onClick={() => props.setExamForUpdate({ id: exam.id, ...exam.attributes })} className="btn btn-ghost btn-xs">Edit</Link>
+                        <Link
+                          to="/edit_exam"
+                          onClick={() => props.setExamForUpdate({ id: exam.id, ...exam.attributes })}
+                          className="btn btn-ghost btn-xs">
+                          Edit
+                        </Link>
                         <label htmlFor={`preview-modal-${index}`} className="btn btn-ghost btn-xs">preview</label>
 
                         <input type="checkbox" id={`preview-modal-${index}`} className="modal-toggle" />
@@ -65,7 +78,11 @@ const ExamListPage = ({ exams, ...props }) => {
                             <h3 className="font-bold text-lg"></h3>
                             <ShowTest examen={exam.attributes} />
                             <div className="modal-action">
-                              <label htmlFor={`preview-modal-${index}`} className="btn btn-wide btn-secondary text-white">Dismiss</label>
+                              <label
+                                htmlFor={`preview-modal-${index}`}
+                                className="btn btn-wide btn-secondary text-white">
+                                Dismiss
+                              </label>
                             </div>
                           </div>
                         </div>
@@ -82,12 +99,10 @@ const ExamListPage = ({ exams, ...props }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { index: exams, show } = state.exam;
+  const { index: exams } = state.exam;
 
   return {
-    exams,
-    show
-
+    exams
   }
 }
 

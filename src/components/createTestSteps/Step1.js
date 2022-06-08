@@ -5,6 +5,7 @@ const Step1 = ({ examen, ...props }) => {
   return (
     <div className="Student Information">
       <div className="mockup-window bg-primary shadow-md">
+        <div className="absolute text-2xl font-bold text-center text-white h1 -mt-10 w-full">QUESTIONS</div>
         <div className="flex-col px-10 border-t border-base-300 bg-white min-h-[50vh] p-6 space-y-4">
           {examen.questions?.length == 0 &&
             <div className="h2">

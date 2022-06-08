@@ -16,6 +16,10 @@ class ExamSerializer {
 
     return result;
   }
+
+  static deserialize(response) {
+    return response
+  }
 }
 
 export default ExamSerializer;

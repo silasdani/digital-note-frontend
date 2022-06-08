@@ -2,7 +2,6 @@ import React from 'react'
 import { AiOutlineVideoCameraAdd, AiOutlineMessage } from "react-icons/ai";
 import { ImBook, ImCommand } from "react-icons/im";
 import { connect } from 'react-redux';
-import { logout } from '../redux/ducks/sessionDuck';
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -18,4 +17,4 @@ const Sidebar = () => {
     </div>)
 }
 
-export default connect(null, { logout })(Sidebar);
+export default connect()(Sidebar);

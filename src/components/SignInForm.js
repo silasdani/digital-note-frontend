@@ -52,7 +52,7 @@ const SignInForm = ({ onSubmit }) => {
   }
 
   return (
-    <div className="selection:bg-primary selection:text-white">
+    <div className="selection:bg-secondary selection:text-white">
       <div className="flex justify-center items-center">
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
@@ -103,12 +103,12 @@ const SignInForm = ({ onSubmit }) => {
                   onClick={handleClick}
                   type="button"
                   value="Sign in"
-                  className="mt-20 px-8 py-4 uppercase rounded-full bg-primary hover:bg-primary text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500 focus:ring-opacity-80 cursor-pointer"
+                  className="mt-20 px-8 py-4 uppercase rounded-full bg-secondary hover:bg-secondary text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-secondary focus:ring-opacity-80 cursor-pointer"
                 />
               </div>
               <a
                 href="#"
-                className="mt-4 block text-sm text-center font-medium text-secondary hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-4 block text-sm text-center font-medium text-secondary hover:underline focus:outline-none focus:ring-2 focus:ring-secondary"
               >
                 {" "}
                 Forgot your password?{" "}

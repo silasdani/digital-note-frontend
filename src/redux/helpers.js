@@ -19,7 +19,7 @@ export const errorHandler = (response) => {
     default: return alertShown({
       type: ALERT_TYPES.error,
       message: error || 'Something went wrong',
-      delay: 5000
+      delay: 15000
     })
   }
 }
