@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
     addNewQuestion: () => { },
     updateQuestionFields: () => { },
     updateExamFields: () => { },
+    removeQuestion: () => { },
     viewMode: true
   }
 }

@@ -14,6 +14,7 @@ import GuestRoute from "../routes/GuestRoute";
 import TeacherRoute from "../routes/TeacherRoute";
 import { autoLogin } from "../redux/ducks/sessionDuck"
 import Alert from "../components/Alert";
+import StudentWorkspacePage from "../pages/StudentWorkspacePage";
 
 const App = ({ autoLogin }) => {
   useEffect(() => { autoLogin(); console.warn('initializing') }, [])
@@ -67,6 +68,10 @@ const App = ({ autoLogin }) => {
               <GuestRoute
                 path="/login"
                 component={LoginPage}
+              />
+              <GuestRoute
+                path="/workspace"
+                component={StudentWorkspacePage}
               />
             </React.Fragment>
           }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Step0, Step1, Step2 } from './createTestSteps';
-import { updateExamen, addNewQuestion, updateQuestionFields, updateExamFields } from '../redux/ducks/examDuck';
+import { updateExamen, addNewQuestion, updateQuestionFields, updateExamFields, removeQuestion } from '../redux/ducks/examDuck';
 
 const CreateTest = ({ ...props }) => {
 
@@ -32,4 +32,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { updateExamen, addNewQuestion, updateQuestionFields, updateExamFields })(CreateTest)
+export default connect(mapStateToProps, {
+  updateExamen,
+  addNewQuestion,
+  updateQuestionFields,
+  updateExamFields,
+  removeQuestion
+})(CreateTest)

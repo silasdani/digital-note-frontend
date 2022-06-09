@@ -9,8 +9,10 @@ export const FETCH_EXAMS = 'FETCH_EXAMS';
 export const CHANGE_EXAM_FIELDS = 'CHANGE_EXAM_FIELDS';
 export const CHANGE_EXAM_QUESTION_FIELDS = 'CHANGE_EXAM_QUESTION_FIELDS';
 export const ADD_NEW_QUESTION = 'ADD_NEW_QUESTION';
+export const REMOVE_QUESTION = 'REMOVE_QUESTION';
 export const CLEAR_EXAM_FIELDS = 'CLEAR_EXAM_FIELDS';
 export const ACCESS_EXAM = 'ACCESS_EXAM';
+export const INVALID_ACCESS_KEY = 'INVALID_ACCESS_KEY';
 
 /// DUCKS
 const examCreated = (data) => ({
@@ -57,29 +59,36 @@ export const examAccessed = (data) => ({
   data
 })
 
+export const questionRemoved = (data) => ({
+  type: REMOVE_QUESTION,
+  data
+})
+
 /// EPICS
-export const createExamen = (examParams) => (dispatch, getState) => {
+export const createExamen = (examParams) => async (dispatch, getState) => {
   const { session } = getState().session;
 
-  return new ExamService(session).create(examParams)
-    .then((data) => {
-      dispatch(examCreated(data))
-      dispatch(successHandler({ type: CREATE_EXAM }))
-      dispatch(examFieldsCleared())
-    })
-    .catch(({ response }) => dispatch(errorHandler(response)))
+  try {
+    const data_1 = await new ExamService(session).create(examParams);
+    dispatch(examCreated(data_1));
+    dispatch(successHandler({ type: CREATE_EXAM }));
+    dispatch(examFieldsCleared());
+  } catch ({ response }) {
+    return dispatch(errorHandler(response));
+  }
 }
 
-export const updateExamen = (id, examParams) => (dispatch, getState) => {
+export const updateExamen = (id, examParams) => async (dispatch, getState) => {
   const { session } = getState().session;
 
-  return new ExamService(session).editExam(id, examParams)
-    .then((data) => {
-      dispatch(examUpdated(data))
-      dispatch(successHandler({ type: UPDATE_EXAM }))
-      dispatch(examFieldsCleared())
-    })
-    .catch(({ response }) => dispatch(errorHandler(response)))
+  try {
+    const data = await new ExamService(session).editExam(id, examParams);
+    dispatch(examUpdated(data));
+    dispatch(successHandler({ type: UPDATE_EXAM }));
+    dispatch(examFieldsCleared());
+  } catch ({ response }) {
+    return dispatch(errorHandler(response));
+  }
 }
 
 export const fetchExamen = () => (dispatch, getState) => {
@@ -125,19 +134,32 @@ export const addNewQuestion = (data) => (dispatch) => {
   dispatch(newQuestionAdded(data))
 }
 
+export const removeQuestion = (index) => (dispatch, getState) => {
+  const { questions } = getState().exam.create
+
+  if (questions.length < 1 || index < 0) return;
+
+  questions.splice(index, 1);
+  dispatch(questionRemoved(questions))
+}
+
 export const setExamForUpdate = (data) => (dispatch) => {
   dispatch(examFetched(data))
 }
 
-export const accessExam = (accessKey) => (dispatch, getState) => {
+export const accessExam = (accessKey) => async (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).viewExam({ access_key: accessKey })
-    .then((data) => {
-      dispatch(examAccessed(data))
-      dispatch(successHandler({ type: ACCESS_EXAM }))
-    })
-    .catch(({ response }) => dispatch(errorHandler(response)))
+  try {
+    const { data } = await new ExamService(session).viewExam({ access_key: accessKey });
+    dispatch(examAccessed(data));
+    if (data)
+      dispatch(successHandler({ type: ACCESS_EXAM }));
+    else
+      dispatch(successHandler({ type: INVALID_ACCESS_KEY }));
+  } catch ({ response }) {
+    return dispatch(errorHandler(response));
+  }
 }
 
 /// DEFAULT_STATES
@@ -248,6 +270,15 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
         ...state,
         examen: action.data
       }
+    case REMOVE_QUESTION: {
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          questions: action.data
+        }
+      }
+    }
     default: return state
   }
 }

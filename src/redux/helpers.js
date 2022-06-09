@@ -41,6 +41,8 @@ export const successHandler = (action) => {
       return alertShown({ type: ALERT_TYPES.info, message: "Exam updated successfully" })
     case examActions.FETCH_EXAMS:
       return alertShown({ type: ALERT_TYPES.success, message: "Exams were fetched. " })
+    case examActions.INVALID_ACCESS_KEY:
+      return alertShown({ type: ALERT_TYPES.error, message: "Your access key is invalid - Please try again." })
 
     // session actions
     case sessionActions.USER_LOGGED_IN:

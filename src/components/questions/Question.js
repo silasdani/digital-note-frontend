@@ -4,7 +4,20 @@ import { isImage, isPdf } from '../../helpers/media';
 import PdfViewerComponent from '../../components/PDFViewerComponent';
 import { FaCloudUploadAlt } from "react-icons/fa";
 
-const Question = ({ viewMode, questionType, textStatement, options, no, required, description, file, index, selects, ...props }) => {
+const Question = ({
+  canDelete,
+  viewMode,
+  questionType,
+  textStatement,
+  options,
+  no,
+  required,
+  description,
+  file,
+  index,
+  selects,
+  ...props
+}) => {
   const questionFileRef = useRef(null);
 
   const onFileChange = (event) => {
@@ -58,6 +71,7 @@ const Question = ({ viewMode, questionType, textStatement, options, no, required
               type="file"
               name="file"
               className="hidden"
+              accept="application/pdf, image/*"
               ref={questionFileRef}
               onChange={onFileChange} />
           </div>
@@ -154,6 +168,14 @@ const Question = ({ viewMode, questionType, textStatement, options, no, required
         </div>
         }
       </div>
+      {!viewMode && canDelete &&
+        <div className="flex justify-center">
+          <button
+            className="btn btn-error btn-sm"
+            onClick={() => props.removeQuestion(index)}
+          >Remove question</button>
+        </div >
+      }
     </div >
   )
 }

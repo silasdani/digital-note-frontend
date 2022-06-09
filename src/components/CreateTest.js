@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Step0, Step1, Step2 } from './createTestSteps'
-import { createExamen, addNewQuestion, updateQuestionFields, updateExamFields } from '../redux/ducks/examDuck'
+import { createExamen, addNewQuestion, updateQuestionFields, updateExamFields, removeQuestion } from '../redux/ducks/examDuck'
 
 const CreateTest = ({ page, setPage, ...props }) => {
   const onNextPage = () => setPage((page + 1) % 4);
@@ -34,4 +34,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createExamen, addNewQuestion, updateQuestionFields, updateExamFields })(CreateTest)
+export default connect(mapStateToProps, {
+  createExamen,
+  addNewQuestion,
+  updateQuestionFields,
+  updateExamFields,
+  removeQuestion
+})(CreateTest)

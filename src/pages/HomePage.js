@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { accessExam } from '../redux/ducks/examDuck'
 
-const HomePage = ({ ...props }) => {
-  const [accessKey, setAccessKey] = useState();
+const HomePage = ({ navigate, ...props }) => {
+  const [accessKey, setAccessKey] = useState('');
 
   return (
     <div className="flex flex-col items-center h-full w-full">
@@ -23,7 +23,11 @@ const HomePage = ({ ...props }) => {
             />
             {/* <Link className="btn btn-primary" to="/workspace">Get Started</Link> */}
             <button className="btn btn-primary" onClick={() => {
-              props.accessExam(accessKey);
+              props.accessExam(accessKey)
+                .then((data) => {
+                  console.warn(data)
+                  if (data) navigate('/workspace')
+                });
             }}>Get Started</button>
           </div>
         </div>
