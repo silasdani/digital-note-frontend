@@ -68,3 +68,10 @@ export const QUESTION_TYPES = [
     name: 'Select answer'
   },
 ]
+
+export const PERMISSIONS = {
+  'write': 'write',
+  'read': 'read',
+  'send': 'send',
+  'get': 'get',
+}

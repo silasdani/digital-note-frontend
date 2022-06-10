@@ -157,6 +157,8 @@ export const accessExam = (accessKey) => async (dispatch, getState) => {
       dispatch(successHandler({ type: ACCESS_EXAM }));
     else
       dispatch(successHandler({ type: INVALID_ACCESS_KEY }));
+
+    return data
   } catch ({ response }) {
     return dispatch(errorHandler(response));
   }

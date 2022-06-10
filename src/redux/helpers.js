@@ -2,6 +2,7 @@ import { ALERT_TYPES, alertShown } from "./ducks/alertDuck"
 import * as userActions from './ducks/userDuck';
 import * as examActions from './ducks/examDuck';
 import * as sessionActions from './ducks/sessionDuck';
+import * as lobbyActions from './ducks/lobbyDuck';
 
 export const errorHandler = (response) => {
   const { status, message, data: { error }, statusText } = response;
@@ -51,6 +52,14 @@ export const successHandler = (action) => {
       return alertShown({ type: ALERT_TYPES.info, message: "Logged out!" })
     case sessionActions.RELOAD_SESSION:
       return alertShown({ type: ALERT_TYPES.info, message: "Session reloaded." })
+
+    // lobby actions
+    case lobbyActions.CHANGE_CONTESTANT_PERMISSIONS:
+      return alertShown({ type: ALERT_TYPES.info, message: 'Permissions changed' })
+    case lobbyActions.FETCH_CONTESTANTS:
+      return alertShown({ type: ALERT_TYPES.success, message: 'Contestants were fetched' })
+    case lobbyActions.FETCH_CONTESTANT:
+      return alertShown({ type: ALERT_TYPES.success, message: 'Contestant fetched' })
 
     default: return alertShown({ type: ALERT_TYPES.success, message: 'Success!' })
   }

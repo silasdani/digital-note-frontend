@@ -4,9 +4,7 @@ import Sidebar from '../components/Sidebar';
 const StudentWorkspacePage = () => {
   return (
     <div>StudentWorkspacePage
-      {/* <Sidebar /> */}
-
-
+      <Sidebar />
     </div>
   )
 }
