@@ -165,20 +165,49 @@ export const accessExam = (accessKey) => async (dispatch, getState) => {
 }
 
 /// DEFAULT_STATES
-const DEFAULT_QUESTION_STATE = {
+const DEFAULT_QUESTION_STATE = [{
   no: 0,
-  required: false,
-  questionType: 'option',
-  textStatement: '',
+  required: true,
+  questionType: 'text',
+  textStatement: 'Custom question',
   description: '',
   file: null,
-  options: ['option 1', 'serif'],
-  selects: ['question', 'selects']
-}
+  options: ['option 1'],
+  selects: ['select 1']
+}, {
+  no: 1,
+  required: true,
+  questionType: 'choose',
+  textStatement: 'Custom select question',
+  description: '',
+  file: null,
+  options: ['option 1'],
+  selects: ['select 1']
+}, {
+  no: 2,
+  required: false,
+  questionType: 'option',
+  textStatement: 'Custom option question',
+  description: '',
+  file: null,
+  options: ['option 1'],
+  selects: ['select 1']
+}, {
+  no: 3,
+  required: true,
+  questionType: 'file',
+  textStatement: 'Custom file question',
+  description: '',
+  file: null,
+  options: ['option 1'],
+  selects: ['select 1']
+},
+]
 
 export const DEFAULT_EXAM_STATE = {
   index: [{
     attributes: {
+      description: '',
       accessKey: '#####',
       name: '',
       startTime: new Date(),
@@ -196,14 +225,16 @@ export const DEFAULT_EXAM_STATE = {
     security: 'low',
     file: null,
     type: 2,
-    questions: [DEFAULT_QUESTION_STATE]
+    questions: DEFAULT_QUESTION_STATE,
+    description: '',
   },
   update: {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
     file: null,
-    questions: []
+    questions: [],
+    description: '',
   }
 }
 
@@ -257,7 +288,7 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
         ...state,
         create: {
           ...state.create,
-          questions: [...state.create.questions, { ...DEFAULT_QUESTION_STATE, ...action.data }]
+          questions: [...state.create.questions, { ...DEFAULT_QUESTION_STATE[0], ...action.data }]
         }
       }
     case CLEAR_EXAM_FIELDS:
@@ -270,7 +301,7 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
     case ACCESS_EXAM:
       return {
         ...state,
-        examen: action.data
+        examen: action.data.attributes
       }
     case REMOVE_QUESTION: {
       return {

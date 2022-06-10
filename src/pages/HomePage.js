@@ -6,7 +6,7 @@ import { isEmpty, omit } from 'lodash';
 
 const HomePage = ({ navigate, ...props }) => {
   const [contestant, setContestant] = useState({
-    accessKey: '',
+    accessKey: 'JP562',
     firstName: '',
     lastName: '',
     email: '',
@@ -135,8 +135,8 @@ const HomePage = ({ navigate, ...props }) => {
               </div>
 
               <div className="modal-action flex justify-center">
-                <button className="btn btn-primary" onClick={onEnterExam}>ENTER</button>
-                <label htmlFor="key-modal" className="btn btn-secondary btn-wide text-white">
+                <button className="btn btn-primary btn-wide" onClick={onEnterExam}>ENTER</button>
+                <label htmlFor="key-modal" className="btn btn-secondary  text-white">
                   DISMISS
                 </label>
               </div>

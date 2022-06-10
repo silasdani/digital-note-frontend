@@ -26,6 +26,7 @@ const Step0 = ({ examen, ...props }) => {
         <div className="absolute text-2xl font-bold text-center text-white h1 -mt-10 w-full">DETAILS</div>
         <div className="px-10 border-t border-base-300 bg-white min-h-[50vh] p-6 space-y-4">
           <div className="form-control flex-row justify-center space-x-10">
+            <span className="text-xl mt-2">Exam Name:</span>
             <input
               type="text"
               placeholder="Exam Name"
@@ -47,6 +48,14 @@ const Step0 = ({ examen, ...props }) => {
             </div>
           </div>
           <Divider />
+          <div className="flex justify-center">
+            <textarea
+              className="textarea textarea-accent w-full mt-5 lg:mt-0"
+              placeholder="Exam Description"
+              value={examen.description}
+              onChange={(ev) => props.updateExamFields('description', ev.target.value)}
+            ></textarea>
+          </div>
           <div className="flex flex-col lg:flex-row items-center lg:justify-center lg:space-x-10">
             <div className="form-control-group flex flex-col">
               <label htmlFor="startTime" className="label label-text">Start Time</label>
@@ -122,8 +131,8 @@ const Step0 = ({ examen, ...props }) => {
             })}
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
 

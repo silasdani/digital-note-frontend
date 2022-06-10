@@ -23,7 +23,7 @@ const App = ({ autoLogin }) => {
     <Alert />
     <Navbar />
     <div className="absolute w-screen h-96 lg:h-64 bg-accent"></div>
-    <div style={{ minHeight: '91.5vh' }}>
+    <div style={{ minHeight: '93.5vh' }}>
       <Routes >
         <Route
           path="/*"
