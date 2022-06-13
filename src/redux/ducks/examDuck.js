@@ -1,5 +1,6 @@
 import ExamService from "../../services/ExamService";
 import { errorHandler, successHandler } from '../helpers';
+import { get } from 'lodash';
 
 /// ACTIONS
 export const CREATE_EXAM = 'CREATE_EXAM';
@@ -49,10 +50,19 @@ export const examQuestionFieldsChanged = (data) => ({
   data
 })
 
-export const newQuestionAdded = (data) => ({
-  type: ADD_NEW_QUESTION,
-  data
-})
+export const newQuestionAdded = (no, questions) => {
+  const reducedQuestions = questions.reduce((result, question) => {
+    if (question.no <= no) result.push(question)
+    if (question.no >= no) result.push({ ...question, no: question.no + 1 })
+
+    return result;
+  }, [])
+
+  return {
+    type: ADD_NEW_QUESTION,
+    data: reducedQuestions
+  }
+}
 
 export const examAccessed = (data) => ({
   type: ACCESS_EXAM,
@@ -130,8 +140,8 @@ export const updateQuestionFields = (index, field, data) => (dispatch) => {
   dispatch(examQuestionFieldsChanged({ index, field, data }))
 }
 
-export const addNewQuestion = (data) => (dispatch) => {
-  dispatch(newQuestionAdded(data))
+export const addNewQuestionAt = (no) => (dispatch, getState) => {
+  dispatch(newQuestionAdded(no, get(getState(), 'exam.create.questions')))
 }
 
 export const removeQuestion = (index) => (dispatch, getState) => {
@@ -226,7 +236,7 @@ export const DEFAULT_EXAM_STATE = {
     file: null,
     type: 2,
     questions: DEFAULT_QUESTION_STATE,
-    description: '',
+    description: 'sdaasd',
   },
   update: {
     name: '',
@@ -288,7 +298,7 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
         ...state,
         create: {
           ...state.create,
-          questions: [...state.create.questions, { ...DEFAULT_QUESTION_STATE[0], ...action.data }]
+          questions: action.data
         }
       }
     case CLEAR_EXAM_FIELDS:

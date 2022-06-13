@@ -6,7 +6,7 @@ import { isEmpty, omit } from 'lodash';
 
 const HomePage = ({ navigate, ...props }) => {
   const [contestant, setContestant] = useState({
-    accessKey: 'JP562',
+    accessKey: 'BR75X',
     firstName: '',
     lastName: '',
     email: '',

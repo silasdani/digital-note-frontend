@@ -168,14 +168,20 @@ const Question = ({
         </div>
         }
       </div>
-      {!viewMode && canDelete &&
-        <div className="flex justify-center">
+
+      {!viewMode && <>
+        <div className="flex justify-start space-x-1">
           <button
-            className="btn btn-error btn-sm"
-            onClick={() => props.removeQuestion(index)}
-          >Remove question</button>
+            className="btn btn-accent btn-sm"
+            onClick={() => props.addNewQuestionAt(no)}
+          >Paste Next</button>
+          {canDelete &&
+            <button
+              className="btn btn-error btn-sm"
+              onClick={() => props.removeQuestion(index)}
+            >Remove</button>}
         </div >
-      }
+      </>}
     </div >
   )
 }

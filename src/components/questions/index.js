@@ -4,16 +4,6 @@ import { Divider } from '@material-ui/core';
 
 const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
   const { questions } = examen;
-
-  const addNewQuestion = (templateQuestion) => {
-    if (templateQuestion) {
-      props.addNewQuestion(templateQuestion);
-      return;
-    }
-
-    props.addNewQuestion({ ...questions[questions.length - 1], file: null, no: questions.length });
-  }
-
   const canDelete = questions.length > 1;
 
   return (
@@ -29,19 +19,16 @@ const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
               viewMode={viewMode}
               canDelete={canDelete}
               removeQuestion={props.removeQuestion}
+              addNewQuestionAt={props.addNewQuestionAt}
             />}
           </div>
         )
       })}
       {!viewMode && <>
         <button
-          className="btn btn-primary"
-          onClick={() => addNewQuestion({ no: questions.length })}
-        >New Question</button>
-        <button
-          className="btn btn-accent ml-10"
-          onClick={addNewQuestion}
-        >Paste Last Question</button>
+          className="btn btn-primary btn-sm"
+          onClick={() => props.addNewQuestionAt(questions[questions.length - 1].no)}
+        >New</button>
       </>}
     </div>
   )

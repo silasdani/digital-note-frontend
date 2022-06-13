@@ -22,6 +22,7 @@ class ExamService extends ApiService {
   }
   create(data) {
     const exam = ExamSerializer.serialize(data);
+    console.warn(exam)
     return super.post("exams.json", exam, ({ data }) => data)
   }
 

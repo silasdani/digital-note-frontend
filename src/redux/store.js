@@ -7,6 +7,8 @@ import session from "./ducks/sessionDuck";
 import exam from './ducks/examDuck';
 import alert from './ducks/alertDuck';
 import lobby from './ducks/lobbyDuck';
+import submission from './ducks/submissionDuck';
+
 
 const rootReducer = combineReducers({
   user,
@@ -15,6 +17,7 @@ const rootReducer = combineReducers({
   exam,
   alert,
   lobby,
+  submission,
 });
 
 var Singleton = (() => {

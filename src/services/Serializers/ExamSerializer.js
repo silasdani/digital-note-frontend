@@ -3,6 +3,8 @@ import { omit } from "lodash";
 
 class ExamSerializer {
   static serialize(data) {
+
+    console.warn(data.questions)
     const result = {
       exam: {
         name: data.name,
@@ -10,6 +12,7 @@ class ExamSerializer {
         start_time: data.startTime,
         end_time: data.endTime,
         security: data.security,
+        description: data.description,
       },
       questions: QuestionSerializer.serializeIndex(data.questions)
     }

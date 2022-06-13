@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { EXAM_QUESTION_TYPES, EXAM_SECURITY_TYPES } from '../../helpers/enums';
-import moment from 'moment';
+import PdfViewerComponent from '../PDFViewerComponent';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { Divider } from '@material-ui/core';
 import { isPdf, isImage } from '../../helpers/media';
@@ -34,9 +34,34 @@ const Step0 = ({ examen, ...props }) => {
               onChange={(e) => props.updateExamFields('name', e.target.value)}
               value={examen.name}
             />
-            <div className="dropdown">
+          </div>
+          <Divider />
+
+          <div className="flex flex-col lg:flex-row items-start lg:justify-start lg:space-x-10">
+            <div className="form-control-group flex flex-col">
+              <label htmlFor="startTime" className="label label-text">Start Time</label>
+              <input
+                type='datetime-local'
+                placeholder="Start Time"
+                className=" input input-bordered input-error max-w-xs"
+                onChange={(e) => props.updateExamFields('startTime', e.target.value)}
+                value={new Date(examen.startTime).toISOString().slice(0, -8)}
+              />
+            </div>
+            <div className="form-control-group flex flex-col">
+              <label htmlFor="endTime" className="label label-text">End Time</label>
+              <input
+                type='datetime-local'
+                placeholder="End Time"
+                className="input input-bordered input-error max-w-xs"
+                onChange={(e) => props.updateExamFields('endTime', e.target.value)}
+                value={new Date(examen.endTime).toISOString().slice(0, -8)}
+              />
+            </div>
+            <div className="form-control-group flex flex-col">
+              <label htmlFor="examType" className="label label-text">Exam Type</label>
               <select
-                className="select select-accent min-w-[25vw] max-w-xs"
+                className="select select-accent max-w-xs"
                 value={examen.type}
                 onChange={(ev) => props.updateExamFields('type', ev.target.value)}
               >
@@ -47,36 +72,14 @@ const Step0 = ({ examen, ...props }) => {
               </select>
             </div>
           </div>
-          <Divider />
-          <div className="flex justify-center">
+          <div className="form-control-group flex flex-col">
+            <label htmlFor="description" className="label label-text">Description</label>
             <textarea
-              className="textarea textarea-accent w-full mt-5 lg:mt-0"
+              className="textarea textarea-accent w-full mt-5 lg:mt-0 h-[15vh]"
               placeholder="Exam Description"
               value={examen.description}
               onChange={(ev) => props.updateExamFields('description', ev.target.value)}
             ></textarea>
-          </div>
-          <div className="flex flex-col lg:flex-row items-center lg:justify-center lg:space-x-10">
-            <div className="form-control-group flex flex-col">
-              <label htmlFor="startTime" className="label label-text">Start Time</label>
-              <input
-                type='datetime-local'
-                placeholder="Start Time"
-                className=" input input-bordered input-error min-w-[25vw] max-w-xs"
-                onChange={(e) => props.updateExamFields('startTime', e.target.value)}
-                value={new Date(examen.startTime).toISOString().slice(0, -8)}
-              />
-            </div>
-            <div className="form-control-group flex flex-col">
-              <label htmlFor="endTime" className="label label-text">End Time</label>
-              <input
-                type='datetime-local'
-                placeholder="End Time"
-                className="input input-bordered input-error min-w-[25vw] max-w-xs"
-                onChange={(e) => props.updateExamFields('endTime', e.target.value)}
-                value={new Date(examen.endTime).toISOString().slice(0, -8)}
-              />
-            </div>
           </div>
           <div className="flex justify-center">
             {!props.viewMode && !examen.file &&

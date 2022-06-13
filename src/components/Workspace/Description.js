@@ -3,7 +3,7 @@ import PdfViewerComponent from '../../components/PDFViewerComponent';
 import { isImage, isPdf } from '../../helpers/media';
 
 const Description = (props) => {
-  const { description, file } = props.examen;
+  const { description, file, accessKey } = props.examen;
 
   return (
     <div className="h-full">

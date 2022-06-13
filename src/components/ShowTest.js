@@ -16,7 +16,7 @@ const ShowTest = ({ page, setPage, ...props }) => {
 const mapStateToProps = (state) => {
 
   return {
-    addNewQuestion: () => { },
+    addNewQuestionAt: () => { },
     updateQuestionFields: () => { },
     updateExamFields: () => { },
     removeQuestion: () => { },

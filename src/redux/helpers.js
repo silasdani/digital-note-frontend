@@ -3,6 +3,7 @@ import * as userActions from './ducks/userDuck';
 import * as examActions from './ducks/examDuck';
 import * as sessionActions from './ducks/sessionDuck';
 import * as lobbyActions from './ducks/lobbyDuck';
+import { isNaN, isEmpty, isNumber } from 'lodash';
 
 export const errorHandler = (response) => {
   const { status, message, data: { error }, statusText } = response;
@@ -63,4 +64,8 @@ export const successHandler = (action) => {
 
     default: return alertShown({ type: ALERT_TYPES.success, message: 'Success!' })
   }
+}
+
+export const isBlank = (value) => {
+  return isEmpty(value) && !isNumber(value) || isNaN(value);
 }

@@ -7,6 +7,7 @@ const TABS = [
     name: 'Description',
     index: 0,
     question: false,
+    accessKey: 'A213A'
   },
   {
     name: 'Questions',
@@ -16,7 +17,7 @@ const TABS = [
   }
 ]
 
-const StudentWorkspacePage = ({ questions }) => {
+const StudentWorkspacePage = ({ questions, accessKey }) => {
   const [tabs, setTabs] = useState(TABS);
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
@@ -25,12 +26,11 @@ const StudentWorkspacePage = ({ questions }) => {
       res.push(tab.name === 'Questions' ? {
         ...tab,
         subTabs: questions?.map((q) => ({
-          // name: `${q.no + 1}. ${q.textStatement}`,
           name: `Q${q.no + 1}.`,
           index: q.no,
           question: true,
         }))
-      } : tab)
+      } : { ...tab, accessKey })
 
       return res
     }, []))
@@ -85,7 +85,7 @@ const StudentWorkspacePage = ({ questions }) => {
                   key={item.index}
                   className={`${currentTab.name == item.name ? 'text-primary' : ''}`}
                 >
-                  <a onClick={() => setCurrentTab(item)}>{item.name}</a>
+                  <a onClick={() => setCurrentTab(item)}>{item.name} ({item.accessKey})</a>
                 </li>
               )
             })}
@@ -96,4 +96,4 @@ const StudentWorkspacePage = ({ questions }) => {
   )
 }
 
-export default connect((state) => ({ questions: state.exam?.examen?.questions || state.exam.create.questions }))(StudentWorkspacePage)
+export default connect((state) => ({ questions: state.exam.examen?.questions || state.exam.create.questions }))(StudentWorkspacePage)
