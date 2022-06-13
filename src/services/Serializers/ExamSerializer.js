@@ -1,10 +1,7 @@
 import QuestionSerializer from './QuestionSerializer'
-import { omit } from "lodash";
 
 class ExamSerializer {
   static serialize(data) {
-
-    console.warn(data.questions)
     const result = {
       exam: {
         name: data.name,
@@ -16,6 +13,8 @@ class ExamSerializer {
       },
       questions: QuestionSerializer.serializeIndex(data.questions)
     }
+
+    if (data.status) result.exam['status'] = data.status
 
     return result;
   }

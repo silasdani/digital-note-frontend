@@ -2,15 +2,16 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { accessExam } from '../redux/ducks/examDuck'
 import { createContestant } from '../redux/ducks/lobbyDuck'
-import { isEmpty, omit } from 'lodash';
+import { isEmpty } from 'lodash';
+import { isEmail } from '../redux/helpers';
 
 const HomePage = ({ navigate, ...props }) => {
   const [contestant, setContestant] = useState({
     accessKey: 'BR75X',
-    firstName: '',
-    lastName: '',
-    email: '',
-    studentClass: '',
+    firstName: 'Silas',
+    lastName: 'Daniel',
+    email: 'silas@daniel.com',
+    studentClass: '12 I',
   });
 
   const [errors, setErrors] = useState({
@@ -39,7 +40,12 @@ const HomePage = ({ navigate, ...props }) => {
 
   const onEnterExam = () => {
     const localErrors = Object.keys(errors).reduce((res, key) => {
-      res[key] = isEmpty(contestant[key]);
+      if (key === 'email') {
+        res[key] = !isEmail(contestant.email)
+      } else {
+        res[key] = isEmpty(contestant[key]);
+      }
+
       return res
     }, {})
 
@@ -50,7 +56,10 @@ const HomePage = ({ navigate, ...props }) => {
     }
 
     props.createContestant(contestant)
-      .then(() => navigate('/workspace'))
+      .then(({ data }) => {
+        console.warn()
+        if (!!data.attributes.accessToken) navigate('/workspace')
+      })
   }
 
   return (
@@ -148,4 +157,9 @@ const HomePage = ({ navigate, ...props }) => {
   )
 };
 
-export default connect(null, { accessExam, createContestant })(HomePage);
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, { accessExam, createContestant })(HomePage);

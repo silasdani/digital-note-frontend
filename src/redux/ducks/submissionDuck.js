@@ -41,14 +41,14 @@ const submissionQuestionFieldsChanged = (data) => ({
 export const createSubmission = (submissionParams) => async (dispatch, getState) => {
   const { session } = getState().session;
 
-  try {
-    const data = await new SubmissionService(session).create(submissionParams);
-    dispatch(submissionCreated(data));
-    dispatch(successHandler({ type: CREATE_SUBMISSION }));
-    dispatch(submissionFieldsCleared());
-  } catch ({ response }) {
-    return dispatch(errorHandler(response));
-  }
+  return new SubmissionService(session).create(submissionParams)
+    .then(data => {
+      dispatch(submissionCreated(data));
+      dispatch(successHandler({ type: CREATE_SUBMISSION }));
+      dispatch(submissionFieldsCleared());
+    }).catch(({ response }) => {
+      return dispatch(errorHandler(response));
+    })
 }
 
 export const fetchSubmission = () => (dispatch, getState) => {
@@ -64,7 +64,7 @@ export const fetchSubmission = () => (dispatch, getState) => {
 export const fetchSubmissions = () => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).fetchAll({ active: 1, draft: 0 })
+  new SubmissionService(session).fetchAll()
     .then((data) => {
       dispatch(submissionsFetched(data))
       dispatch(successHandler({ type: FETCH_SUBMISSIONS }))

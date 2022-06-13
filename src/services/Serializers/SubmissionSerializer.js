@@ -9,7 +9,8 @@ class SubmissionSerializer {
         start_time: data.startTime,
         end_time: data.endTime,
       },
-      question_answers: QuestionSerializer.serializeIndex(data.questionAnswers)
+      question_answers: QuestionSerializer.serializeIndex(data.questionAnswers),
+      access_key: data.accessKey,
     }
 
     return result;

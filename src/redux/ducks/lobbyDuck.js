@@ -41,13 +41,15 @@ export const fetchContestant = (id) => (dispatch, getState) => {
 }
 
 export const createContestant = (contestant) => async (dispatch) => {
-  try {
-    const data = await new LobbyService().createContestant(contestant);
-    dispatch(contestantCreated(data));
-    dispatch(successHandler({ type: CREATE_CONTESTANT }));
-  } catch ({ response }) {
-    return dispatch(errorHandler(response));
-  }
+  return new LobbyService().createContestant(contestant)
+    .then((data) => {
+      dispatch(contestantCreated(data));
+      dispatch(successHandler({ type: CREATE_CONTESTANT }));
+      return data
+    })
+    .catch(({ response }) => {
+      return dispatch(errorHandler(response));
+    })
 }
 
 export const fetchContestants = (accessKey) => (dispatch, getState) => {

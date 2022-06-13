@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchExams, setExamForUpdate } from '../redux/ducks/examDuck'
+import { fetchExams, setExamForUpdate, updateExamen } from '../redux/ducks/examDuck'
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ShowTest from '../components/ShowTest';
 import { EXAM_SECURITY_TYPES } from '../helpers/enums';
+import { BsOption } from 'react-icons/bs';
 
 const ExamListPage = ({ exams, ...props }) => {
   useEffect(() => { props.fetchExams(); }, [])
@@ -64,13 +65,27 @@ const ExamListPage = ({ exams, ...props }) => {
                       </td>
                       <td>{status}</td>
                       <th className="flex flex-col">
-                        <Link
-                          to="/edit_exam"
-                          onClick={() => props.setExamForUpdate({ id: exam.id, ...exam.attributes })}
-                          className="btn btn-ghost btn-xs">
-                          Edit
-                        </Link>
-                        <label htmlFor={`preview-modal-${index}`} className="btn btn-ghost btn-xs">preview</label>
+                        <div class="dropdown dropdown-end">
+                          <label tabindex="0" className="btn btn-ghost btn-circle avatar focus:border focus:border-accent">
+                            <div class="w-10 rounded-full"><BsOption className="mt-3 ml-2" size={20} /></div>
+                          </label>
+                          <ul tabindex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 border border-accent">
+                            <li>
+                              <Link
+                                to="/edit_exam"
+                                onClick={() => props.setExamForUpdate({ id: exam.id, ...exam.attributes })}
+                                className="">
+                                Edit
+                              </Link>
+                            </li>
+                            <li>
+                              <label htmlFor={`preview-modal-${index}`} className="">Preview</label>
+                            </li>
+                            <li>
+                              <label htmlFor={`archive-modal-${index}`} className="">Archive</label>
+                            </li>
+                          </ul>
+                        </div>
 
                         <input type="checkbox" id={`preview-modal-${index}`} className="modal-toggle" />
                         <div className="modal">
@@ -86,6 +101,31 @@ const ExamListPage = ({ exams, ...props }) => {
                             </div>
                           </div>
                         </div>
+                        <input type="checkbox" id={`archive-modal-${index}`} className="modal-toggle" />
+                        <div className="modal">
+                          <div className="modal-box">
+                            <h3 className="font-bold text-lg">Are you sure you?</h3>
+                            <div className="modal-action flex justify-center">
+                              <label
+                                htmlFor={`archive-modal-${index}`}
+                                className="btn btn-sm w-24 btn-info text-white"
+                                onClick={() => {
+                                  props.updateExamen(exam.id, {
+                                    ...exam.attributes,
+                                    status: "archived"
+                                  })
+                                }}
+                              >
+                                Yes
+                              </label>
+                              <label
+                                htmlFor={`archive-modal-${index}`}
+                                className="btn btn-sm w-24 btn-error text-white">
+                                Cancel
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </th>
                     </tr>)
                 }))}
@@ -94,7 +134,7 @@ const ExamListPage = ({ exams, ...props }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
@@ -106,4 +146,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchExams, setExamForUpdate })(ExamListPage)
+export default connect(mapStateToProps, { fetchExams, setExamForUpdate, updateExamen })(ExamListPage)

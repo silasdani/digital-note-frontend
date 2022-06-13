@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import WorkSpace from '../components/Workspace';
+import { updateSubmissionFields } from '../redux/ducks/submissionDuck';
 
 const TABS = [
   {
@@ -17,11 +18,21 @@ const TABS = [
   }
 ]
 
-const StudentWorkspacePage = ({ questions, accessKey }) => {
+const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
+  const { questions, accessKey } = examen;
   const [tabs, setTabs] = useState(TABS);
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   useEffect(() => {
+    props.updateSubmissionFields('accessKey', accessKey)
+    props.updateSubmissionFields('questionAnswers', Array(questions.length).fill({
+      no: 0,
+      option: '',
+      file: null,
+      selects: [],
+      text: ''
+    }))
+
     setTabs(tabs.reduce((res, tab) => {
       res.push(tab.name === 'Questions' ? {
         ...tab,
@@ -69,7 +80,7 @@ const StudentWorkspacePage = ({ questions, accessKey }) => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content mt-0 ml-0">
           <label htmlFor="my-drawer-2" className="absolute btn btn-primary rounded-none drawer-button lg:hidden">Menu</label>
-          <WorkSpace tab={currentTab} onMoveQuestion={onMoveQuestion} />
+          <WorkSpace tab={currentTab} examen={examen} onMoveQuestion={onMoveQuestion} navigate={navigate} />
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -96,4 +107,12 @@ const StudentWorkspacePage = ({ questions, accessKey }) => {
   )
 }
 
-export default connect((state) => ({ questions: state.exam.examen?.questions || state.exam.create.questions }))(StudentWorkspacePage)
+const mapStateToProps = (state) => {
+  const { examen } = state.exam;
+
+  return {
+    examen: examen || state.exam.create
+  }
+}
+
+export default connect(mapStateToProps, { updateSubmissionFields })(StudentWorkspacePage)
