@@ -75,7 +75,7 @@ const Questions = (props) => {
         <textarea
           className="textarea textarea-accent w-full mt-5 h-64"
           placeholder="Your answer here"
-          value={currentAnswer.text}
+          value={currentAnswer.text || ''}
           onChange={(ev) => {
             props.updateQuestionFields(currentAnswer.no, 'text', ev.target.value)
           }}

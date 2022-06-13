@@ -51,20 +51,20 @@ export const createSubmission = (submissionParams) => async (dispatch, getState)
     })
 }
 
-export const fetchSubmission = () => (dispatch, getState) => {
+export const fetchSubmission = (id) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).show()
+  new SubmissionService(session).show(id)
     .then((data) => {
       dispatch(submissionFetched(data))
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
+    .catch((response) => dispatch(errorHandler(response)))
 }
 
-export const fetchSubmissions = () => (dispatch, getState) => {
+export const fetchSubmissions = (examId) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).fetchAll()
+  new SubmissionService(session).fetchAll({ exam_id: examId })
     .then((data) => {
       dispatch(submissionsFetched(data))
       dispatch(successHandler({ type: FETCH_SUBMISSIONS }))

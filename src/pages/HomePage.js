@@ -57,7 +57,6 @@ const HomePage = ({ navigate, ...props }) => {
 
     props.createContestant(contestant)
       .then(({ data }) => {
-        console.warn()
         if (!!data.attributes.accessToken) navigate('/workspace')
       })
   }

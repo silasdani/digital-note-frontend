@@ -17,7 +17,7 @@ import Alert from "../components/Alert";
 import StudentWorkspacePage from "../pages/StudentWorkspacePage";
 
 const App = ({ autoLogin }) => {
-  useEffect(() => { autoLogin(); console.warn('initializing') }, [])
+  useEffect(() => { autoLogin() }, [])
 
   return (<BrowserRouter>
     <Alert />
@@ -51,6 +51,10 @@ const App = ({ autoLogin }) => {
               />
               <TeacherRoute
                 path="/results"
+                component={ResultsPage}
+              />
+              <TeacherRoute
+                path="/results/:id"
                 component={ResultsPage}
               />
               <TeacherRoute

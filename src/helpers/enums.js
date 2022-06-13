@@ -33,20 +33,24 @@ export const EXAM_SECURITY_TYPES = [
 
 export const EXAM_STATUSES = [
   {
-    value: 0,
-    name: 'Active'
+    value: 'active',
+    name: 'Active',
+    color: 'bg-green-400 border-green-400',
   },
   {
-    value: 1,
-    name: 'Draft'
+    value: 'draft',
+    name: 'Draft',
+    color: 'badge-ghost',
   },
   {
-    value: 3,
-    name: 'Archived'
+    value: 'archived',
+    name: 'Archived',
+    color: '',
   },
   {
-    value: 4,
-    name: 'Completed'
+    value: 'completed',
+    name: 'Completed',
+    color: 'bg-green-900 border-green-900',
   },
 ]
 

@@ -4,7 +4,7 @@ import { fetchExams, setExamForUpdate, updateExamen } from '../redux/ducks/examD
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import ShowTest from '../components/ShowTest';
-import { EXAM_SECURITY_TYPES } from '../helpers/enums';
+import { EXAM_SECURITY_TYPES, EXAM_STATUSES } from '../helpers/enums';
 import { BsOption } from 'react-icons/bs';
 
 const ExamListPage = ({ exams, ...props }) => {
@@ -63,13 +63,23 @@ const ExamListPage = ({ exams, ...props }) => {
                           {security}
                         </div>
                       </td>
-                      <td>{status}</td>
+                      <td>
+                        <div
+                          className={`badge ${EXAM_STATUSES.find((o) => o.value == status)?.color} text-white`}
+                        >
+                          {status}
+                        </div></td>
                       <th className="flex flex-col">
-                        <div class="dropdown dropdown-end">
-                          <label tabindex="0" className="btn btn-ghost btn-circle avatar focus:border focus:border-accent">
-                            <div class="w-10 rounded-full"><BsOption className="mt-3 ml-2" size={20} /></div>
+                        <div className="dropdown dropdown-end">
+                          <label tabIndex="0" className="btn btn-ghost btn-circle avatar focus:border focus:border-accent">
+                            <div className="w-10 rounded-full"><BsOption className="mt-3 ml-2" size={20} /></div>
                           </label>
-                          <ul tabindex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 border border-accent">
+                          <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 border border-accent">
+                            <li>
+                              <Link to={`/results/${exam.id}`}>
+                                Submissions
+                              </Link>
+                            </li>
                             <li>
                               <Link
                                 to="/edit_exam"

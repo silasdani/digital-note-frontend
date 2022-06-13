@@ -1,9 +1,8 @@
-
-
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Navigate, Routes, useNavigate } from "react-router-dom";
+import { STORAGE_KEY } from '../redux/ducks/sessionDuck';
 
 const TeacherRoute = ({ authenticated, component: Component, ...props }) => {
   const navigate = useNavigate();
@@ -31,7 +30,9 @@ TeacherRoute.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { authenticated } = state.session.session;
+  const authenticated = !!window.localStorage.getItem(STORAGE_KEY)
+    || !!window.sessionStorage.getItem(STORAGE_KEY);
+
   return {
     authenticated,
   }

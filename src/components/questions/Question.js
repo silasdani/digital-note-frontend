@@ -37,7 +37,7 @@ const Question = ({
         <textarea
           className="textarea textarea-accent w-full lg:w-[62%] mt-5 lg:mt-0"
           placeholder={`${no + 1}. Question Statement`}
-          value={textStatement}
+          value={textStatement || ''}
           onChange={(ev) => props.updateQuestionFields(index, 'textStatement', ev.target.value)}
         ></textarea>
         <div className="flex flex-row space-x-5 justify-between items-center min-w-[20vw] lg:items-end lg:flex-col lg:space-y-2 lg:space-x-0  lg:w-[38%]">

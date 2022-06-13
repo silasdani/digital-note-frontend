@@ -77,7 +77,7 @@ const Step0 = ({ examen, ...props }) => {
             <textarea
               className="textarea textarea-accent w-full mt-5 lg:mt-0 h-[15vh]"
               placeholder="Exam Description"
-              value={examen.description}
+              value={examen.description || ''}
               onChange={(ev) => props.updateExamFields('description', ev.target.value)}
             ></textarea>
           </div>

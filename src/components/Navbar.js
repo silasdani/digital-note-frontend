@@ -12,7 +12,7 @@ const teacherRoutes = [
   // { name: 'Support', path: '/support', icon: <AiOutlineInfoCircle /> },
   { name: 'New Exam', path: '/new_exam', icon: <AiOutlineForm /> },
   { name: 'Exam list', path: '/exam_list', icon: <BsCardChecklist /> },
-  { name: 'Results', path: '/results', icon: <BsFileEarmarkCheck /> },
+  { name: 'Results', path: '/results/8', icon: <BsFileEarmarkCheck /> },
   { name: 'My school', path: '/my_school', icon: <MdOutlineSchool /> },
 ]
 
