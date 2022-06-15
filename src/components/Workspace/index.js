@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Description from './Description'
+import Summary from './Summary'
 import Questions from './Questions'
 
 const WorkSpace = ({ tab, ...props }) => {
@@ -12,6 +12,8 @@ const WorkSpace = ({ tab, ...props }) => {
     switch (tab.name) {
       case 'Description':
         return <Description {...props} />
+      case 'Summary':
+        return <Summary {...props} />
     }
   }
 
@@ -23,12 +25,4 @@ const WorkSpace = ({ tab, ...props }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const examen = state.exam.examen || state.exam.create
-
-  return {
-    examen
-  }
-}
-
-export default connect(mapStateToProps, {})(WorkSpace)
+export default WorkSpace

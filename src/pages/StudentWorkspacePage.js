@@ -8,18 +8,23 @@ const TABS = [
     name: 'Description',
     index: 0,
     question: false,
-    accessKey: 'A213A'
+    accessKey: ''
   },
   {
     name: 'Questions',
     index: 1,
     subTabs: [],
+    question: true,
+  },
+  {
+    name: 'Summary',
+    index: 2,
     question: false,
   }
 ]
 
 const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
-  const { questions, accessKey } = examen;
+  const { questions, accessKey, examType } = examen;
   const [tabs, setTabs] = useState(TABS);
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
@@ -34,6 +39,8 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
     }))
 
     setTabs(tabs.reduce((res, tab) => {
+      if (tab.name === 'Questions' && examType !== 'digital') return res;
+
       res.push(tab.name === 'Questions' ? {
         ...tab,
         subTabs: questions?.map((q) => ({
@@ -82,21 +89,30 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
           <label htmlFor="my-drawer-2" className="absolute btn btn-primary rounded-none drawer-button lg:hidden">Menu</label>
           <WorkSpace tab={currentTab} examen={examen} onMoveQuestion={onMoveQuestion} navigate={navigate} />
         </div>
+
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 overflow-y-auto w-80 text-white text-2xl bg-accent">
             {tabs.map((item, index) => {
-              if (item.name === 'Questions') return (<div key={index}>
-                <button type="button" className={`disabled text-left p-4 ${item.subTabs?.includes(currentTab) ? 'text-primary' : ''}`}>{item.name}</button>
-                <QuestionItems items={item.subTabs || []} />
-              </div>)
+              if (item.name === 'Questions' && examType === 'digital') {
+                return (<div key={index}>
+                  <button type="button" className={`disabled text-left p-4 ${item.subTabs?.includes(currentTab) ? 'text-primary' : ''}`}>{item.name}</button>
+                  <QuestionItems items={item.subTabs || []} />
+                </div>)
+              }
+
+              if (item.name === 'WorkSpace' && examType !== 'digital') {
+                return (<div key={index}>
+                  <button type="button" className={`disabled text-left p-4 ${item.subTabs?.includes(currentTab) ? 'text-primary' : ''}`}>{item.name}</button>
+                </div>)
+              }
 
               return (
                 <li
                   key={item.index}
                   className={`${currentTab.name == item.name ? 'text-primary' : ''}`}
                 >
-                  <a onClick={() => setCurrentTab(item)}>{item.name} ({item.accessKey})</a>
+                  <a onClick={() => setCurrentTab(item)}>{item.name} {item.name === "Description" && <span>({item.accessKey})</span>}</a>
                 </li>
               )
             })}

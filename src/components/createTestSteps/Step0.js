@@ -14,7 +14,6 @@ const Step0 = ({ examen, ...props }) => {
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       props.updateExamFields('file', reader.result)
-      setFileName(event.target.value)
     });
 
     reader.readAsDataURL(file);
