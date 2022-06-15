@@ -62,8 +62,8 @@ const Questions = (props) => {
       {questionType == 'option' && <div className="flex flex-col lg:flex-row lg:space-x-6">
         {options?.map((option, optionIndex) => (
           <div key={optionIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2 form-control w-full max-w-xs">
-            <input type='radio' className="radio radio-accent" checked={currentAnswer.option == option} onChange={() => {
-              props.updateQuestionFields(currentAnswer.no, 'option', option)
+            <input type='radio' className="radio radio-accent" checked={currentAnswer?.option == option} onChange={() => {
+              props.updateQuestionFields(currentAnswer?.no, 'option', option)
             }} />
             <label className='max-w-lg w-full'>{option}</label>
           </div>
@@ -75,16 +75,16 @@ const Questions = (props) => {
         <textarea
           className="textarea textarea-accent w-full mt-5 h-64"
           placeholder="Your answer here"
-          value={currentAnswer.text || ''}
+          value={currentAnswer?.text || ''}
           onChange={(ev) => {
-            props.updateQuestionFields(currentAnswer.no, 'text', ev.target.value)
+            props.updateQuestionFields(currentAnswer?.no, 'text', ev.target.value)
           }}
         ></textarea>
       </div>
       }
 
       {questionType == 'file' && <div className="flex flex-col items-center my-10 px-10 pb-5 border  border-accent rounded-xl cursor-pointer">
-        {!currentAnswer.file &&
+        {!currentAnswer?.file &&
           <>
             <div className="flex flex-col items-center px-10 pb-5 border rounded-xl cursor-pointer" onClick={() => questionFileRef.current?.click()}>
               <FaCloudUploadAlt size={100} />
@@ -100,18 +100,18 @@ const Questions = (props) => {
           </>
         }
         <div className="file-section justify-center">
-          {currentAnswer.file &&
+          {currentAnswer?.file &&
             <div className="flex flex-col items-center">
-              {isImage(currentAnswer.file) && <img className="my-5 rounded-xl" src={currentAnswer.file} alt="Image" />}
-              {isPdf(currentAnswer.file) &&
+              {isImage(currentAnswer?.file) && <img className="my-5 rounded-xl" src={currentAnswer?.file} alt="Image" />}
+              {isPdf(currentAnswer?.file) &&
                 <div className="PDF-viewer my-5 rounded-xl">
-                  <PdfViewerComponent document={currentAnswer.file} />
+                  <PdfViewerComponent document={currentAnswer?.file} />
                 </div>
               }
-              {currentAnswer.file && <button
+              {currentAnswer?.file && <button
                 className="badge badge-ghost"
                 onClick={() => {
-                  props.updateQuestionFields(currentAnswer.no, 'file', null)
+                  props.updateQuestionFields(currentAnswer?.no, 'file', null)
                 }}
               >
                 Remove File
@@ -125,8 +125,8 @@ const Questions = (props) => {
       {questionType == 'choose' && <div className="flex flex-col lg:flex-row lg:space-x-6">
         {selects?.map((select, selectIndex) => (
           <div key={selectIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2 form-control w-full max-w-xs">
-            <input type='checkbox' className="checkbox checkbox-accent" checked={currentAnswer.selects?.includes(select)} onChange={() => {
-              props.updateQuestionFields(currentAnswer.no, 'selects', xor(currentAnswer.selects, [select]))
+            <input type='checkbox' className="checkbox checkbox-accent" checked={currentAnswer?.selects?.includes(select)} onChange={() => {
+              props.updateQuestionFields(currentAnswer?.no, 'selects', xor(currentAnswer?.selects, [select]))
             }} />
             <label className='max-w-lg w-full'>{select}</label>
           </div>

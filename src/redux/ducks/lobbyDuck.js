@@ -7,6 +7,7 @@ export const FETCH_CONTESTANT = 'FETCH_CONTESTANT';
 export const FETCH_CONTESTANTS = 'FETCH_CONTESTANTS';
 export const CREATE_CONTESTANT = 'CREATE_CONTESTANT';
 export const CHANGE_CONTESTANT_PERMISSIONS = 'CHANGE_CONTESTANT_PERMISSIONS';
+export const UPDATE_CONTESTANT_FIELDS = 'UPDATE_CONTESTANT_FIELDS';
 
 /// DUCKS
 const contestantCreated = (data) => ({
@@ -26,6 +27,11 @@ const contestantsFetched = (data) => ({
 
 const permissionsChanged = () => ({
   type: CHANGE_CONTESTANT_PERMISSIONS,
+})
+
+const contestantFieldUpdated = (data) => ({
+  type: UPDATE_CONTESTANT_FIELDS,
+  data
 })
 
 /// EPICS
@@ -74,16 +80,23 @@ export const changePermissions = (data) => (dispatch, getState) => {
     .catch(({ response }) => dispatch(errorHandler(response)))
 }
 
+export const updateContestantFields = (field, value) => (dispatch) => {
+  dispatch(contestantFieldUpdated({ field, value }));
+}
+
 /// DEFAULT_STATES
 const DEFAULT_CONTESTANT_STATE = {
-  name: '',
-  permissions: Object.values(PERMISSIONS),
   accessToken: '',
+  accessKey: 'NDQWB',
+  firstName: 'Silas',
+  lastName: 'Daniel',
+  email: 'silas@daniel.com',
+  studentClass: '12 I',
 }
 
 export const DEFAULT_LOBBY_STATE = {
   contestants: [{
-    attributes: DEFAULT_CONTESTANT_STATE
+    attributes: { ...DEFAULT_CONTESTANT_STATE, permissions: Object.values(PERMISSIONS) }
   }],
   contestant: DEFAULT_CONTESTANT_STATE,
 }
@@ -101,6 +114,16 @@ const lobby = (state = DEFAULT_LOBBY_STATE, action = {}) => {
       return {
         ...state,
         contestant: action.data
+      }
+    case UPDATE_CONTESTANT_FIELDS:
+
+      console.warn('action', action)
+      return {
+        ...state,
+        contestant: {
+          ...state.contestant,
+          [action.data.field]: action.data.value
+        }
       }
     default: return state
   }

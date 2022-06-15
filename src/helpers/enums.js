@@ -1,14 +1,14 @@
 export const EXAM_QUESTION_TYPES = [
   {
-    value: 0,
+    value: 'paper',
     name: 'Questions on paper'
   },
   {
-    value: 1,
+    value: 'file',
     name: 'Upload a file'
   },
   {
-    value: 2,
+    value: 'digital',
     name: 'Create Questions'
   }
 ];
@@ -50,6 +50,24 @@ export const EXAM_STATUSES = [
   {
     value: 'completed',
     name: 'Completed',
+    color: 'bg-green-900 border-green-900',
+  },
+]
+export const SUBMISSION_STATUSES = [
+  {
+    value: 'started',
+    color: '',
+  },
+  {
+    value: 'in_progress',
+    color: 'badge-ghost',
+  },
+  {
+    value: 'completed',
+    color: 'bg-green-400 border-green-400',
+  },
+  {
+    value: 'graded',
     color: 'bg-green-900 border-green-900',
   },
 ]

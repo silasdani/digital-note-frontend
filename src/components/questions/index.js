@@ -3,12 +3,12 @@ import Question from './Question';
 import { Divider } from '@material-ui/core';
 
 const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
-  const { questions } = examen;
+  const { questions, examType } = examen;
   const canDelete = questions.length > 1;
 
   return (
     <div className="">
-      {questions?.map((question, index) => {
+      {examType === 'digital' ? questions?.map((question, index) => {
         return (
           <div className="question" key={index}>
             <Divider />
@@ -23,8 +23,11 @@ const Questions = ({ viewMode, examen, updateQuestionFields, ...props }) => {
             />}
           </div>
         )
-      })}
-      {!viewMode && <>
+      }) : <div>
+        There are no questions available for this type of exam.
+      </div>
+      }
+      {!viewMode && examType === 'digital' && <>
         <button
           className="btn btn-primary btn-sm"
           onClick={() => props.addNewQuestionAt(questions[questions.length - 1].no)}

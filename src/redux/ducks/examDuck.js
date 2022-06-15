@@ -234,9 +234,9 @@ export const DEFAULT_EXAM_STATE = {
     endTime: new Date().toISOString().slice(0, -8),
     security: 'low',
     file: null,
-    type: 2,
+    examType: 'paper',
     questions: DEFAULT_QUESTION_STATE,
-    description: 'sdaasd',
+    description: 'Type here ...',
   },
   update: {
     name: '',

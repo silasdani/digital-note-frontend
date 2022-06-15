@@ -1,19 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { accessExam } from '../redux/ducks/examDuck'
-import { createContestant } from '../redux/ducks/lobbyDuck'
+import { createContestant, updateContestantFields } from '../redux/ducks/lobbyDuck'
 import { isEmpty } from 'lodash';
 import { isEmail } from '../redux/helpers';
 
 const HomePage = ({ navigate, ...props }) => {
-  const [contestant, setContestant] = useState({
-    accessKey: 'BR75X',
-    firstName: 'Silas',
-    lastName: 'Daniel',
-    email: 'silas@daniel.com',
-    studentClass: '12 I',
-  });
-
+  const { contestant } = props;
   const [errors, setErrors] = useState({
     firstName: false,
     lastName: false,
@@ -23,10 +16,7 @@ const HomePage = ({ navigate, ...props }) => {
   const modalRef = useRef();
 
   const onChange = (e) => {
-    setContestant({
-      ...contestant,
-      [e.target.name]: e.target.value
-    })
+    props.updateContestantFields(e.target.name, e.target.value)
   }
 
   const onGetStarted = () => {
@@ -157,8 +147,10 @@ const HomePage = ({ navigate, ...props }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { contestant } = state.lobby;
   return {
+    contestant
   }
 }
 
-export default connect(mapStateToProps, { accessExam, createContestant })(HomePage);
+export default connect(mapStateToProps, { accessExam, createContestant, updateContestantFields })(HomePage);

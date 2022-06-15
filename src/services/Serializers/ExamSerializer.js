@@ -7,6 +7,7 @@ class ExamSerializer {
         name: data.name,
         file: data.file,
         start_time: data.startTime,
+        end_type: data.examType,
         end_time: data.endTime,
         security: data.security,
         description: data.description,

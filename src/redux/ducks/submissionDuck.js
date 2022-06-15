@@ -40,8 +40,9 @@ const submissionQuestionFieldsChanged = (data) => ({
 /// EPICS
 export const createSubmission = (submissionParams) => async (dispatch, getState) => {
   const { session } = getState().session;
+  const { attributes: contestantParams } = getState().lobby.contestant?.data;
 
-  return new SubmissionService(session).create(submissionParams)
+  return new SubmissionService(session).create({ ...submissionParams, ...contestantParams })
     .then(data => {
       dispatch(submissionCreated(data));
       dispatch(successHandler({ type: CREATE_SUBMISSION }));

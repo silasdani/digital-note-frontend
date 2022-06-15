@@ -62,8 +62,8 @@ const Step0 = ({ examen, ...props }) => {
               <label htmlFor="examType" className="label label-text">Exam Type</label>
               <select
                 className="select select-accent max-w-xs"
-                value={examen.type}
-                onChange={(ev) => props.updateExamFields('type', ev.target.value)}
+                value={examen.examType}
+                onChange={(ev) => props.updateExamFields('examType', ev.target.value)}
               >
                 <option disabled></option>
                 {EXAM_QUESTION_TYPES.map(({ name, value }, index) =>
