@@ -47,6 +47,7 @@ export const createSubmission = (submissionParams) => async (dispatch, getState)
       dispatch(submissionCreated(data));
       dispatch(successHandler({ type: CREATE_SUBMISSION }));
       dispatch(submissionFieldsCleared());
+      return data
     }).catch(({ response }) => {
       return dispatch(errorHandler(response));
     })

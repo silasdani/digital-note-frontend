@@ -115,7 +115,7 @@ const Question = ({
                 <input
                   type="text"
                   className='input input-bordered h-10 w-full'
-                  value={option}
+                  value={option || ''}
                   onChange={(ev) => props.updateQuestionFields(
                     index,
                     'options',
@@ -151,7 +151,7 @@ const Question = ({
                 <input
                   type="text"
                   className='input input-bordered h-10 w-full'
-                  value={select}
+                  value={select || ''}
                   onChange={(ev) => props.updateQuestionFields(
                     index,
                     'selects',

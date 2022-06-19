@@ -4,8 +4,9 @@ import { createSubmission, updateSubmissionFields } from '../../redux/ducks/subm
 import { isPdf, isImage } from '../../helpers/media';
 import PdfViewerComponent from '../../components/PDFViewerComponent';
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { isBlank } from '../../redux/helpers';
 
-const Summary = ({ examen, submission, ...props }) => {
+const Summary = ({ examen, submission, navigate, ...props }) => {
   const { examType } = examen;
   const everyThingIsOk = () => (true)
   const fileRef = useRef();
@@ -13,6 +14,9 @@ const Summary = ({ examen, submission, ...props }) => {
   const onSubmit = () => {
     if (everyThingIsOk()) {
       props.createSubmission(submission)
+        .then(({ data }) => {
+          if (!isBlank(data.id)) navigate('/')
+        })
     }
   }
 
@@ -76,6 +80,15 @@ const Summary = ({ examen, submission, ...props }) => {
         </div>
       </div>
       }
+      {examType === "digital" && <div>
+        <p>You can only submit once.</p>
+        <button
+          className="btn btn-primary btn-wide mx-auto"
+          onClick={onSubmit}
+        >
+          Submit
+        </button>
+      </div>}
     </div>
   )
 }

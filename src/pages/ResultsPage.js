@@ -6,9 +6,13 @@ import { isBlank } from '../redux/helpers'
 import ResultsForm from '../components/ResultsForm'
 import { SUBMISSION_STATUSES } from '../helpers/enums'
 import { BsOption } from 'react-icons/bs';
+import { AiOutlineEdit } from 'react-icons/ai';
 
 const ResultsPage = ({ submissions, ...props }) => {
   const { id } = useParams()
+  const examen = Array.isArray(props.exams)
+    ? (props.exams.find(({ id: examId }) => (examId == id)))
+    : {}
 
   useEffect(() => {
     if (isBlank(id)) return;
@@ -53,11 +57,11 @@ const ResultsPage = ({ submissions, ...props }) => {
                         <div
                           className={`badge ${SUBMISSION_STATUSES.find((o) => o.value == status)?.color} text-white`}
                         >
-                          {status}
+                          {status || 'started'}
                         </div>
                       </td>
-                      <td>{studentPoints}</td>
-                      <td>{studentGrade}</td>
+                      <td className="cursor-pointer items-center justify-center"><div className="flex flex-row items-center space-x-4">{studentPoints || <div className="text-error">No points</div>}<AiOutlineEdit size={15} onClick={() => { }}></AiOutlineEdit></div></td>
+                      <td className="cursor-pointer items-center justify-center"><div className="flex flex-row items-center space-x-4">{studentGrade || <div className="text-error">Not graded</div>}<AiOutlineEdit size={15} onClick={() => { }}></AiOutlineEdit></div></td>
                       <th className="flex flex-col">
                         <div className="dropdown dropdown-end">
                           <label tabIndex="0" className="btn btn-ghost btn-circle avatar focus:border focus:border-accent">
@@ -74,10 +78,10 @@ const ResultsPage = ({ submissions, ...props }) => {
                         <div className="modal">
                           <div className="modal-box w-11/12 max-w-full min-h-[80vh]">
                             <h3 className="font-bold text-lg"></h3>
-                            <ResultsForm
-                              submission={submission.attributes}
-                              examId={id}
-                            />
+                            {submission?.attributes && submission?.attributes && <ResultsForm
+                              submission={submission?.attributes}
+                              examen={examen?.attributes}
+                            />}
                             <div className="modal-action">
                               <label
                                 htmlFor={`preview-modal-${index}`}
@@ -109,9 +113,11 @@ const ResultsPage = ({ submissions, ...props }) => {
 
 const mapStateToProps = (state) => {
   const { index: submissions } = state.submission;
+  const { index: exams } = state.exam;
 
   return {
-    submissions
+    submissions,
+    exams
   }
 }
 

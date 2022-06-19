@@ -30,13 +30,16 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
 
   useEffect(() => {
     props.updateSubmissionFields('accessKey', accessKey)
-    props.updateSubmissionFields('questionAnswers', Array(questions.length).fill({
-      no: 0,
-      option: '',
-      file: null,
-      selects: [],
-      text: ''
-    }))
+    props.updateSubmissionFields('questionAnswers', questions?.reduce((res, { no }) => {
+      res.push({
+        no,
+        option: '',
+        file: null,
+        selects: [],
+        text: ''
+      })
+      return res;
+    }, []))
 
     setTabs(tabs.reduce((res, tab) => {
       if (tab.name === 'Questions' && examType !== 'digital') return res;
@@ -81,13 +84,17 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
     setCurrentTab(questionTabs.find(({ index }) => index === currentTab.index + step))
   }
 
+  const onNextTab = () => {
+    setCurrentTab(tabs.find(({ name }) => name === "Summary"))
+  }
+
   return (
     <div className="absolute w-full h-auto bg-base-200">
       <div className="drawer drawer-mobile fixed bg-base-200">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content mt-0 ml-0">
           <label htmlFor="my-drawer-2" className="absolute btn btn-primary rounded-none drawer-button lg:hidden">Menu</label>
-          <WorkSpace tab={currentTab} examen={examen} onMoveQuestion={onMoveQuestion} navigate={navigate} />
+          <WorkSpace tab={currentTab} examen={examen} onMoveQuestion={onMoveQuestion} navigate={navigate} onNextTab={onNextTab} />
         </div>
 
         <div className="drawer-side">

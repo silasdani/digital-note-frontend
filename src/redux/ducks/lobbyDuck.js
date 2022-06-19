@@ -116,8 +116,6 @@ const lobby = (state = DEFAULT_LOBBY_STATE, action = {}) => {
         contestant: action.data
       }
     case UPDATE_CONTESTANT_FIELDS:
-
-      console.warn('action', action)
       return {
         ...state,
         contestant: {

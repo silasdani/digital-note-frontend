@@ -3,8 +3,8 @@ import { isPdf, isImage } from '../../helpers/media';
 import PdfViewerComponent from '../../components/PDFViewerComponent';
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { connect } from 'react-redux';
-import { updateQuestionFields, createSubmission } from '../../redux/ducks/submissionDuck';
-import { xor, isNumber } from 'lodash';
+import { updateQuestionFields } from '../../redux/ducks/submissionDuck';
+import { xor } from 'lodash';
 
 const Questions = (props) => {
   const { navigate } = props;
@@ -24,17 +24,10 @@ const Questions = (props) => {
 
     const reader = new FileReader();
     reader.addEventListener("load", () => {
-      props.updateQuestionFields(currentAnswer.no, 'file', reader.result)
+      props.updateQuestionFields(currentAnswer?.no, 'file', reader.result)
     });
 
     reader.readAsDataURL(file);
-  }
-
-  const onCreateSubmission = () => {
-    props.createSubmission(props.create)
-      .then(({ data }) => {
-        if (isNumber(data.id)) navigate('/')
-      })
   }
 
   return (
@@ -137,7 +130,7 @@ const Questions = (props) => {
       <div className="my-10 mx-auto w-56 btn-group grid grid-cols-2">
         {questions[0].no < currentQuestion.no ? <button className="btn btn-outline" onClick={onPrevQuestion}>Previous</button> : <div />}
         {questions[questions.length - 1].no > currentQuestion.no && <button className="btn btn-outline" onClick={onNextQuestion}>Next</button>}
-        {questions[questions.length - 1].no == currentQuestion.no && <button className="btn" onClick={onCreateSubmission}>Finnish</button>}
+        {questions[questions.length - 1].no == currentQuestion.no && <button className="btn" onClick={props.onNextTab}>Next</button>}
       </div>
     </div>
   )
@@ -151,4 +144,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { updateQuestionFields, createSubmission })(Questions)
+export default connect(mapStateToProps, { updateQuestionFields })(Questions)

@@ -96,6 +96,7 @@ export const updateExamen = (id, examParams) => async (dispatch, getState) => {
     dispatch(examUpdated(data));
     dispatch(successHandler({ type: UPDATE_EXAM }));
     dispatch(examFieldsCleared());
+    dispatch(fetchExams())
   } catch ({ response }) {
     return dispatch(errorHandler(response));
   }
