@@ -4,7 +4,7 @@ const Step3 = () => {
   return (
     <div className="Security">
       <div className="mockup-window bg-primary shadow-md text-center">
-        <div className="px-4 border-t border-base-300 bg-white min-h-[50vh]">
+        <div className="px-4 border-t border-base-300 bg-white min-h-[70vh]">
           <table className="min-w-full">
             <tbody>
               <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">

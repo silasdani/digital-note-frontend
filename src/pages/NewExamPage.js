@@ -9,24 +9,24 @@ const NewExamPage = ({ navigate }) => {
       <div className="absolute w-4/5">
         <h1 className="absolute mt-6 text-3xl text-left font-bold text-white">New Exam</h1>
         <div className="text-white mt-6 flex justify-center items-center">
-          <ul className="steps steps-vertical lg:steps-horizontal pt-10 lg:-mt-10">
+          <ul className="steps lg:steps-horizontal pt-10 lg:-mt-10 min-w-[70vw]">
             <li
               className={`cursor-pointer step ${page >= 0 ? 'step-primary' : ''} uppercase`}
               onClick={() => setPage(0)}
             >
-              Exam Info
+              Info
             </li>
             <li
               className={`cursor-pointer step ${page >= 1 ? 'step-primary' : ''} uppercase`}
               onClick={() => setPage(1)}
             >
-              Exam Questions
+              Questions
             </li>
             <li
               className={`cursor-pointer step ${page >= 2 ? 'step-primary' : ''} uppercase`}
               onClick={() => setPage(2)}
             >
-              Student Workspace
+              Workspace
             </li>
           </ul>
         </div>

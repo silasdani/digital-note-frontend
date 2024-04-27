@@ -70,9 +70,12 @@ export const logout = () => async (dispatch, getState) => {
 export const autoLogin = () => (dispatch) => {
   const localStorage = window.localStorage.getItem(STORAGE_KEY);
   const sessionStorage = window.sessionStorage.getItem(STORAGE_KEY);
-  const session = localStorage || sessionStorage;
-  if (session) {
-    dispatch(reloadSession({ session: JSON.parse(session) }));
+  const session = JSON.parse(localStorage) ||
+    JSON.parse(sessionStorage) || { authenticated: false };
+
+  dispatch(reloadSession({ session }));
+
+  if (session.authenticated) {
     dispatch(successHandler({ type: RELOAD_SESSION }));
     dispatch(fetch());
   }
@@ -98,7 +101,7 @@ const session = (state = DEFAULT_STATE, action = {}) => {
     case RELOAD_SESSION:
       return action.data;
     case USER_LOGGED_OUT:
-      return DEFAULT_STATE;
+      return { ...DEFAULT_STATE, session: { ...DEFAULT_STATE.session, authenticated: false } };
     default:
       return state;
   }

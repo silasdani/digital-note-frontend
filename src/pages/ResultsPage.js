@@ -37,7 +37,7 @@ const ResultsPage = ({ submissions, ...props }) => {
         <div className="absolute w-4/5">
           <h1 className="absolute mt-6 text-3xl font-bold text-white text-left">Results</h1>
           <div className="bg-white mt-20 rounded-lg shadow-xl w-full">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto min-h-[70vh]">
               <table className="table w-full">
                 <thead className="text-white">
                   <tr>

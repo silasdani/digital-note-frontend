@@ -17,8 +17,8 @@ const ExamListPage = ({ exams, ...props }) => {
       <div className="absolute w-4/5">
         <h1 className="absolute mt-6 text-3xl font-bold text-white text-left">Exam List</h1>
         <div className="bg-white mt-20 rounded-lg shadow-xl w-full">
-          <div className="overflow-x-auto">
-            <table className="table w-full ">
+          <div className="overflow-x-auto min-h-[70vh]">
+            <table className="table w-full">
               <thead className="text-white">
                 <tr>
                   <th className="bg-primary"></th>
@@ -46,9 +46,6 @@ const ExamListPage = ({ exams, ...props }) => {
                         <input type="checkbox" id={`key-modal-${index}`} className="modal-toggle" />
                         <div className="modal">
                           <div className="modal-box w-11/12 max-w-5xl">
-                            <h2 className="font-bold text-2xl">
-                              Study hard, work hard, aim high. Your dreams are worth it. Good luck!
-                            </h2>
                             <p className="py-4 text-4xl text-center ">Access Key:</p>
                             <p className="text-center text-8xl ">{accessKey}</p>
                             <div className="modal-action">
