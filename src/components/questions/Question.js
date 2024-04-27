@@ -35,14 +35,14 @@ const Question = ({
     <div key={index} className="py-5">
       <div className="flex flex-col-reverse lg:flex-row lg:space-x-5 lg:justify-between">
         <textarea
-          className="textarea textarea-accent w-full lg:w-[62%] mt-5 lg:mt-0"
+          className="textarea textarea-bordered w-full lg:w-[62%] mt-5 lg:mt-0"
           placeholder={`${no + 1}. Question Statement`}
           value={textStatement || ''}
           onChange={(ev) => props.updateQuestionFields(index, 'textStatement', ev.target.value)}
         ></textarea>
         <div className="flex flex-row space-x-5 justify-between items-center min-w-[20vw] lg:items-end lg:flex-col lg:space-y-2 lg:space-x-0  lg:w-[38%]">
           <select
-            className="select select-accent lg:w-full"
+            className="select select-bordered lg:w-full"
             value={questionType}
             onChange={(ev) => props.updateQuestionFields(index, 'questionType', ev.target.value)}
           >
@@ -98,7 +98,7 @@ const Question = ({
       <div className="question-content-section py-2">
         {questionType == 'text' && <div className="">
           <div>
-            <input type="text" className="input input-bordered input-accent" placeholder="Text answer goes here" />
+            <input type="text" className="input input-bordered" placeholder="Text answer goes here" />
           </div>
         </div>
         }
@@ -141,7 +141,7 @@ const Question = ({
         {questionType == 'choose' && <div className="flex flex-col lg:flex-row lg:space-x-6">
           {selects?.map((select, selectIndex) => (
             <div key={selectIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2">
-              <input type='checkbox' className="checkbox checkbox-accent" />
+              <input type='checkbox' className="checkbox checkbox-bordered" />
               <div className="indicator">
                 {!viewMode && <span className="indicator-item badge px-0 badge-secondary">
                   <button onClick={() => props.updateQuestionFields(index, 'selects', selects.filter((_, i) => i != selectIndex))}>

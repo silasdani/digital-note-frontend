@@ -29,7 +29,7 @@ const Step0 = ({ examen, ...props }) => {
             <input
               type="text"
               placeholder="Exam Name"
-              className="input input-bordered input-accent min-w-[25vw] max-w-xs"
+              className="input input-bordered min-w-[25vw] max-w-xs"
               onChange={(e) => props.updateExamFields('name', e.target.value)}
               value={examen.name}
             />
@@ -42,7 +42,7 @@ const Step0 = ({ examen, ...props }) => {
               <input
                 type='datetime-local'
                 placeholder="Start Time"
-                className=" input input-bordered input-error max-w-xs"
+                className=" input input-bordered max-w-xs"
                 onChange={(e) => props.updateExamFields('startTime', e.target.value)}
                 value={new Date(examen.startTime).toISOString().slice(0, -8)}
               />
@@ -52,7 +52,7 @@ const Step0 = ({ examen, ...props }) => {
               <input
                 type='datetime-local'
                 placeholder="End Time"
-                className="input input-bordered input-error max-w-xs"
+                className="input input-bordered max-w-xs"
                 onChange={(e) => props.updateExamFields('endTime', e.target.value)}
                 value={new Date(examen.endTime).toISOString().slice(0, -8)}
               />
@@ -60,7 +60,7 @@ const Step0 = ({ examen, ...props }) => {
             <div className="form-control-group flex flex-col">
               <label htmlFor="examType" className="label label-text">Exam Type</label>
               <select
-                className="select select-accent max-w-xs"
+                className="select select-bordered max-w-xs"
                 value={examen.examType}
                 onChange={(ev) => props.updateExamFields('examType', ev.target.value)}
               >
@@ -74,7 +74,7 @@ const Step0 = ({ examen, ...props }) => {
           <div className="form-control-group flex flex-col">
             <label htmlFor="description" className="label label-text">Description</label>
             <textarea
-              className="textarea textarea-accent w-full mt-5 lg:mt-0 h-[15vh]"
+              className="textarea textarea-bordered w-full mt-5 lg:mt-0 h-[15vh]"
               placeholder="Exam Description"
               value={examen.description || ''}
               onChange={(ev) => props.updateExamFields('description', ev.target.value)}

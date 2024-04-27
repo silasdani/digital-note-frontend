@@ -69,7 +69,7 @@ const SignInForm = ({ onSubmit }) => {
                     id="email"
                     name="email"
                     type="text"
-                    className="text-input peer placeholder-transparent"
+                    className="text-input peer placeholder-transparent pl-2"
                     placeholder="john@doe.com"
                   />
                   <label
@@ -85,7 +85,7 @@ const SignInForm = ({ onSubmit }) => {
                     id="password"
                     type="password"
                     name="password"
-                    className="text-input peer placeholder-transparent"
+                    className="text-input peer placeholder-transparent pl-2"
                     placeholder="Password"
                   />
                   <label

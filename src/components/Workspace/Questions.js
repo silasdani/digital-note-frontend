@@ -55,7 +55,7 @@ const Questions = (props) => {
       {questionType == 'option' && <div className="flex flex-col lg:flex-row lg:space-x-6">
         {options?.map((option, optionIndex) => (
           <div key={optionIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2 form-control w-full max-w-xs">
-            <input type='radio' className="radio radio-accent" checked={currentAnswer?.option == option} onChange={() => {
+            <input type='radio' className="radio radio-bordered " checked={currentAnswer?.option == option} onChange={() => {
               props.updateQuestionFields(currentAnswer?.no, 'option', option)
             }} />
             <label className='max-w-lg w-full'>{option}</label>
@@ -66,7 +66,7 @@ const Questions = (props) => {
 
       {questionType == 'text' && <div className="flex flex-col lg:flex-row lg:space-x-6">
         <textarea
-          className="textarea textarea-accent w-full mt-5 h-64"
+          className="textarea textarea-bordered w-full mt-5 h-64"
           placeholder="Your answer here"
           value={currentAnswer?.text || ''}
           onChange={(ev) => {
@@ -76,7 +76,7 @@ const Questions = (props) => {
       </div>
       }
 
-      {questionType == 'file' && <div className="flex flex-col items-center my-10 px-10 pb-5 border  border-accent rounded-xl cursor-pointer">
+      {questionType == 'file' && <div className="flex flex-col items-center my-10 px-10 pb-5 border rounded-xl cursor-pointer">
         {!currentAnswer?.file &&
           <>
             <div className="flex flex-col items-center px-10 pb-5 border rounded-xl cursor-pointer" onClick={() => questionFileRef.current?.click()}>
@@ -118,7 +118,7 @@ const Questions = (props) => {
       {questionType == 'choose' && <div className="flex flex-col lg:flex-row lg:space-x-6">
         {selects?.map((select, selectIndex) => (
           <div key={selectIndex} className="flex flex-row items-center space-x-4 my-2 lg:ml-2 form-control w-full max-w-xs">
-            <input type='checkbox' className="checkbox checkbox-accent" checked={currentAnswer?.selects?.includes(select)} onChange={() => {
+            <input type='checkbox' className="checkbox checkbox-bordered" checked={currentAnswer?.selects?.includes(select)} onChange={() => {
               props.updateQuestionFields(currentAnswer?.no, 'selects', xor(currentAnswer?.selects, [select]))
             }} />
             <label className='max-w-lg w-full'>{select}</label>

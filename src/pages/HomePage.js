@@ -85,7 +85,7 @@ const HomePage = ({ navigate, ...props }) => {
                   type="text"
                   name="firstName"
                   placeholder="Type here"
-                  className="input input-bordered input-success w-full max-w-lg"
+                  className="input input-bordered w-full max-w-lg"
                   value={contestant.firstName}
                   onChange={onChange}
                 />
@@ -99,7 +99,7 @@ const HomePage = ({ navigate, ...props }) => {
                   type="text"
                   name="lastName"
                   placeholder="Type here"
-                  className="input input-bordered input-success w-full max-w-lg"
+                  className="input input-bordered w-full max-w-lg"
                   value={contestant.lastName}
                   onChange={onChange}
                 />
@@ -113,7 +113,7 @@ const HomePage = ({ navigate, ...props }) => {
                   type="text"
                   name="email"
                   placeholder="Type here"
-                  className="input input-bordered input-success w-full max-w-lg"
+                  className="input input-bordered w-full max-w-lg"
                   value={contestant.email}
                   onChange={onChange}
                 />
@@ -126,7 +126,7 @@ const HomePage = ({ navigate, ...props }) => {
                   type="text"
                   name="studentClass"
                   placeholder="Type here"
-                  className="input input-bordered input-success w-full max-w-lg"
+                  className="input input-bordered w-full max-w-lg"
                   value={contestant.studentClass}
                   onChange={onChange}
                 />

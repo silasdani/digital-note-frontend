@@ -3,14 +3,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isEmpty } from 'lodash'
 import { Route, Navigate, Routes, useNavigate } from "react-router-dom";
 
 const GuestRoute = ({ authenticated, component: Component, ...props }) => {
   const navigate = useNavigate();
 
   const logic = () => {
-    // if (props.path === '/workspace' && isEmpty(props.exam)) return <Navigate to="/" />
     if (authenticated) return <Navigate to="/dashboard" />
 
     return <Component navigate={navigate} />
