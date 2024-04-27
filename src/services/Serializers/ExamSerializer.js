@@ -1,4 +1,4 @@
-import QuestionSerializer from './QuestionSerializer'
+import QuestionSerializer from './QuestionSerializer';
 
 class ExamSerializer {
   static serialize(data) {
@@ -12,16 +12,16 @@ class ExamSerializer {
         security: data.security,
         description: data.description,
       },
-      questions: QuestionSerializer.serializeIndex(data.questions)
-    }
+      questions: QuestionSerializer.serializeIndex(data.questions),
+    };
 
-    if (data.status) result.exam['status'] = data.status
+    if (data.status) result.exam['status'] = data.status;
 
     return result;
   }
 
   static deserialize(response) {
-    return response
+    return response;
   }
 }
 

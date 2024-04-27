@@ -1,6 +1,6 @@
 import ImageUploading from 'react-images-uploading';
-import React, { useState } from "react";
-import Validator from "validator";
+import React, { useState } from 'react';
+import Validator from 'validator';
 
 const DEFAULT_ERRORS_STATE = {
   firstName: '',
@@ -14,7 +14,7 @@ const DEFAULT_ERRORS_STATE = {
   passwordError: false,
   passwordConfirmationError: false,
   hasError: false,
-}
+};
 
 const SignupForm = ({ onSubmit }) => {
   const [images, setImages] = React.useState([]);
@@ -34,16 +34,17 @@ const SignupForm = ({ onSubmit }) => {
   const onChange = (event) => {
     updateUser({
       ...user,
-      [event.target.name]: event.target.value
-    })
-  }
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const onFileChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
-    if (imageList.length > 0) updateUser({
-      ...user,
-      profilePic: imageList[0]?.data_url,
-    })
+    if (imageList.length > 0)
+      updateUser({
+        ...user,
+        profilePic: imageList[0]?.data_url,
+      });
   };
 
   const validate = (data) => {
@@ -64,7 +65,7 @@ const SignupForm = ({ onSubmit }) => {
 
     if (!Validator.isEmail(data.email)) {
       stop = true;
-      errors.email = "Email is not an email";
+      errors.email = 'Email is not an email';
       errors.emailError = true;
     }
 
@@ -75,14 +76,14 @@ const SignupForm = ({ onSubmit }) => {
     }
 
     if (data.password != data.passwordConfirmation) {
-      errors.password = "Passwords must match";
+      errors.password = 'Passwords must match';
       errors.passwordError = true;
       errors.passwordConfirmationError = true;
       stop = true;
     }
 
     if (!Validator.isLength(data.password, { min: 8, max: 50 })) {
-      errors.password = "Password must at least 8 characters";
+      errors.password = 'Password must at least 8 characters';
       errors.passwordError = true;
       stop = true;
     }
@@ -94,8 +95,8 @@ const SignupForm = ({ onSubmit }) => {
   const handleClick = () => {
     if (!validate(user)) return;
 
-    onSubmit(user)
-  }
+    onSubmit(user);
+  };
 
   return (
     <div className="selection:bg-secondary selection:text-white">
@@ -103,9 +104,7 @@ const SignupForm = ({ onSubmit }) => {
         <div className="p-8 flex">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-secondary">
-                Create account
-              </h1>
+              <h1 className="text-5xl font-bold text-secondary">Create account</h1>
               <div className="mt-4">
                 <div className="flex justify-center">
                   <ImageUploading
@@ -125,10 +124,14 @@ const SignupForm = ({ onSubmit }) => {
                       dragProps,
                     }) => (
                       <div className="upload__image-wrapper items-center text-center">
-                        {!images.length &&
+                        {!images.length && (
                           <>
                             <div className="avatar">
-                              <div className={`w-16 rounded-full ${isDragging ? "border border-red-600" : ""}`}>
+                              <div
+                                className={`w-16 rounded-full ${
+                                  isDragging ? 'border border-red-600' : ''
+                                }`}
+                              >
                                 <img
                                   className="cursor-pointer"
                                   src={require('../assets/empty_pic.jpeg')}
@@ -139,10 +142,12 @@ const SignupForm = ({ onSubmit }) => {
                               </div>
                             </div>
                             <div className="image-item__btn-wrapper">
-                              <button className="badge badge-ghost" onClick={onImageUpload}>Upload Image</button>
+                              <button className="badge badge-ghost" onClick={onImageUpload}>
+                                Upload Image
+                              </button>
                             </div>
                           </>
-                        }
+                        )}
                         {imageList.map((image, index) => (
                           <div key={index} className="flex-col items-center text-center">
                             <div className="avatar ">
@@ -151,7 +156,12 @@ const SignupForm = ({ onSubmit }) => {
                               </div>
                             </div>
                             <div className="image-item__btn-wrapper">
-                              <button className="badge badge-ghost" onClick={() => onImageRemove(index)}>Remove</button>
+                              <button
+                                className="badge badge-ghost"
+                                onClick={() => onImageRemove(index)}
+                              >
+                                Remove
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -167,7 +177,9 @@ const SignupForm = ({ onSubmit }) => {
                     id="firstName"
                     name="firstName"
                     type="text"
-                    className={`text-input peer placeholder-transparent ${errors.firstNameError ? "border-red-600" : ''}`}
+                    className={`text-input peer placeholder-transparent ${
+                      errors.firstNameError ? 'border-red-600' : ''
+                    }`}
                     placeholder="First Name"
                   />
                   <label
@@ -184,7 +196,9 @@ const SignupForm = ({ onSubmit }) => {
                     id="lastName"
                     name="lastName"
                     type="text"
-                    className={`text-input peer placeholder-transparent ${errors.lastNameError ? "border-red-600" : ''}`}
+                    className={`text-input peer placeholder-transparent ${
+                      errors.lastNameError ? 'border-red-600' : ''
+                    }`}
                     placeholder="Last Name"
                   />
                   <label
@@ -201,7 +215,9 @@ const SignupForm = ({ onSubmit }) => {
                     id="email"
                     name="email"
                     type="text"
-                    className={`text-input peer placeholder-transparent ${errors.emailError ? "border-red-600" : ''}`}
+                    className={`text-input peer placeholder-transparent ${
+                      errors.emailError ? 'border-red-600' : ''
+                    }`}
                     placeholder="john@doe.com"
                   />
                   <label
@@ -218,7 +234,9 @@ const SignupForm = ({ onSubmit }) => {
                     id="password"
                     type="password"
                     name="password"
-                    className={`text-input peer placeholder-transparent ${errors.passwordError ? "border-red-600" : ''}`}
+                    className={`text-input peer placeholder-transparent ${
+                      errors.passwordError ? 'border-red-600' : ''
+                    }`}
                     placeholder="Password"
                   />
                   <label
@@ -235,7 +253,9 @@ const SignupForm = ({ onSubmit }) => {
                     id="passwordConfirmation"
                     type="password"
                     name="passwordConfirmation"
-                    className={`text-input peer placeholder-transparent ${errors.passwordConfirmationError ? "border-red-600" : ''}`}
+                    className={`text-input peer placeholder-transparent ${
+                      errors.passwordConfirmationError ? 'border-red-600' : ''
+                    }`}
                     placeholder="Password Confirmation"
                   />
                   <label
@@ -255,8 +275,8 @@ const SignupForm = ({ onSubmit }) => {
             </div>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

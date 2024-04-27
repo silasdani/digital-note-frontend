@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 import UpdateTest from '../components/UpdateTest';
 
 const EditExamPage = ({ navigate }) => {
-
   return (
     <div className="flex flex-col items-center h-full w-full">
       <div className="absolute w-4/5">
@@ -10,10 +9,10 @@ const EditExamPage = ({ navigate }) => {
 
         <div className="mt-20">
           <UpdateTest navigate={navigate} />
-        </div >
-      </div >
-    </div >
-  )
-}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default EditExamPage
+export default EditExamPage;

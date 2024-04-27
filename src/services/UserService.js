@@ -1,5 +1,5 @@
-import ApiService from "./ApiService";
-import UserSerializer from "./Serializers/UserSerializer";
+import ApiService from './ApiService';
+import UserSerializer from './Serializers/UserSerializer';
 class UserService extends ApiService {
   constructor(session) {
     super();
@@ -8,22 +8,22 @@ class UserService extends ApiService {
 
   signup(data) {
     const user = UserSerializer.serialize(data);
-    return super.post("/users.json", user, (answer) => {
+    return super.post('/users.json', user, (answer) => {
       return UserSerializer.deserialize(answer.data.user);
-    })
+    });
   }
 
   show() {
     return super.get(`/user.json`, (answer) => {
       return UserSerializer.deserialize(answer.data.user);
-    })
+    });
   }
 
   editProfile(data) {
     const user = UserSerializer.serialize(data);
     return super.patch(`/user.json`, user, (answer) => {
       return UserSerializer.deserialize(answer.data.user);
-    })
+    });
   }
 }
 

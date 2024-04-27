@@ -1,4 +1,4 @@
-import UserSerializer from "./UserSerializer";
+import UserSerializer from './UserSerializer';
 
 export default class SessionSerializer {
   static deserialize(response) {
@@ -16,7 +16,7 @@ export default class SessionSerializer {
         uid: headers.uid,
         authenticated: true,
         currentUser: user,
-      }
+      },
     };
 
     return result;
@@ -28,7 +28,7 @@ export default class SessionSerializer {
         email: data.email,
         password: data.password,
         remember_me: data.rememberMe,
-      }
+      },
     };
 
     return result;

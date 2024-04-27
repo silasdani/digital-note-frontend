@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import WorkSpace from '../components/Workspace';
 import { updateSubmissionFields } from '../redux/ducks/submissionDuck';
@@ -8,7 +8,7 @@ const TABS = [
     name: 'Description',
     index: 0,
     question: false,
-    accessKey: ''
+    accessKey: '',
   },
   {
     name: 'Questions',
@@ -20,81 +20,102 @@ const TABS = [
     name: 'Summary',
     index: 2,
     question: false,
-  }
-]
+  },
+];
 
 const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
   const { questions, accessKey, examType } = examen;
   const [tabs, setTabs] = useState(TABS);
-  const [currentTab, setCurrentTab] = useState(tabs[0])
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   useEffect(() => {
-    props.updateSubmissionFields('accessKey', accessKey)
-    props.updateSubmissionFields('questionAnswers', questions?.reduce((res, { no }) => {
-      res.push({
-        no,
-        option: '',
-        file: null,
-        selects: [],
-        text: ''
-      })
-      return res;
-    }, []))
+    props.updateSubmissionFields('accessKey', accessKey);
+    props.updateSubmissionFields(
+      'questionAnswers',
+      questions?.reduce((res, { no }) => {
+        res.push({
+          no,
+          option: '',
+          file: null,
+          selects: [],
+          text: '',
+        });
+        return res;
+      }, [])
+    );
 
-    setTabs(tabs.reduce((res, tab) => {
-      if (tab.name === 'Questions' && examType !== 'digital') return res;
+    setTabs(
+      tabs.reduce((res, tab) => {
+        if (tab.name === 'Questions' && examType !== 'digital') return res;
 
-      res.push(tab.name === 'Questions' ? {
-        ...tab,
-        subTabs: questions?.map((q) => ({
-          name: `Q${q.no + 1}.`,
-          index: q.no,
-          question: true,
-        }))
-      } : { ...tab, accessKey })
+        res.push(
+          tab.name === 'Questions'
+            ? {
+                ...tab,
+                subTabs: questions?.map((q) => ({
+                  name: `Q${q.no + 1}.`,
+                  index: q.no,
+                  question: true,
+                })),
+              }
+            : { ...tab, accessKey }
+        );
 
-      return res
-    }, []))
-  }, [])
+        return res;
+      }, [])
+    );
+  }, []);
 
   const QuestionItems = ({ items, ...props }) => {
-    return (<ul>
-      {items?.map((item, index) => {
-
-        return (
-          <li key={index} className={`${item.name === currentTab.name ? 'text-primary' : ''}`}>
-            <a className="ml-4" onClick={() => setCurrentTab(item)}>
-              {item.name}
-            </a>
-          </li>
-        )
-      })}
-    </ul>
-    )
-  }
+    return (
+      <ul>
+        {items?.map((item, index) => {
+          return (
+            <li key={index} className={`${item.name === currentTab.name ? 'text-primary' : ''}`}>
+              <a className="ml-4" onClick={() => setCurrentTab(item)}>
+                {item.name}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
 
   const onMoveQuestion = (step) => {
-    const questionTabs = tabs.find((tab => tab.name === "Questions")).subTabs
+    const questionTabs = tabs.find((tab) => tab.name === 'Questions').subTabs;
     if (
-      !questionTabs.includes(currentTab)
-      || currentTab.index + step < 0
-      || currentTab.index + step > questionTabs.length - 1
-    ) return;
+      !questionTabs.includes(currentTab) ||
+      currentTab.index + step < 0 ||
+      currentTab.index + step > questionTabs.length - 1
+    )
+      return;
 
-    setCurrentTab(questionTabs.find(({ index }) => index === currentTab.index + step))
-  }
+    setCurrentTab(questionTabs.find(({ index }) => index === currentTab.index + step));
+  };
 
   const onNextTab = () => {
-    setCurrentTab(tabs.find(({ name }) => name === "Summary"))
-  }
+    setCurrentTab(tabs.find(({ name }) => name === 'Summary'));
+  };
 
   return (
     <div className="absolute w-full h-auto bg-base-200">
       <div className="drawer drawer-mobile fixed bg-base-200">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content mt-0 ml-0">
-          <label htmlFor="my-drawer-2" className="absolute btn btn-primary rounded-none drawer-button lg:hidden">Menu</label>
-          <WorkSpace tab={currentTab} examen={examen} onMoveQuestion={onMoveQuestion} navigate={navigate} onNextTab={onNextTab} />
+          <label
+            htmlFor="my-drawer-2"
+            className="absolute btn btn-primary rounded-none drawer-button lg:hidden"
+          >
+            Menu
+          </label>
+          <WorkSpace
+            tab={currentTab}
+            examen={examen}
+            onMoveQuestion={onMoveQuestion}
+            navigate={navigate}
+            onNextTab={onNextTab}
+          />
         </div>
 
         <div className="drawer-side">
@@ -102,16 +123,34 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
           <ul className="menu p-4 overflow-y-auto w-80 text-white text-2xl bg-accent">
             {tabs.map((item, index) => {
               if (item.name === 'Questions' && examType === 'digital') {
-                return (<div key={index}>
-                  <button type="button" className={`disabled text-left p-4 ${item.subTabs?.includes(currentTab) ? 'text-primary' : ''}`}>{item.name}</button>
-                  <QuestionItems items={item.subTabs || []} />
-                </div>)
+                return (
+                  <div key={index}>
+                    <button
+                      type="button"
+                      className={`disabled text-left p-4 ${
+                        item.subTabs?.includes(currentTab) ? 'text-primary' : ''
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                    <QuestionItems items={item.subTabs || []} />
+                  </div>
+                );
               }
 
               if (item.name === 'WorkSpace' && examType !== 'digital') {
-                return (<div key={index}>
-                  <button type="button" className={`disabled text-left p-4 ${item.subTabs?.includes(currentTab) ? 'text-primary' : ''}`}>{item.name}</button>
-                </div>)
+                return (
+                  <div key={index}>
+                    <button
+                      type="button"
+                      className={`disabled text-left p-4 ${
+                        item.subTabs?.includes(currentTab) ? 'text-primary' : ''
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  </div>
+                );
               }
 
               return (
@@ -119,23 +158,25 @@ const StudentWorkspacePage = ({ navigate, examen, ...props }) => {
                   key={item.index}
                   className={`${currentTab.name == item.name ? 'text-primary' : ''}`}
                 >
-                  <a onClick={() => setCurrentTab(item)}>{item.name} {item.name === "Description" && <span>({item.accessKey})</span>}</a>
+                  <a onClick={() => setCurrentTab(item)}>
+                    {item.name} {item.name === 'Description' && <span>({item.accessKey})</span>}
+                  </a>
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
   const { examen } = state.exam;
 
   return {
-    examen: examen || state.exam.create
-  }
-}
+    examen: examen || state.exam.create,
+  };
+};
 
-export default connect(mapStateToProps, { updateSubmissionFields })(StudentWorkspacePage)
+export default connect(mapStateToProps, { updateSubmissionFields })(StudentWorkspacePage);

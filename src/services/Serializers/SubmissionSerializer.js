@@ -1,8 +1,7 @@
-import QuestionSerializer from './QuestionSerializer'
+import QuestionSerializer from './QuestionSerializer';
 
 class SubmissionSerializer {
   static serialize(data) {
-
     const result = {
       submission: {
         student_name: data.name,
@@ -15,13 +14,13 @@ class SubmissionSerializer {
       },
       question_answers: QuestionSerializer.serializeIndex(data.questionAnswers),
       access_key: data.accessKey,
-    }
+    };
 
     return result;
   }
 
   static deserialize(response) {
-    return response
+    return response;
   }
 }
 

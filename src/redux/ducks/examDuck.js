@@ -1,4 +1,4 @@
-import ExamService from "../../services/ExamService";
+import ExamService from '../../services/ExamService';
 import { errorHandler, successHandler } from '../helpers';
 import { get } from 'lodash';
 
@@ -18,61 +18,61 @@ export const INVALID_ACCESS_KEY = 'INVALID_ACCESS_KEY';
 /// DUCKS
 const examCreated = (data) => ({
   type: CREATE_EXAM,
-  data
-})
+  data,
+});
 
 const examUpdated = (data) => ({
   type: UPDATE_EXAM,
-  data
-})
+  data,
+});
 
 const examFetched = (data) => ({
   type: FETCH_EXAM,
-  data
-})
+  data,
+});
 
 const examsFetched = (data) => ({
   type: FETCH_EXAMS,
-  data
-})
+  data,
+});
 
 export const examFieldsChanged = (data) => ({
   type: CHANGE_EXAM_FIELDS,
-  data
-})
+  data,
+});
 
 export const examFieldsCleared = () => ({
   type: CLEAR_EXAM_FIELDS,
-})
+});
 
 export const examQuestionFieldsChanged = (data) => ({
   type: CHANGE_EXAM_QUESTION_FIELDS,
-  data
-})
+  data,
+});
 
 export const newQuestionAdded = (no, questions) => {
   const reducedQuestions = questions.reduce((result, question) => {
-    if (question.no <= no) result.push(question)
-    if (question.no >= no) result.push({ ...question, no: question.no + 1 })
+    if (question.no <= no) result.push(question);
+    if (question.no >= no) result.push({ ...question, no: question.no + 1 });
 
     return result;
-  }, [])
+  }, []);
 
   return {
     type: ADD_NEW_QUESTION,
-    data: reducedQuestions
-  }
-}
+    data: reducedQuestions,
+  };
+};
 
 export const examAccessed = (data) => ({
   type: ACCESS_EXAM,
-  data
-})
+  data,
+});
 
 export const questionRemoved = (data) => ({
   type: REMOVE_QUESTION,
-  data
-})
+  data,
+});
 
 /// EPICS
 export const createExamen = (examParams) => async (dispatch, getState) => {
@@ -86,7 +86,7 @@ export const createExamen = (examParams) => async (dispatch, getState) => {
   } catch ({ response }) {
     return dispatch(errorHandler(response));
   }
-}
+};
 
 export const updateExamen = (id, examParams) => async (dispatch, getState) => {
   const { session } = getState().session;
@@ -96,67 +96,70 @@ export const updateExamen = (id, examParams) => async (dispatch, getState) => {
     dispatch(examUpdated(data));
     dispatch(successHandler({ type: UPDATE_EXAM }));
     dispatch(examFieldsCleared());
-    dispatch(fetchExams())
+    dispatch(fetchExams());
   } catch ({ response }) {
     return dispatch(errorHandler(response));
   }
-}
+};
 
 export const fetchExamen = () => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).show()
+  new ExamService(session)
+    .show()
     .then((data) => {
-      dispatch(examFetched(data))
+      dispatch(examFetched(data));
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
-}
+    .catch(({ response }) => dispatch(errorHandler(response)));
+};
 
 export const fetchExams = () => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).fetchAll({ active: 1, draft: 0 })
+  new ExamService(session)
+    .fetchAll({ active: 1, draft: 0 })
     .then((data) => {
-      dispatch(examsFetched(data))
-      dispatch(successHandler({ type: FETCH_EXAMS }))
+      dispatch(examsFetched(data));
+      dispatch(successHandler({ type: FETCH_EXAMS }));
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
-}
+    .catch(({ response }) => dispatch(errorHandler(response)));
+};
 
 export const fetchDraftExams = () => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new ExamService(session).fetchAll({ active: 0, draft: 1 })
+  new ExamService(session)
+    .fetchAll({ active: 0, draft: 1 })
     .then((data) => {
-      dispatch(examsFetched(data))
+      dispatch(examsFetched(data));
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
-}
+    .catch(({ response }) => dispatch(errorHandler(response)));
+};
 
 export const updateExamFields = (field, data) => (dispatch) => {
-  dispatch(examFieldsChanged({ field, data }))
-}
+  dispatch(examFieldsChanged({ field, data }));
+};
 
 export const updateQuestionFields = (index, field, data) => (dispatch) => {
-  dispatch(examQuestionFieldsChanged({ index, field, data }))
-}
+  dispatch(examQuestionFieldsChanged({ index, field, data }));
+};
 
 export const addNewQuestionAt = (no) => (dispatch, getState) => {
-  dispatch(newQuestionAdded(no, get(getState(), 'exam.create.questions')))
-}
+  dispatch(newQuestionAdded(no, get(getState(), 'exam.create.questions')));
+};
 
 export const removeQuestion = (index) => (dispatch, getState) => {
-  const { questions } = getState().exam.create
+  const { questions } = getState().exam.create;
 
   if (questions.length < 1 || index < 0) return;
 
   questions.splice(index, 1);
-  dispatch(questionRemoved(questions))
-}
+  dispatch(questionRemoved(questions));
+};
 
 export const setExamForUpdate = (data) => (dispatch) => {
-  dispatch(examFetched(data))
-}
+  dispatch(examFetched(data));
+};
 
 export const accessExam = (accessKey) => async (dispatch, getState) => {
   const { session } = getState().session;
@@ -164,71 +167,75 @@ export const accessExam = (accessKey) => async (dispatch, getState) => {
   try {
     const { data } = await new ExamService(session).viewExam({ access_key: accessKey });
     dispatch(examAccessed(data));
-    if (data)
-      dispatch(successHandler({ type: ACCESS_EXAM }));
-    else
-      dispatch(successHandler({ type: INVALID_ACCESS_KEY }));
+    if (data) dispatch(successHandler({ type: ACCESS_EXAM }));
+    else dispatch(successHandler({ type: INVALID_ACCESS_KEY }));
 
-    return data
+    return data;
   } catch ({ response }) {
     return dispatch(errorHandler(response));
   }
-}
+};
 
 /// DEFAULT_STATES
-const DEFAULT_QUESTION_STATE = [{
-  no: 0,
-  required: true,
-  questionType: 'text',
-  textStatement: 'Custom question',
-  description: '',
-  file: null,
-  options: ['option 1'],
-  selects: ['select 1']
-}, {
-  no: 1,
-  required: true,
-  questionType: 'choose',
-  textStatement: 'Custom select question',
-  description: '',
-  file: null,
-  options: ['option 1'],
-  selects: ['select 1']
-}, {
-  no: 2,
-  required: false,
-  questionType: 'option',
-  textStatement: 'Custom option question',
-  description: '',
-  file: null,
-  options: ['option 1'],
-  selects: ['select 1']
-}, {
-  no: 3,
-  required: true,
-  questionType: 'file',
-  textStatement: 'Custom file question',
-  description: '',
-  file: null,
-  options: ['option 1'],
-  selects: ['select 1']
-},
-]
+const DEFAULT_QUESTION_STATE = [
+  {
+    no: 0,
+    required: true,
+    questionType: 'text',
+    textStatement: 'Custom question',
+    description: '',
+    file: null,
+    options: ['option 1'],
+    selects: ['select 1'],
+  },
+  {
+    no: 1,
+    required: true,
+    questionType: 'choose',
+    textStatement: 'Custom select question',
+    description: '',
+    file: null,
+    options: ['option 1'],
+    selects: ['select 1'],
+  },
+  {
+    no: 2,
+    required: false,
+    questionType: 'option',
+    textStatement: 'Custom option question',
+    description: '',
+    file: null,
+    options: ['option 1'],
+    selects: ['select 1'],
+  },
+  {
+    no: 3,
+    required: true,
+    questionType: 'file',
+    textStatement: 'Custom file question',
+    description: '',
+    file: null,
+    options: ['option 1'],
+    selects: ['select 1'],
+  },
+];
 
 export const DEFAULT_EXAM_STATE = {
-  index: [{
-    attributes: {
-      description: '',
-      accessKey: '#####',
-      name: '',
-      startTime: new Date(),
-      endTime: new Date(),
-      file: null,
-      status: 'active',
-      security: 'low',
-      questions: []
-    }
-  }],
+  index: [
+    {
+      attributes: {
+        description: '',
+        accessKey: '#####',
+        name: '',
+        startTime: new Date(),
+        endTime: new Date(),
+        file: null,
+        status: 'active',
+        security: 'low',
+        questions: [],
+      },
+    },
+  ],
   create: {
     name: '',
     startTime: new Date().toISOString().slice(0, -8),
@@ -246,8 +253,8 @@ export const DEFAULT_EXAM_STATE = {
     file: null,
     questions: [],
     description: '',
-  }
-}
+  },
+};
 
 /// REDUCER
 const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
@@ -255,76 +262,77 @@ const exam = (state = DEFAULT_EXAM_STATE, action = {}) => {
     case CREATE_EXAM:
       return {
         ...state,
-        show: action.data
-      }
+        show: action.data,
+      };
     case UPDATE_EXAM:
       return {
         ...state,
-        show: action.data
-      }
+        show: action.data,
+      };
     case FETCH_EXAMS:
       return {
         ...state,
-        index: action.data
-      }
+        index: action.data,
+      };
     case FETCH_EXAM:
       return {
         ...state,
-        create: action.data
-      }
+        create: action.data,
+      };
     case CHANGE_EXAM_FIELDS:
       return {
         ...state,
         create: {
           ...state.create,
-          [action.data.field]: action.data.data
-        }
-      }
+          [action.data.field]: action.data.data,
+        },
+      };
     case CHANGE_EXAM_QUESTION_FIELDS: {
       const questions = [...state.create.questions];
       questions[action.data.index] = {
         ...questions[action.data.index],
-        [action.data.field]: action.data.data
-      }
+        [action.data.field]: action.data.data,
+      };
       return {
         ...state,
         create: {
           ...state.create,
-          questions
-        }
-      }
+          questions,
+        },
+      };
     }
     case ADD_NEW_QUESTION:
       return {
         ...state,
         create: {
           ...state.create,
-          questions: action.data
-        }
-      }
+          questions: action.data,
+        },
+      };
     case CLEAR_EXAM_FIELDS:
       return {
         ...state,
         update: DEFAULT_EXAM_STATE.create,
         create: DEFAULT_EXAM_STATE.create,
         examen: DEFAULT_EXAM_STATE.create,
-      }
+      };
     case ACCESS_EXAM:
       return {
         ...state,
-        examen: action.data.attributes
-      }
+        examen: action.data.attributes,
+      };
     case REMOVE_QUESTION: {
       return {
         ...state,
         create: {
           ...state.create,
-          questions: action.data
-        }
-      }
+          questions: action.data,
+        },
+      };
     }
-    default: return state
+    default:
+      return state;
   }
-}
+};
 
-export default exam
+export default exam;

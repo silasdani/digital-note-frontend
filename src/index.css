@@ -19,6 +19,7 @@
     pointer-events: none;
     opacity: 0.9;
   }
+
   td,
   th {
     @apply text-center;

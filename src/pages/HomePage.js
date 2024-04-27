@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { accessExam } from '../redux/ducks/examDuck'
-import { createContestant, updateContestantFields } from '../redux/ducks/lobbyDuck'
+import { accessExam } from '../redux/ducks/examDuck';
+import { createContestant, updateContestantFields } from '../redux/ducks/lobbyDuck';
 import { isEmpty } from 'lodash';
 import { isEmail } from '../redux/helpers';
 
@@ -16,40 +16,38 @@ const HomePage = ({ navigate, ...props }) => {
   const modalRef = useRef();
 
   const onChange = (e) => {
-    props.updateContestantFields(e.target.name, e.target.value)
-  }
+    props.updateContestantFields(e.target.name, e.target.value);
+  };
 
   const onGetStarted = () => {
-    props.accessExam(contestant.accessKey)
-      .then((data) => {
-        if (data) {
-          modalRef.current?.click();
-        }
-      });
-  }
+    props.accessExam(contestant.accessKey).then((data) => {
+      if (data) {
+        modalRef.current?.click();
+      }
+    });
+  };
 
   const onEnterExam = () => {
     const localErrors = Object.keys(errors).reduce((res, key) => {
       if (key === 'email') {
-        res[key] = !isEmail(contestant.email)
+        res[key] = !isEmail(contestant.email);
       } else {
         res[key] = isEmpty(contestant[key]);
       }
 
-      return res
-    }, {})
+      return res;
+    }, {});
 
-    setErrors({ ...errors, ...localErrors })
+    setErrors({ ...errors, ...localErrors });
 
-    if (Object.values(localErrors).some(v => v)) {
+    if (Object.values(localErrors).some((v) => v)) {
       return;
     }
 
-    props.createContestant(contestant)
-      .then(({ data }) => {
-        if (!!data.attributes.accessToken) navigate('/workspace')
-      })
-  }
+    props.createContestant(contestant).then(({ data }) => {
+      if (!!data.attributes.accessToken) navigate('/workspace');
+    });
+  };
 
   return (
     <div className="flex flex-col items-center h-full w-full">
@@ -66,7 +64,9 @@ const HomePage = ({ navigate, ...props }) => {
               value={contestant.accessKey}
               onChange={onChange}
             />
-            <button className="btn btn-primary" onClick={onGetStarted}>Get Started</button>
+            <button className="btn btn-primary" onClick={onGetStarted}>
+              Get Started
+            </button>
           </div>
 
           <label htmlFor="key-modal" ref={modalRef} className="btn btn-ghost btn-xs hidden"></label>
@@ -79,7 +79,9 @@ const HomePage = ({ navigate, ...props }) => {
               <div className="form-control w-full max-w-lg">
                 <label className="label">
                   <span className="label-text">First Name</span>
-                  {errors.firstName && <span className="label-text-alt text-red-600">required field</span>}
+                  {errors.firstName && (
+                    <span className="label-text-alt text-red-600">required field</span>
+                  )}
                 </label>
                 <input
                   type="text"
@@ -93,7 +95,9 @@ const HomePage = ({ navigate, ...props }) => {
               <div className="form-control w-full max-w-lg">
                 <label className="label">
                   <span className="label-text">Last Name</span>
-                  {errors.lastName && <span className="label-text-alt text-red-600">required field</span>}
+                  {errors.lastName && (
+                    <span className="label-text-alt text-red-600">required field</span>
+                  )}
                 </label>
                 <input
                   type="text"
@@ -107,7 +111,9 @@ const HomePage = ({ navigate, ...props }) => {
               <div className="form-control w-full max-w-lg">
                 <label className="label">
                   <span className="label-text">Email</span>
-                  {errors.email && <span className="label-text-alt text-red-600">required field</span>}
+                  {errors.email && (
+                    <span className="label-text-alt text-red-600">required field</span>
+                  )}
                 </label>
                 <input
                   type="text"
@@ -133,7 +139,9 @@ const HomePage = ({ navigate, ...props }) => {
               </div>
 
               <div className="modal-action flex justify-center">
-                <button className="btn btn-primary btn-wide" onClick={onEnterExam}>ENTER</button>
+                <button className="btn btn-primary btn-wide" onClick={onEnterExam}>
+                  ENTER
+                </button>
                 <label htmlFor="key-modal" className="btn btn-secondary  text-white">
                   DISMISS
                 </label>
@@ -143,14 +151,16 @@ const HomePage = ({ navigate, ...props }) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 const mapStateToProps = (state) => {
   const { contestant } = state.lobby;
   return {
-    contestant
-  }
-}
+    contestant,
+  };
+};
 
-export default connect(mapStateToProps, { accessExam, createContestant, updateContestantFields })(HomePage);
+export default connect(mapStateToProps, { accessExam, createContestant, updateContestantFields })(
+  HomePage
+);

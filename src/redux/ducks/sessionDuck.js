@@ -2,12 +2,12 @@ import SessionService from '../../services/SessionService';
 import { errorHandler, successHandler } from '../helpers';
 import { fetch } from './userDuck';
 
-export const USER_LOGGED_IN = "USER_LOGGED_IN";
-export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
-export const RELOAD_SESSION = "RELOAD_SESSION";
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
+export const RELOAD_SESSION = 'RELOAD_SESSION';
 
-export const STORAGE_KEY = "session";
-const SESSION_EMAIL_KEY = "currentSessionEmail";
+export const STORAGE_KEY = 'session';
+const SESSION_EMAIL_KEY = 'currentSessionEmail';
 
 const userLoggedIn = (data) => ({
   type: USER_LOGGED_IN,
@@ -28,26 +28,25 @@ export const login = (credentials) => async (dispatch) => {
     window.localStorage.clear();
     window.sessionStorage.clear();
     const { rememberMe } = credentials;
-    const answer = await new SessionService().login(credentials)
-      .then(payload => {
-        const stringPayload = JSON.stringify(payload.session);
+    const answer = await new SessionService().login(credentials).then((payload) => {
+      const stringPayload = JSON.stringify(payload.session);
 
-        if (rememberMe) {
-          window.localStorage.setItem(STORAGE_KEY, stringPayload);
-          window.localStorage.setItem(SESSION_EMAIL_KEY, payload.session.uid);
-        } else {
-          window.sessionStorage.setItem(STORAGE_KEY, stringPayload);
-        }
-        return payload;
-      });
+      if (rememberMe) {
+        window.localStorage.setItem(STORAGE_KEY, stringPayload);
+        window.localStorage.setItem(SESSION_EMAIL_KEY, payload.session.uid);
+      } else {
+        window.sessionStorage.setItem(STORAGE_KEY, stringPayload);
+      }
+      return payload;
+    });
 
     dispatch(userLoggedIn(answer));
-    dispatch(fetch())
-    dispatch(successHandler({ type: USER_LOGGED_IN }))
+    dispatch(fetch());
+    dispatch(successHandler({ type: USER_LOGGED_IN }));
   } catch ({ response }) {
     dispatch(errorHandler(response));
   }
-}
+};
 
 export const logout = () => async (dispatch, getState) => {
   const { session } = getState().session;
@@ -62,22 +61,22 @@ export const logout = () => async (dispatch, getState) => {
     }
 
     dispatch(userLoggedOut());
-    dispatch(successHandler({ type: USER_LOGGED_OUT }))
+    dispatch(successHandler({ type: USER_LOGGED_OUT }));
   } catch (response) {
     dispatch(errorHandler(response));
   }
-}
+};
 
 export const autoLogin = () => (dispatch) => {
   const localStorage = window.localStorage.getItem(STORAGE_KEY);
   const sessionStorage = window.sessionStorage.getItem(STORAGE_KEY);
   const session = localStorage || sessionStorage;
   if (session) {
-    dispatch(reloadSession({ session: JSON.parse(session) }))
-    dispatch(successHandler({ type: RELOAD_SESSION }))
-    dispatch(fetch())
+    dispatch(reloadSession({ session: JSON.parse(session) }));
+    dispatch(successHandler({ type: RELOAD_SESSION }));
+    dispatch(fetch());
   }
-}
+};
 
 export const DEFAULT_STATE = {
   session: {
@@ -88,9 +87,9 @@ export const DEFAULT_STATE = {
       id: null,
       name: '',
       email: '',
-    }
+    },
   },
-}
+};
 
 const session = (state = DEFAULT_STATE, action = {}) => {
   switch (action.type) {
@@ -103,6 +102,6 @@ const session = (state = DEFAULT_STATE, action = {}) => {
     default:
       return state;
   }
-}
+};
 
 export default session;

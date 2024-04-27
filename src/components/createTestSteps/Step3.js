@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 const Step3 = () => {
   return (
     <div className="Security">
       <div className="mockup-window bg-primary shadow-md text-center">
         <div className="px-4 border-t border-base-300 bg-white min-h-[50vh]">
-
           <table className="min-w-full">
             <tbody>
               <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
@@ -37,7 +36,7 @@ const Step3 = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Step3
+export default Step3;

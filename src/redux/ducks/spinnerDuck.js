@@ -1,14 +1,14 @@
-export const SHOW_SPINNER = "SHOW_SPINNER";
-export const HIDE_SPINNER = "HIDE_SPINNER";
+export const SHOW_SPINNER = 'SHOW_SPINNER';
+export const HIDE_SPINNER = 'HIDE_SPINNER';
 
 const spinnerHidden = (data) => ({
   type: HIDE_SPINNER,
-  data
+  data,
 });
 
 const spinnerShown = (data) => ({
   type: SHOW_SPINNER,
-  data
+  data,
 });
 
 export const hideSpinner = () => (dispatch) => dispatch(spinnerHidden(false));
@@ -24,6 +24,6 @@ const spinner = (state, action) => {
     default:
       return false;
   }
-}
+};
 
 export default spinner;

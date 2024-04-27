@@ -7,10 +7,10 @@ class ContestantSerializer {
       student_class: contestant.studentClass,
       permissions: contestant.permissions,
       access_key: contestant.accessKey,
-    }
+    };
 
-    return result
+    return result;
   }
 }
 
-export default ContestantSerializer
+export default ContestantSerializer;

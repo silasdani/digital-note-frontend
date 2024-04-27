@@ -3,12 +3,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import user from './ducks/userDuck';
 import spinner from './ducks/spinnerDuck';
-import session from "./ducks/sessionDuck";
+import session from './ducks/sessionDuck';
 import exam from './ducks/examDuck';
 import alert from './ducks/alertDuck';
 import lobby from './ducks/lobbyDuck';
 import submission from './ducks/submissionDuck';
-
 
 const rootReducer = combineReducers({
   user,
@@ -33,7 +32,7 @@ var Singleton = (() => {
         instance = createInstance();
       }
       return instance;
-    }
+    },
   };
 })();
 

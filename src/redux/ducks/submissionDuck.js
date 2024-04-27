@@ -1,4 +1,4 @@
-import SubmissionService from "../../services/SubmissionService"
+import SubmissionService from '../../services/SubmissionService';
 import { errorHandler, successHandler } from '../helpers';
 
 /// ACTIONS
@@ -12,85 +12,90 @@ export const CLEAR_SUBMISSION_FIELDS = 'CLEAR_SUBMISSION_FIELDS';
 /// DUCKS
 const submissionCreated = (data) => ({
   type: CREATE_SUBMISSION,
-  data
-})
+  data,
+});
 const submissionFetched = (data) => ({
   type: FETCH_SUBMISSION,
-  data
-})
+  data,
+});
 const submissionsFetched = (data) => ({
   type: FETCH_SUBMISSIONS,
-  data
-})
+  data,
+});
 
 const submissionFieldsChanged = (data) => ({
   type: CHANGE_SUBMISSION_FIELDS,
-  data
-})
+  data,
+});
 
 const submissionFieldsCleared = () => ({
   type: CLEAR_SUBMISSION_FIELDS,
-})
+});
 
 const submissionQuestionFieldsChanged = (data) => ({
   type: CHANGE_SUBMISSION_QUESTION_FIELDS,
-  data
-})
+  data,
+});
 
 /// EPICS
 export const createSubmission = (submissionParams) => async (dispatch, getState) => {
   const { session } = getState().session;
   const { attributes: contestantParams } = getState().lobby.contestant?.data;
 
-  return new SubmissionService(session).create({ ...submissionParams, ...contestantParams })
-    .then(data => {
+  return new SubmissionService(session)
+    .create({ ...submissionParams, ...contestantParams })
+    .then((data) => {
       dispatch(submissionCreated(data));
       dispatch(successHandler({ type: CREATE_SUBMISSION }));
       dispatch(submissionFieldsCleared());
-      return data
-    }).catch(({ response }) => {
-      return dispatch(errorHandler(response));
+      return data;
     })
-}
+    .catch(({ response }) => {
+      return dispatch(errorHandler(response));
+    });
+};
 
 export const fetchSubmission = (id) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).show(id)
+  new SubmissionService(session)
+    .show(id)
     .then((data) => {
-      dispatch(submissionFetched(data))
+      dispatch(submissionFetched(data));
     })
-    .catch((response) => dispatch(errorHandler(response)))
-}
+    .catch((response) => dispatch(errorHandler(response)));
+};
 
 export const fetchSubmissions = (examId) => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).fetchAll({ exam_id: examId })
+  new SubmissionService(session)
+    .fetchAll({ exam_id: examId })
     .then((data) => {
-      dispatch(submissionsFetched(data))
-      dispatch(successHandler({ type: FETCH_SUBMISSIONS }))
+      dispatch(submissionsFetched(data));
+      dispatch(successHandler({ type: FETCH_SUBMISSIONS }));
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
-}
+    .catch(({ response }) => dispatch(errorHandler(response)));
+};
 
 export const fetchDraftSubmissions = () => (dispatch, getState) => {
   const { session } = getState().session;
 
-  new SubmissionService(session).fetchAll({ active: 0, draft: 1 })
+  new SubmissionService(session)
+    .fetchAll({ active: 0, draft: 1 })
     .then((data) => {
-      dispatch(submissionsFetched(data))
+      dispatch(submissionsFetched(data));
     })
-    .catch(({ response }) => dispatch(errorHandler(response)))
-}
+    .catch(({ response }) => dispatch(errorHandler(response)));
+};
 
 export const updateSubmissionFields = (field, data) => (dispatch) => {
-  dispatch(submissionFieldsChanged({ field, data }))
-}
+  dispatch(submissionFieldsChanged({ field, data }));
+};
 
 export const updateQuestionFields = (index, field, data) => (dispatch) => {
-  dispatch(submissionQuestionFieldsChanged({ index, field, data }))
-}
+  dispatch(submissionQuestionFieldsChanged({ index, field, data }));
+};
 
 /// DEFAULT_STATES
 export const DEFAULT_SUBMISSION_STATE = {
@@ -100,41 +105,47 @@ export const DEFAULT_SUBMISSION_STATE = {
   startTime: new Date(),
   endTime: new Date(),
   file: null,
-  questionAnswers: [{
-    no: 0,
-    option: '',
-    file: null,
-    selects: [],
-    text: ''
-  }, {
-    no: 1,
-    option: '',
-    file: null,
-    selects: [],
-    text: ''
-  }, {
-    no: 2,
-    option: '',
-    file: null,
-    selects: [],
-    text: ''
-  }, {
-    no: 3,
-    option: '',
-    file: null,
-    selects: [],
-    text: ''
-  },
-  ]
-}
+  questionAnswers: [
+    {
+      no: 0,
+      option: '',
+      file: null,
+      selects: [],
+      text: '',
+    },
+    {
+      no: 1,
+      option: '',
+      file: null,
+      selects: [],
+      text: '',
+    },
+    {
+      no: 2,
+      option: '',
+      file: null,
+      selects: [],
+      text: '',
+    },
+    {
+      no: 3,
+      option: '',
+      file: null,
+      selects: [],
+      text: '',
+    },
+  ],
+};
 
 const DEFAULT_STATE = {
-  index: [{
-    attributes: DEFAULT_SUBMISSION_STATE
-  }],
+  index: [
+    {
+      attributes: DEFAULT_SUBMISSION_STATE,
+    },
+  ],
   create: DEFAULT_SUBMISSION_STATE,
   show: DEFAULT_SUBMISSION_STATE,
-}
+};
 
 /// REDUCER
 const submission = (state = DEFAULT_STATE, action = {}) => {
@@ -142,46 +153,46 @@ const submission = (state = DEFAULT_STATE, action = {}) => {
     case CREATE_SUBMISSION:
       return {
         ...state,
-        show: action.data
-      }
+        show: action.data,
+      };
     case FETCH_SUBMISSIONS:
       return {
         ...state,
-        index: action.data
-      }
+        index: action.data,
+      };
     case FETCH_SUBMISSION:
       return {
         ...state,
-        create: action.data
-      }
+        create: action.data,
+      };
     case CHANGE_SUBMISSION_FIELDS:
       return {
         ...state,
         create: {
           ...state.create,
-          [action.data.field]: action.data.data
-        }
-      }
+          [action.data.field]: action.data.data,
+        },
+      };
     case CHANGE_SUBMISSION_QUESTION_FIELDS: {
       const questionAnswers = [...state.create.questionAnswers];
 
       questionAnswers[action.data.index] = {
         ...questionAnswers[action.data.index],
-        [action.data.field]: action.data.data
-      }
+        [action.data.field]: action.data.data,
+      };
       return {
         ...state,
         create: {
           ...state.create,
-          questionAnswers
-        }
-      }
+          questionAnswers,
+        },
+      };
     }
     case CLEAR_SUBMISSION_FIELDS:
-      return DEFAULT_STATE
+      return DEFAULT_STATE;
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default submission;

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import ImageUploading from 'react-images-uploading';
-import Validator from "validator";
+import Validator from 'validator';
 import { pick } from 'lodash';
 
 const DEFAULT_ERRORS_STATE = {
@@ -9,33 +9,29 @@ const DEFAULT_ERRORS_STATE = {
   firstNameError: false,
   lastNameError: false,
   hasError: false,
-}
+};
 
 const ProfileForm = ({ onSubmit, teacher, ...props }) => {
   const [images, setImages] = React.useState([]);
   const [errors, setErrors] = useState(DEFAULT_ERRORS_STATE);
-  const [user, updateUser] = useState(pick(teacher, [
-    'firstName',
-    'lastName',
-    'address',
-    'username',
-    'phoneNumber',
-    'profilePic'
-  ]));
+  const [user, updateUser] = useState(
+    pick(teacher, ['firstName', 'lastName', 'address', 'username', 'phoneNumber', 'profilePic'])
+  );
 
   const onChange = (event) => {
     updateUser({
       ...user,
-      [event.target.name]: event.target.value
-    })
-  }
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const onFileChange = (imageList) => {
     setImages(imageList);
-    if (imageList.length > 0) updateUser({
-      ...user,
-      profilePic: imageList[0]?.data_url,
-    })
+    if (imageList.length > 0)
+      updateUser({
+        ...user,
+        profilePic: imageList[0]?.data_url,
+      });
   };
 
   const validate = (data) => {
@@ -63,7 +59,7 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
     if (!validate(user)) return;
 
     onSubmit(user);
-  }
+  };
 
   return (
     <div className="flex flex-row space-x-10">
@@ -75,18 +71,12 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
           maxNumber={3}
           dataURLKey="data_url"
         >
-          {({
-            imageList,
-            onImageUpload,
-            onImageRemove,
-            isDragging,
-            dragProps,
-          }) => (
+          {({ imageList, onImageUpload, onImageRemove, isDragging, dragProps }) => (
             <div className="upload__image-wrapper w-36 text-center">
-              {!images.length &&
+              {!images.length && (
                 <>
                   <div className="avatar">
-                    <div className={`w-36 rounded-xl ${isDragging ? "border border-red-600" : ""}`}>
+                    <div className={`w-36 rounded-xl ${isDragging ? 'border border-red-600' : ''}`}>
                       <img
                         className="cursor-pointer"
                         src={user.profilePic || require('../assets/empty_pic.jpeg')}
@@ -96,10 +86,12 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
                     </div>
                   </div>
                   <div className="image-item__btn-wrapper">
-                    <button className="badge badge-ghost" onClick={onImageUpload}>Upload Image</button>
+                    <button className="badge badge-ghost" onClick={onImageUpload}>
+                      Upload Image
+                    </button>
                   </div>
                 </>
-              }
+              )}
               {imageList.map((image, index) => (
                 <div key={index} className="flex-col">
                   <div className="avatar ">
@@ -108,7 +100,9 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
                     </div>
                   </div>
                   <div className="image-item__btn-wrapper">
-                    <button className="badge badge-ghost" onClick={() => onImageRemove(index)}>Remove</button>
+                    <button className="badge badge-ghost" onClick={() => onImageRemove(index)}>
+                      Remove
+                    </button>
                   </div>
                 </div>
               ))}
@@ -125,7 +119,9 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
             id="firstName"
             name="firstName"
             type="text"
-            className={`text-input peer placeholder-transparent ${errors.firstNameError ? "border-red-600" : ''}`}
+            className={`text-input peer placeholder-transparent ${
+              errors.firstNameError ? 'border-red-600' : ''
+            }`}
             placeholder="First Name"
           />
           <label
@@ -143,7 +139,9 @@ const ProfileForm = ({ onSubmit, teacher, ...props }) => {
             id="lastName"
             name="lastName"
             type="text"
-            className={`text-input peer placeholder-transparent ${errors.lastNameError ? "border-red-600" : ''}`}
+            className={`text-input peer placeholder-transparent ${
+              errors.lastNameError ? 'border-red-600' : ''
+            }`}
             placeholder="Last Name"
           />
           <label

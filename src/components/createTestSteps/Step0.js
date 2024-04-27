@@ -1,7 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useRef } from 'react';
 import { EXAM_QUESTION_TYPES, EXAM_SECURITY_TYPES } from '../../helpers/enums';
 import PdfViewerComponent from '../PDFViewerComponent';
-import { FaCloudUploadAlt } from "react-icons/fa";
+import { FaCloudUploadAlt } from 'react-icons/fa';
 import { Divider } from '@material-ui/core';
 import { isPdf, isImage } from '../../helpers/media';
 
@@ -12,17 +12,19 @@ const Step0 = ({ examen, ...props }) => {
     const file = event.currentTarget.files[0];
 
     const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      props.updateExamFields('file', reader.result)
+    reader.addEventListener('load', () => {
+      props.updateExamFields('file', reader.result);
     });
 
     reader.readAsDataURL(file);
-  }
+  };
 
   return (
     <div className="Exam questions">
       <div className="mockup-window bg-primary shadow-md">
-        <div className="absolute text-2xl font-bold text-center text-white h1 -mt-10 w-full">DETAILS</div>
+        <div className="absolute text-2xl font-bold text-center text-white h1 -mt-10 w-full">
+          DETAILS
+        </div>
         <div className="px-10 border-t border-base-300 bg-white min-h-[50vh] p-6 space-y-4">
           <div className="form-control flex-row justify-center space-x-10">
             <span className="text-xl mt-2">Exam Name:</span>
@@ -38,9 +40,11 @@ const Step0 = ({ examen, ...props }) => {
 
           <div className="flex flex-col lg:flex-row items-start lg:justify-start lg:space-x-10">
             <div className="form-control-group flex flex-col">
-              <label htmlFor="startTime" className="label label-text">Start Time</label>
+              <label htmlFor="startTime" className="label label-text">
+                Start Time
+              </label>
               <input
-                type='datetime-local'
+                type="datetime-local"
                 placeholder="Start Time"
                 className=" input input-bordered max-w-xs"
                 onChange={(e) => props.updateExamFields('startTime', e.target.value)}
@@ -48,9 +52,11 @@ const Step0 = ({ examen, ...props }) => {
               />
             </div>
             <div className="form-control-group flex flex-col">
-              <label htmlFor="endTime" className="label label-text">End Time</label>
+              <label htmlFor="endTime" className="label label-text">
+                End Time
+              </label>
               <input
-                type='datetime-local'
+                type="datetime-local"
                 placeholder="End Time"
                 className="input input-bordered max-w-xs"
                 onChange={(e) => props.updateExamFields('endTime', e.target.value)}
@@ -58,21 +64,27 @@ const Step0 = ({ examen, ...props }) => {
               />
             </div>
             <div className="form-control-group flex flex-col">
-              <label htmlFor="examType" className="label label-text">Exam Type</label>
+              <label htmlFor="examType" className="label label-text">
+                Exam Type
+              </label>
               <select
                 className="select select-bordered max-w-xs"
                 value={examen.examType}
                 onChange={(ev) => props.updateExamFields('examType', ev.target.value)}
               >
                 <option disabled></option>
-                {EXAM_QUESTION_TYPES.map(({ name, value }, index) =>
-                  (<option key={index} value={value}>{name}</option>))
-                }
+                {EXAM_QUESTION_TYPES.map(({ name, value }, index) => (
+                  <option key={index} value={value}>
+                    {name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
           <div className="form-control-group flex flex-col">
-            <label htmlFor="description" className="label label-text">Description</label>
+            <label htmlFor="description" className="label label-text">
+              Description
+            </label>
             <textarea
               className="textarea textarea-bordered w-full mt-5 lg:mt-0 h-[15vh]"
               placeholder="Exam Description"
@@ -81,40 +93,55 @@ const Step0 = ({ examen, ...props }) => {
             ></textarea>
           </div>
           <div className="flex justify-center">
-            {!props.viewMode && !examen.file &&
+            {!props.viewMode && !examen.file && (
               <div className="">
                 <FaCloudUploadAlt
                   size={100}
                   className="cursor-pointer"
-                  onClick={() => { fileRef.current?.click() }}
-                >
-                </FaCloudUploadAlt>
+                  onClick={() => {
+                    fileRef.current?.click();
+                  }}
+                ></FaCloudUploadAlt>
                 <input
                   type="file"
                   name="file"
                   className="hidden"
                   ref={fileRef}
                   accept="application/pdf,image/*"
-                  onChange={onFileChange} />
-                <button className="badge badge-ghost" onClick={() => { fileRef.current?.click() }}>Upload File</button>
+                  onChange={onFileChange}
+                />
+                <button
+                  className="badge badge-ghost"
+                  onClick={() => {
+                    fileRef.current?.click();
+                  }}
+                >
+                  Upload File
+                </button>
               </div>
-            }
-            {examen.file &&
+            )}
+            {examen.file && (
               <div className="flex flex-col items-center">
-                {isImage(examen.file) && <img className="my-5 rounded-xl" src={examen.file} alt="Image" />}
-                {isPdf(examen.file) &&
+                {isImage(examen.file) && (
+                  <img className="my-5 rounded-xl" src={examen.file} alt="Image" />
+                )}
+                {isPdf(examen.file) && (
                   <div className="PDF-viewer my-5 rounded-xl">
                     <PdfViewerComponent document={examen.file} />
                   </div>
-                }
-                {!props.viewMode && <button
-                  className="badge badge-ghost"
-                  onClick={() => { props.updateExamFields('file', null) }}
-                >
-                  Remove File
-                </button>}
+                )}
+                {!props.viewMode && (
+                  <button
+                    className="badge badge-ghost"
+                    onClick={() => {
+                      props.updateExamFields('file', null);
+                    }}
+                  >
+                    Remove File
+                  </button>
+                )}
               </div>
-            }
+            )}
           </div>
           <Divider />
           <div className="flex justify-center space-x-10">
@@ -127,15 +154,16 @@ const Step0 = ({ examen, ...props }) => {
                     type="radio"
                     className="radio checked:bg-accent"
                     checked={examen.security == security.value}
-                    onChange={() => props.updateExamFields('security', security.value)} />
+                    onChange={() => props.updateExamFields('security', security.value)}
+                  />
                 </label>
-              )
+              );
             })}
           </div>
         </div>
-      </div >
-    </div >
-  )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Step0
+export default Step0;

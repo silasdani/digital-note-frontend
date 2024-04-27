@@ -1,16 +1,16 @@
 export const EXAM_QUESTION_TYPES = [
   {
     value: 'paper',
-    name: 'Questions on paper'
+    name: 'Questions on paper',
   },
   {
     value: 'file',
-    name: 'Upload a file'
+    name: 'Upload a file',
   },
   {
     value: 'digital',
-    name: 'Create Questions'
-  }
+    name: 'Create Questions',
+  },
 ];
 
 export const EXAM_SECURITY_TYPES = [
@@ -28,8 +28,8 @@ export const EXAM_SECURITY_TYPES = [
     value: 'high',
     name: 'High',
     color: 'bg-green-600 border-green-600',
-  }
-]
+  },
+];
 
 export const EXAM_STATUSES = [
   {
@@ -52,7 +52,7 @@ export const EXAM_STATUSES = [
     name: 'Completed',
     color: 'bg-green-900 border-green-900',
   },
-]
+];
 export const SUBMISSION_STATUSES = [
   {
     value: 'started',
@@ -70,30 +70,30 @@ export const SUBMISSION_STATUSES = [
     value: 'graded',
     color: 'bg-green-900 border-green-900',
   },
-]
+];
 
 export const QUESTION_TYPES = [
   {
-    value: "text",
-    name: 'Short answer'
+    value: 'text',
+    name: 'Short answer',
   },
   {
-    value: "option",
-    name: 'Option answer'
+    value: 'option',
+    name: 'Option answer',
   },
   {
-    value: "file",
-    name: 'Upload file answer'
+    value: 'file',
+    name: 'Upload file answer',
   },
   {
-    value: "choose",
-    name: 'Select answer'
+    value: 'choose',
+    name: 'Select answer',
   },
-]
+];
 
 export const PERMISSIONS = {
-  'write': 'write',
-  'read': 'read',
-  'send': 'send',
-  'get': 'get',
-}
+  write: 'write',
+  read: 'read',
+  send: 'send',
+  get: 'get',
+};
