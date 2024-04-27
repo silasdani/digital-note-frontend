@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from '../components/Footer';
 import { LoginPage, HomePage, NewExamPage, EditExamPage } from '../pages';
 import ExamListPage from '../pages/ExamListPage';
 import MySchoolPage from '../pages/MySchoolPage';
@@ -16,10 +15,12 @@ import { autoLogin } from '../redux/ducks/sessionDuck';
 import Alert from '../components/Alert';
 import StudentWorkspacePage from '../pages/StudentWorkspacePage';
 
-const App = ({ autoLogin }) => {
+const App = ({ session, autoLogin }) => {
   useEffect(() => {
     autoLogin();
   }, []);
+
+  if (session.authenticated === null) return null;
 
   return (
     <BrowserRouter>
@@ -49,9 +50,8 @@ const App = ({ autoLogin }) => {
           />
         </Routes>
       </div>
-      {/* <Footer></Footer> */}
     </BrowserRouter>
   );
 };
 
-export default connect(null, { autoLogin })(App);
+export default connect(({ session }) => session, { autoLogin })(App);

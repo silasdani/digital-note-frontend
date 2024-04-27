@@ -81,7 +81,7 @@ export const autoLogin = () => (dispatch) => {
 export const DEFAULT_STATE = {
   session: {
     accessToken: '',
-    authenticated: false,
+    authenticated: null,
     rememberMe: false,
     currentUser: {
       id: null,

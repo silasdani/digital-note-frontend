@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';
-import { STORAGE_KEY } from '../redux/ducks/sessionDuck';
 
 const TeacherRoute = ({ authenticated, component: Component, ...props }) => {
   const navigate = useNavigate();
@@ -25,13 +24,8 @@ TeacherRoute.propTypes = {
   authenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const authenticated =
-    !!window.localStorage.getItem(STORAGE_KEY) || !!window.sessionStorage.getItem(STORAGE_KEY);
-
-  return {
-    authenticated,
-  };
-};
+const mapStateToProps = (state) => ({
+  authenticated: state.session.session.authenticated,
+});
 
 export default connect(mapStateToProps)(TeacherRoute);

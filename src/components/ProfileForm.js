@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageUploading from 'react-images-uploading';
 import Validator from 'validator';
 import { pick } from 'lodash';
@@ -14,9 +14,13 @@ const DEFAULT_ERRORS_STATE = {
 const ProfileForm = ({ onSubmit, teacher, ...props }) => {
   const [images, setImages] = React.useState([]);
   const [errors, setErrors] = useState(DEFAULT_ERRORS_STATE);
-  const [user, updateUser] = useState(
-    pick(teacher, ['firstName', 'lastName', 'address', 'username', 'phoneNumber', 'profilePic'])
-  );
+  const [user, updateUser] = useState({});
+
+  useEffect(() => {
+    updateUser(
+      pick(teacher, ['firstName', 'lastName', 'address', 'username', 'phoneNumber', 'profilePic'])
+    );
+  }, [teacher]);
 
   const onChange = (event) => {
     updateUser({

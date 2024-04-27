@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import { editProfile, fetch } from '../redux/ducks/userDuck';
-import { showAlert } from '../redux/ducks/alertDuck';
 import ProfileForm from '../components/ProfileForm';
 import React, { useEffect } from 'react';
 
 const ProfilePage = ({ currentUser, teacher, ...props }) => {
   useEffect(() => {
     props.fetch();
-  }, []);
+  }, [props.fetch]);
 
   const updateUser = (user) => {
     return props.editProfile(user);
